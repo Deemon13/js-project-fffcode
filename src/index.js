@@ -42,3 +42,65 @@ getPopularFilms().then(results => {
 });
 
 refs.pageLibrary.addEventListener("click", createLibrary)
+
+///////////////////////////////////////////////////////////
+/// Реализация поиска кинофильма по ключевому слову (на главной странице)
+/// -добавила в refs.js временно ссылки на input & button
+/// -временную разметку сделала в Lyuda.html
+/// -повесила слушатель 'submit' на search-form в Lyuda.html
+/// -function checkRequest - проверя есть ли ввод от пользователя, если ОК то вызываем onSearchFromUser
+/// -function onSearchFromUser чиистит экран, делает запрос, сообщает кол-во
+///  результатов, вызывает function renderMarkup, если возникла ошибка сообщает в консоль
+///
+ /////////////////////////////////////////////////
+let searchOptionsFromUser = `search/movie`; //для запроса по ключевому слову
+let requestFromUser = '';
+
+//refs.headerSearchForm.addEventListener('submit', onSearchFromUser);
+refs.headerSearchForm.addEventListener('submit', checkRequest);
+
+async function getSerchFilmsFromUser(requestFromUser) {
+  const response = await axios.get(`${searchOptionsFromUser}?api_key=${API_KEY}&language=en-US&query=${requestFromUser}&page=1&include_adult=false`);
+  return response.data;
+}
+
+// прверяем  то что ввел User
+function checkRequest(event) {
+  event.preventDefault();
+    requestFromUser = refs.headerSearchFormInput.value;
+    if (!requestFromUser) {
+      console.log("Введите название фильма для поиска, пожалуйста");
+      return;
+  }
+  /// если ОК то делаем запрос
+  onSearchFromUser(requestFromUser);
+}
+
+async function onSearchFromUser(requestFromUser) {
+  // чистим перед отрисовкой результатов поиска
+  clearFoo()
+
+  try {
+    const response = await getSerchFilmsFromUser(requestFromUser);
+    if (!response.total_results) {
+      console.log("Извините, фильмов, соответствующих вашему поисковому запросу, нет. Пожалуйста, попробуйте еще раз.")
+      return;
+    }
+
+    const responseTotalResults = response.total_results;/// Кол-во найденных результатов
+
+    console.log(`We found ${responseTotalResults} movies.`)
+    renderMarkup(response);/// Рисуем
+  }
+  catch (error) {
+    console.log("что-то пошло не так");
+    return;
+  }
+}
+
+/// Функция для очистки экрана перед отрисовкой
+function clearFoo(){
+    refs.filmsContainerRef.innerHTML = '';
+}
+/////////////////////////////////////////////////
+   
