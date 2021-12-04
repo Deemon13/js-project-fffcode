@@ -19,9 +19,7 @@ async function getGenresName() {
 
 function saveGenres() {
   if (localStorage.getItem(LOCALSTORAGE_GENRES_KEY) === null) {
-  getGenresName().then(genres =>{
-    localStorage.setItem(LOCALSTORAGE_GENRES_KEY, JSON.stringify(genres))
-  })
+  getGenresName().then(genres =>localStorage.setItem(LOCALSTORAGE_GENRES_KEY, JSON.stringify(genres)))
   }
 }
 
@@ -31,9 +29,7 @@ export function getGenresArray(names) {
   const savedGenres = localStorage.getItem(LOCALSTORAGE_GENRES_KEY);
   try {
   const genresArray = JSON.parse(savedGenres)
-  genresArray.forEach(genre => {
-   names[genre.id] = genre.name;
-})
+  genresArray.forEach(genre => names[genre.id] = genre.name)
   } catch(error) {
     alert("Data loading error! Refresh the page.")
   }
