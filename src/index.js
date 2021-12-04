@@ -2,7 +2,7 @@ import './sass/main.scss';
 import axios from 'axios';
 
 import { refs } from './js/refs';
-import { createLibrary } from './js/library';
+import { createLibrary } from './js/create-pages';
 import { createHome } from './js/create-pages';
 import getGenresArray from './js/genres'
 
@@ -89,7 +89,7 @@ async function getSerchFilmsFromUser(requestFromUser) {
 // прверяем  то что ввел User
 function checkRequest(event) {
   event.preventDefault();
-  requestFromUser = refs.headerSearchFormInput.value;
+  requestFromUser = document.querySelector(".search-form_input").value;
   if (!requestFromUser) {
     console.log('Введите название фильма для поиска, пожалуйста');
     return;
