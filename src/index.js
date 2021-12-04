@@ -32,7 +32,7 @@ function renderMarkup({ results }) {
 
             <img src="https://image.tmdb.org/t/p/w342${poster_path}" width="305" height="205" alt="${title}" loading="lazy" />
             <p> ${original_title}</p>
-        <p> ${transformGenresList(genre_ids, genresName)}</p>
+        <p> ${transformGenresList(genre_ids, genresName)} | </p>
         <p> ${release_date.slice(0, 4)}</p>
         <p> ${vote_average}</p>
 
