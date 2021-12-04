@@ -2,7 +2,8 @@ import './sass/main.scss';
 import axios from 'axios';
 
 import { refs } from './js/refs';
-import { createLibrary } from './js/library';
+import { createLibrary } from './js/create-pages';
+import { createHome } from './js/create-pages';
 import getGenresArray from './js/genres'
 
 const BASE_URL = 'https://api.themoviedb.org/3/';
@@ -45,7 +46,26 @@ getPopularFilms().then(results => {
   renderMarkup(results);
 });
 
-refs.pageLibrary.addEventListener("click", createLibrary)
+// при загрузке страницы добавляется динамически инпут
+createHome();
+
+refs.pageLibrary.addEventListener("click", onClickPageLibrary); //слушатель на кнопке библиотеки
+
+function onClickPageLibrary() {
+  createLibrary(); //рендер кнопок на странице библиотеки
+  refs.pageLibrary.removeEventListener("click", onClickPageLibrary); 
+  refs.pageHome.addEventListener("click", onClickPageHome);
+}
+
+function onClickPageHome() {
+  createHome(); //рендер кнопок на главной странице 
+  getPopularFilms().then(results => {
+    getGenresArray(genresName);
+    renderMarkup(results);
+  }); // рендер фильмов
+  refs.pageLibrary.addEventListener("click", onClickPageLibrary);
+  refs.pageHome.removeEventListener("click", onClickPageHome)
+}
 
 ///////////////////////////////////////////////////////////
 /// Реализация поиска кинофильма по ключевому слову (на главной странице)
@@ -57,11 +77,12 @@ refs.pageLibrary.addEventListener("click", createLibrary)
 ///  результатов, вызывает function renderMarkup, если возникла ошибка сообщает в консоль
 ///
  /////////////////////////////////////////////////
+
 let searchOptionsFromUser = `search/movie`; //для запроса по ключевому слову
 let requestFromUser = '';
 
 //refs.headerSearchForm.addEventListener('submit', onSearchFromUser);
-refs.headerSearchForm.addEventListener('submit', checkRequest);
+document.querySelector(".search-form").addEventListener('submit', checkRequest);
 
 async function getSerchFilmsFromUser(requestFromUser) {
   const response = await axios.get(`${searchOptionsFromUser}?api_key=${API_KEY}&language=en-US&query=${requestFromUser}&page=1&include_adult=false`);
@@ -71,7 +92,7 @@ async function getSerchFilmsFromUser(requestFromUser) {
 // прверяем  то что ввел User
 function checkRequest(event) {
   event.preventDefault();
-    requestFromUser = refs.headerSearchFormInput.value;
+    requestFromUser = document.querySelector(".search-form_input").value;
     if (!requestFromUser) {
       console.log("Введите название фильма для поиска, пожалуйста");
       return;
