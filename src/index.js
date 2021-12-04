@@ -3,7 +3,8 @@ import axios from 'axios';
 
 import { refs } from './js/refs';
 import { createLibrary } from './js/library';
-import getGenresArray from './js/genres';
+import { createHome } from './js/create-pages';
+import getGenresArray from './js/genres'
 
 const BASE_URL = 'https://api.themoviedb.org/3/';
 const API_KEY = '9eab4199b01913b6a81b6702a89a7ff0';
@@ -12,6 +13,7 @@ axios.defaults.baseURL = BASE_URL;
 
 let searchOptions = `trending/movie/week`;
 let genresName = {};
+
 
 async function getPopularFilms() {
   const response = await axios.get(`${searchOptions}?api_key=${API_KEY}&page=1`);
@@ -47,23 +49,35 @@ getPopularFilms().then(results => {
   renderMarkup(results);
 });
 
-refs.pageLibrary.addEventListener('click', createLibrary);
+// логика хедера
+// при загрузке страницы добавляется динамически инпут
+createHome();
+
+refs.pageLibrary.addEventListener("click", onClickPageLibrary); //слушатель на кнопке библиотеки
+
+function onClickPageLibrary() {
+  createLibrary(); //рендер кнопок на странице библиотеки
+  refs.pageLibrary.removeEventListener("click", onClickPageLibrary); 
+  refs.pageHome.addEventListener("click", onClickPageHome);
+}
+function onClickPageHome() {
+  createHome(); //рендер кнопок на главной странице 
+  getPopularFilms().then(results => {
+    getGenresArray(genresName);
+    renderMarkup(results);
+  }); // рендер фильмов
+  refs.pageLibrary.addEventListener("click", onClickPageLibrary);
+  refs.pageHome.removeEventListener("click", onClickPageHome)
+}
+
 
 ///////////////////////////////////////////////////////////
 /// Реализация поиска кинофильма по ключевому слову (на главной странице)
-/// -добавила в refs.js временно ссылки на input & button
-/// -временную разметку сделала в Lyuda.html
-/// -повесила слушатель 'submit' на search-form в Lyuda.html
-/// -function checkRequest - проверя есть ли ввод от пользователя, если ОК то вызываем onSearchFromUser
-/// -function onSearchFromUser чиистит экран, делает запрос, сообщает кол-во
-///  результатов, вызывает function renderMarkup, если возникла ошибка сообщает в консоль
-///
-/////////////////////////////////////////////////
+
 let searchOptionsFromUser = `search/movie`; //для запроса по ключевому слову
 let requestFromUser = '';
 
-//refs.headerSearchForm.addEventListener('submit', onSearchFromUser);
-refs.headerSearchForm.addEventListener('submit', checkRequest);
+document.querySelector(".search-form").addEventListener('submit', checkRequest);
 
 async function getSerchFilmsFromUser(requestFromUser) {
   const response = await axios.get(
