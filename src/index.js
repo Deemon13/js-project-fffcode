@@ -4,7 +4,7 @@ import axios from 'axios';
 import { refs } from './js/refs';
 import { createLibrary } from './js/create-pages';
 import { createHome } from './js/create-pages';
-import getGenresArray from './js/genres'
+import { getGenresArray, transformGenresList } from './js/genres'
 
 const BASE_URL = 'https://api.themoviedb.org/3/';
 const API_KEY = '9eab4199b01913b6a81b6702a89a7ff0';
@@ -32,7 +32,7 @@ function renderMarkup({ results }) {
 
             <img src="https://image.tmdb.org/t/p/w342${poster_path}" width="305" height="205" alt="${title}" loading="lazy" />
             <p> ${original_title}</p>
-        <p> ${genre_ids.map(genreId => genresName[genreId])} | </p>
+        <p> ${transformGenresList(genre_ids, genresName)}</p>
         <p> ${release_date.slice(0, 4)}</p>
         <p> ${vote_average}</p>
 
@@ -41,6 +41,7 @@ function renderMarkup({ results }) {
         `;
     })
     .join('');
+    
   refs.filmsContainerRef.insertAdjacentHTML('beforeend', markup);
 }
 

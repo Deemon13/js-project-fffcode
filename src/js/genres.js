@@ -9,8 +9,12 @@ axios.defaults.baseURL = BASE_URL;
 let genresOptions = `genre/movie/list`
 
 async function getGenresName() {
+  try {
   const {data} = await axios.get(`${genresOptions}?api_key=${API_KEY}`);
   return data.genres;
+  } catch(error) {
+    alert("Ooops! Something went wrong")
+  }
 }
 
 function saveGenres() {
@@ -21,12 +25,23 @@ function saveGenres() {
   }
 }
 
-export default function getGenresArray(names) {
+saveGenres();
+
+export function getGenresArray(names) {
   const savedGenres = localStorage.getItem(LOCALSTORAGE_GENRES_KEY);
+  try {
   const genresArray = JSON.parse(savedGenres)
   genresArray.forEach(genre => {
    names[genre.id] = genre.name;
 })
+  } catch(error) {
+    alert("Data loading error! Refresh the page.")
+  }
 }
 
-saveGenres();
+export function transformGenresList(genresIdArray, genresData) {
+  if(genresIdArray.length > 3) {
+    return `${genresData[genresIdArray[0]]}, ${genresData[genresIdArray[1]]}, Other`
+  }
+  return genresIdArray.map(genreId => genresData[genreId])
+}
