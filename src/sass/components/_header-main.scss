@@ -132,29 +132,3 @@
     color: $accentColor;
   }
 }
-
-// warning
-
-.header-warning {
-  position: absolute;
-  top: 155px;
-
-  font-size: 14px;
-  line-height: 1.14;
-
-  @media screen and (max-width: ($tablet - 1)) {
-    max-width: ($mobile - 40);
-  }
-
-  @media screen and (min-width: $tablet) {
-    width: ($tablet - 152);
-    text-align: center;
-  }
-
-  @media screen and (min-width: $desktop) {
-    width: ($desktop - 142);
-    text-align: center;
-  }
-
-  color: $warningColor;
-}
