@@ -1,0 +1,83 @@
+<div class='modal'>
+  <div class='modal__iconwrapper' data-modal-close>
+    <button class='js-close-info'>
+      <svg class='modal__icon' width='20' height='20'>
+        <use href='./images/icons.svg#icon-close'></use>
+      </svg>
+    </button>
+  </div>
+
+  <div class='modal__item-img'>
+    <img
+      class='modal__image'
+      src='https://image.tmdb.org/t/p/w500{{poster_path}}'
+      alt='{{title}}'
+      onerror="this.src = 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'"
+    />
+  </div>
+
+  <div class='card'>
+    <h2 class='card__title'>{{title}}</h2>
+    <table class='card__table'>
+      <tr>
+        <td>
+          <p class='card__item'>Vote / Votes</p>
+        </td>
+        <td>
+          <p><span class='card__info card__vote-average'>{{vote_average}}</span>
+            /
+            <span></span><span class='card__info card__vote-count'>
+              {{vote_count}}</span></p>
+        </td>
+      </tr>
+      <tr>
+        <td class='card__table-link'>
+          <p class='card__item'>Popularity</p>
+        </td>
+        <td class='card__table-link'>
+          <p class='card__info'>{{popularity}}</p>
+        </td>
+      </tr>
+      <tr>
+        <td class='card__table-link'>
+          <p class='card__item'>Original Title</p>
+        </td>
+        <td class='card__table-link'>
+          <p class='card__info card__original-title'>{{original_title}}</p>
+        </td>
+      </tr>
+      <tr>
+        <td class='card__table-link'>
+          <p class='card__item'>Genre</p>
+        </td>
+        <td class='card__table-link'>{{#each genres}}
+            <p class='card__info'>{{this.name}}</p>
+          {{/each}}
+        </td>
+      </tr>
+    </table>
+
+    <p class='card__about'>About</p>
+    <p class='card__description'>{{overview}}</p>
+    <div class='modal-button'>
+      <ul class='modal-button__list'>
+        <li class='modal-button__item'>
+          <button
+            class='modal-button__btn js-watched'
+            type='button'
+            data-id='{{id}}'
+            data-action='add'
+          >add to Watched</button>
+        </li>
+        <li class='modal-button__item'>
+          <button
+            class='modal-button__btn js-queue'
+            type='button'
+            data-id='{{id}}'
+            data-action='add'
+          >add to queue</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
