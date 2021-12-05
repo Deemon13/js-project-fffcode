@@ -4,7 +4,7 @@ import axios from 'axios';
 import { refs } from './js/refs';
 import { createLibrary } from './js/create-pages';
 import { createHome } from './js/create-pages';
-import getGenresArray from './js/genres'
+import getGenresArray from './js/genres';
 
 const BASE_URL = 'https://api.themoviedb.org/3/';
 const API_KEY = '9eab4199b01913b6a81b6702a89a7ff0';
@@ -13,7 +13,6 @@ axios.defaults.baseURL = BASE_URL;
 
 let searchOptions = `trending/movie/week`;
 let genresName = {};
-
 
 async function getPopularFilms() {
   const response = await axios.get(`${searchOptions}?api_key=${API_KEY}&page=1`);
@@ -28,15 +27,17 @@ function renderMarkup({ results }) {
     .map(({ poster_path, original_title, genre_ids, vote_average, title, release_date }) => {
       return `
       <a class="gallery__link" href="">
-        <div class="photo-card">
+        <div class="movie-card">
 
-            <img src="https://image.tmdb.org/t/p/w342${poster_path}" width="305" height="205" alt="${title}" loading="lazy" />
-            <p> ${original_title}</p>
-        <p> ${genre_ids.map(genreId => genresName[genreId])} | </p>
-        <p> ${release_date.slice(0, 4)}</p>
-        <p> ${vote_average}</p>
-
-        </div>
+            <img src="https://image.tmdb.org/t/p/w342${poster_path}" class="movie-card__poster"  alt="${title}" loading="lazy" />
+            <h2 class="movie-card__title"> ${original_title}</h2>
+            <div class="movie-card__info">
+        <p class="movie-card__genres" > ${genre_ids.map(
+          genreId => genresName[genreId],
+        )} |&nbsp; </p>
+        <p class="movie-card__year">   ${release_date.slice(0, 4)}  </p> 
+        <span class="movie-card__rating"> ${vote_average}</span></div>
+     </div>
         </a>
         `;
     })
@@ -53,23 +54,22 @@ getPopularFilms().then(results => {
 // при загрузке страницы добавляется динамически инпут
 createHome();
 
-refs.pageLibrary.addEventListener("click", onClickPageLibrary); //слушатель на кнопке библиотеки
+refs.pageLibrary.addEventListener('click', onClickPageLibrary); //слушатель на кнопке библиотеки
 
 function onClickPageLibrary() {
   createLibrary(); //рендер кнопок на странице библиотеки
-  refs.pageLibrary.removeEventListener("click", onClickPageLibrary); 
-  refs.pageHome.addEventListener("click", onClickPageHome);
+  refs.pageLibrary.removeEventListener('click', onClickPageLibrary);
+  refs.pageHome.addEventListener('click', onClickPageHome);
 }
 function onClickPageHome() {
-  createHome(); //рендер кнопок на главной странице 
+  createHome(); //рендер кнопок на главной странице
   getPopularFilms().then(results => {
     getGenresArray(genresName);
     renderMarkup(results);
   }); // рендер фильмов
-  refs.pageLibrary.addEventListener("click", onClickPageLibrary);
-  refs.pageHome.removeEventListener("click", onClickPageHome)
+  refs.pageLibrary.addEventListener('click', onClickPageLibrary);
+  refs.pageHome.removeEventListener('click', onClickPageHome);
 }
-
 
 ///////////////////////////////////////////////////////////
 /// Реализация поиска кинофильма по ключевому слову (на главной странице)
@@ -77,7 +77,7 @@ function onClickPageHome() {
 let searchOptionsFromUser = `search/movie`; //для запроса по ключевому слову
 let requestFromUser = '';
 
-document.querySelector(".search-form").addEventListener('submit', checkRequest);
+document.querySelector('.search-form').addEventListener('submit', checkRequest);
 
 async function getSerchFilmsFromUser(requestFromUser) {
   const response = await axios.get(
@@ -89,7 +89,7 @@ async function getSerchFilmsFromUser(requestFromUser) {
 // прверяем  то что ввел User
 function checkRequest(event) {
   event.preventDefault();
-  requestFromUser = document.querySelector(".search-form_input").value;
+  requestFromUser = document.querySelector('.search-form_input').value;
   if (!requestFromUser) {
     console.log('Введите название фильма для поиска, пожалуйста');
     return;
