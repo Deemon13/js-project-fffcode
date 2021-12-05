@@ -1,4 +1,4 @@
-import getSerchFilmsFromUser from '../index';
+import API from './api-func';
 import Utils from './utils';
 
 let requestFromUser = '';
@@ -23,7 +23,7 @@ async function onSearchFromUser(requestFromUser) {
   Utils.clearFoo();
 
   try {
-    const response = await getSerchFilmsFromUser(requestFromUser);
+    const response = await API.getSerchFilmsFromUser(requestFromUser);
     if (!response.total_results) {
       console.log(
         'Извините, фильмов, соответствующих вашему поисковому запросу, нет. Пожалуйста, попробуйте еще раз.',
