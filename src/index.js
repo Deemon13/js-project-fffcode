@@ -5,7 +5,7 @@ import { refs } from './js/refs';
 import { createLibrary } from './js/create-pages';
 import { createHome } from './js/create-pages';
 import { getGenresArray, transformGenresList } from './js/genres';
-
+import { modal } from './js/modal';
 const BASE_URL = 'https://api.themoviedb.org/3/';
 const API_KEY = '9eab4199b01913b6a81b6702a89a7ff0';
 
