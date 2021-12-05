@@ -2,8 +2,7 @@ import './sass/main.scss';
 import axios from 'axios';
 
 import { refs } from './js/refs';
-import { createLibrary } from './js/create-pages';
-import { createHome } from './js/create-pages';
+import { createLibrary, createHome } from './js/create-pages';
 import { getGenresArray, transformGenresList } from './js/genres';
 import { modal } from './js/modal';
 
