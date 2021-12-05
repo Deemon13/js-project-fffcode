@@ -1,5 +1,7 @@
+import { saveArrMoviesToLocalStorage, getArrMoviesFromLocalStorage } from '../index';
 import API from './api-func';
 import Utils from './utils';
+
 
 let requestFromUser = '';
 
@@ -34,7 +36,8 @@ async function onSearchFromUser(requestFromUser) {
     const responseTotalResults = response.total_results; /// Кол-во найденных результатов
 
     console.log(`We found ${responseTotalResults} movies.`);
-    Utils.renderMarkup(response); /// Рисуем
+    saveArrMoviesToLocalStorage(response) // сохраняем в локал массив найденных фильмов
+    Utils.renderMarkup(getArrMoviesFromLocalStorage()); /// Рисуем
   } catch (error) {
     console.log('что-то пошло не так');
     return;

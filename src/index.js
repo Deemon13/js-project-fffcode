@@ -11,9 +11,12 @@ import { modal } from './js/modal';
 import Utils from './js/utils';
 import SearchProps from './js/search';
 
+// export const LOCALSTORAGE_ARR_MOVIES = "arr-current-movies";
+
 API.getPopularFilms().then(results => {
   getGenresArray(Utils.genresName);
-  Utils.renderMarkup(results);
+  saveArrMoviesToLocalStorage(results); // сохраняем в локал массив найденных фильмов
+  Utils.renderMarkup(getArrMoviesFromLocalStorage()); // рисуем
 });
 
 // логика хедера
@@ -29,10 +32,8 @@ function onClickPageLibrary() {
 }
 function onClickPageHome() {
   createHome(); //рендер кнопок на главной странице
-  API.getPopularFilms().then(results => {
-    getGenresArray(Utils.genresName);
-    Utils.renderMarkup(results);
-  }); // рендер фильмов
+  getGenresArray(Utils.genresName);
+    Utils.renderMarkup(getArrMoviesFromLocalStorage());
   refs.pageLibrary.addEventListener('click', onClickPageLibrary);
   refs.pageHome.removeEventListener('click', onClickPageHome);
 }
@@ -43,3 +44,11 @@ function onClickPageHome() {
 document.querySelector('.search-form').addEventListener('submit', SearchProps.checkRequest);
 
 /////////////////////////////////////////////////
+
+export function saveArrMoviesToLocalStorage(arrMovies) {
+  localStorage.setItem("arr-current-movies", JSON.stringify(arrMovies)); // сохраняем в локал данные про фильмы
+}
+export function getArrMoviesFromLocalStorage() {
+  const savedArrMovies = localStorage.getItem("arr-current-movies"); 
+  return JSON.parse(savedArrMovies); // получаем данные про фильмы с локала
+}
