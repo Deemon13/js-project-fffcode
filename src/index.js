@@ -11,6 +11,7 @@ import SearchProps from './js/search';
 
 const BASE_URL = 'https://api.themoviedb.org/3/';
 const API_KEY = '9eab4199b01913b6a81b6702a89a7ff0';
+export const LOCALSTORAGE_ARR_MOVIES = "arr-current-movies";
 
 axios.defaults.baseURL = BASE_URL;
 
@@ -25,8 +26,10 @@ async function getPopularFilms() {
 console.log(getPopularFilms());
 
 getPopularFilms().then(results => {
+  console.log(results)
+  saveArrMoviesToLocalStorage(results); // сохраняем в локал массив найденных фильмов
   getGenresArray(Utils.genresName);
-  Utils.renderMarkup(results);
+  Utils.renderMarkup(getArrMoviesFromLocalStorage()); // рисуем
 });
 
 // логика хедера
@@ -42,10 +45,8 @@ function onClickPageLibrary() {
 }
 function onClickPageHome() {
   createHome(); //рендер кнопок на главной странице
-  getPopularFilms().then(results => {
-    getGenresArray(Utils.genresName);
-    Utils.renderMarkup(results);
-  }); // рендер фильмов
+  getGenresArray(Utils.genresName);
+    Utils.renderMarkup(getArrMoviesFromLocalStorage()); // рисуем
   refs.pageLibrary.addEventListener('click', onClickPageLibrary);
   refs.pageHome.removeEventListener('click', onClickPageHome);
 }
@@ -65,3 +66,13 @@ export default async function getSerchFilmsFromUser(requestFromUser) {
 }
 
 /////////////////////////////////////////////////
+
+
+
+export function saveArrMoviesToLocalStorage(arrMovies) {
+  localStorage.setItem(LOCALSTORAGE_ARR_MOVIES, JSON.stringify(arrMovies)); // сохраняем в локал данные про фильмы
+}
+export function getArrMoviesFromLocalStorage() {
+  const savedArrMovies = localStorage.getItem(LOCALSTORAGE_ARR_MOVIES); 
+  return JSON.parse(savedArrMovies); // получаем данные про фильмы с локала
+}
