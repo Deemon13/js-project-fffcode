@@ -10,9 +10,8 @@
   <div class='modal__item-img'>
     <img
       class='modal__image'
-      src='https://image.tmdb.org/t/p/w500{{poster_path}}'
+      src='https://image.tmdb.org/t/p/original/{{poster_path}}'
       alt='{{title}}'
-      onerror="this.src = 'https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg'"
     />
   </div>
 
@@ -20,64 +19,48 @@
     <h2 class='card__title'>{{title}}</h2>
     <table class='card__table'>
       <tr>
-        <td>
-          <p class='card__item'>Vote / Votes</p>
-        </td>
-        <td>
-          <p><span class='card__info card__vote-average'>{{vote_average}}</span>
-            /
-            <span></span><span class='card__info card__vote-count'>
-              {{vote_count}}</span></p>
-        </td>
+        <td class='card__table-info'>Vote / Votes</td>
+        <td class='card__item'><span class='card__vote-average'>{{vote_average}}</span>
+          /
+          {{vote_count}}</td>
+      </tr>
+
+      <tr>
+        <td class='card__table-info'>Popularity</td>
+        <td class='card__item'>{{popularity}}</td>
       </tr>
       <tr>
-        <td class='card__table-link'>
-          <p class='card__item'>Popularity</p>
-        </td>
-        <td class='card__table-link'>
-          <p class='card__info'>{{popularity}}</p>
-        </td>
+        <td class=card__table-info'>Original Title</td>
+        <td class='card__item>{{original_title}}</td>
       </tr>
       <tr>
-        <td class='card__table-link'>
-          <p class='card__item'>Original Title</p>
-        </td>
-        <td class='card__table-link'>
-          <p class='card__info card__original-title'>{{original_title}}</p>
-        </td>
-      </tr>
-      <tr>
-        <td class='card__table-link'>
-          <p class='card__item'>Genre</p>
-        </td>
-        <td class='card__table-link'>{{#each genres}}
-            <p class='card__info'>{{this.name}}</p>
-          {{/each}}
-        </td>
+        <td class='card__table-info'>Genre</td>
+        <td class='card__item'>
+          {{#each genres}}
+            {{#if @last}}
+              {{this}}
+            {{else}}
+              {{this}},
+            {{/if}}{{/each}}</td>
       </tr>
     </table>
 
     <p class='card__about'>About</p>
     <p class='card__description'>{{overview}}</p>
     <div class='modal-button'>
-      <ul class='modal-button__list'>
-        <li class='modal-button__item'>
           <button
             class='modal-button__btn js-watched'
             type='button'
             data-id='{{id}}'
             data-action='add'
           >add to Watched</button>
-        </li>
-        <li class='modal-button__item'>
           <button
             class='modal-button__btn js-queue'
             type='button'
             data-id='{{id}}'
             data-action='add'
           >add to queue</button>
-        </li>
-      </ul>
+        
     </div>
   </div>
 </div>
