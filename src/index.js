@@ -5,8 +5,9 @@ import API from './js/api-func';
 import { refs } from './js/refs';
 import { createLibrary } from './js/create-pages';
 import { createHome } from './js/create-pages';
-import { getGenresArray, transformGenresList } from './js/genres';
-import { modal } from './js/modal';
+import { getGenresArray } from './js/genres';
+// import { modal } from './js/modal';
+import {listenModalClick} from './js/modal'
 
 import Utils from './js/utils';
 import SearchProps from './js/search';
@@ -17,6 +18,7 @@ API.getPopularFilms().then(results => {
   getGenresArray(Utils.genresName);
   saveArrMoviesToLocalStorage(results); // сохраняем в локал массив найденных фильмов
   Utils.renderMarkup(getArrMoviesFromLocalStorage()); // рисуем
+  listenModalClick()
 });
 
 // логика хедера

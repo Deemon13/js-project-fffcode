@@ -1,6 +1,7 @@
 import { saveArrMoviesToLocalStorage, getArrMoviesFromLocalStorage } from '../index';
 import API from './api-func';
 import Utils from './utils';
+import {listenModalClick} from '../js/modal'
 
 
 let requestFromUser = '';
@@ -38,6 +39,7 @@ async function onSearchFromUser(requestFromUser) {
     console.log(`We found ${responseTotalResults} movies.`);
     saveArrMoviesToLocalStorage(response) // сохраняем в локал массив найденных фильмов
     Utils.renderMarkup(getArrMoviesFromLocalStorage()); /// Рисуем
+    listenModalClick()
   } catch (error) {
     console.log('что-то пошло не так');
     return;
