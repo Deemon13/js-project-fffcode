@@ -13,6 +13,7 @@ import { listenModalClick } from './js/modal';
 import Utils from './js/utils';
 import SearchProps from './js/search';
 import { initPagination } from './js/pagination';
+import { onButtonClick,  renderQueue } from './js/render-library';
 
 const settings = { page: 1, type: 'popular-films' };
 export { settings };
@@ -43,7 +44,9 @@ refs.pageLibrary.addEventListener('click', onClickPageLibrary); //слушате
 
 function onClickPageLibrary() {
   createLibrary(); //рендер кнопок на странице библиотеки
-  refs.pageLibrary.removeEventListener('click', onClickPageLibrary);
+  refs.headerFunctional.addEventListener("click", onButtonClick);
+  renderQueue();
+ /*  refs.pageLibrary.removeEventListener('click', onClickPageLibrary); - убрала для реализации работы ссылки My library, при клике на которую рендериться галерея фильмов Queue (очередь просмотра) */
   refs.pageHome.addEventListener('click', onClickPageHome);
 }
 function onClickPageHome() {

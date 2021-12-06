@@ -130,5 +130,7 @@ function onClickBtnAddToQueue() {
 
 function getToQueueMovieFromLocalStorage() {
   const savedArrMoviesToQueue = localStorage.getItem('queue-movies');
-  return JSON.parse(savedArrMoviesToQueue); // получаем данные про Watched фильмы с локала
+  return JSON.parse(savedArrMoviesToQueue); // получаем данные про Queue фильмы с локала
 }
+
+export {getWatchedMovieFromLocalStorage, getToQueueMovieFromLocalStorage};
