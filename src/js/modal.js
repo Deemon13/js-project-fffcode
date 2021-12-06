@@ -20,7 +20,10 @@ function toggleModal(event) {
 }
 
 // Логика заполнения модалки
-let moviesObj = {}
+let moviesObj = {};
+const arrWatchedMovies = [];
+const arrMoviesToQueue = []; 
+let movieData;
 
 // Добавления слушателя на ссылку карточки
 export function listenModalClick() {
@@ -44,8 +47,11 @@ function onModalOpen(event) {
   event.preventDefault()
   getMovieDataObjectById()
   const currentId = event.currentTarget.id;
- const movieData = moviesObj[currentId];
- renderModalMarkup(movieData)
+  movieData = moviesObj[currentId];
+  renderModalMarkup(movieData);
+
+  document.querySelector(".btn-addToWatched").addEventListener("click", onClickBtnAddToWatched);
+  document.querySelector(".btn-addToQueue").addEventListener("click", onClickBtnAddToQueue)
 }
 
 function renderModalMarkup( { id, poster_path, original_title, genre_ids, vote_average, vote_count, popularity, title, overview }) {
@@ -84,8 +90,8 @@ function renderModalMarkup( { id, poster_path, original_title, genre_ids, vote_a
             <p class="card__description">${overview}</p>
               
             <div class="modal-buttons">
-            <button class="" id="${id}">ADD TO WATCHED</button>
-            <button class="" id="${id}">ADD TO QUEUE</button>
+            <button class="btn-addToWatched" id="${id}">ADD TO WATCHED</button>
+            <button class="btn-addToQueue" id="${id}">ADD TO QUEUE</button>
             </div>
             </div>
         </div>
@@ -93,4 +99,36 @@ function renderModalMarkup( { id, poster_path, original_title, genre_ids, vote_a
     
 
   refs.modalMarkupContainer.innerHTML = markup;
+}
+
+
+function onClickBtnAddToWatched() {
+  if (arrWatchedMovies.some(movie => movie.id === movieData.id)) {  // проверяет наличие фильма в хранилище просмотреных
+    return // далее тут будет замена кнопки add to Watched на кнопку удаление из локала, и реализация удаления
+  }
+
+  arrWatchedMovies.push(movieData);
+  localStorage.setItem('watched-movies', JSON.stringify(arrWatchedMovies));
+  // console.log("Watched", getWatchedMovieFromLocalStorage())
+}
+
+function getWatchedMovieFromLocalStorage() {
+  const savedArrWatchedMovies = localStorage.getItem('watched-movies');
+  return JSON.parse(savedArrWatchedMovies); // получаем данные про Watched фильмы с локала
+}
+
+
+function onClickBtnAddToQueue() {
+  if (arrMoviesToQueue.some(movie => movie.id === movieData.id)) {  // проверяет наличие фильма в хранилище просмотреных
+    return // далее тут будет замена кнопки add to Watched на кнопку удаление из локала, и реализация удаления
+  }
+
+  arrMoviesToQueue.push(movieData);
+  localStorage.setItem('queue-movies', JSON.stringify(arrMoviesToQueue));
+  // console.log("ToQueue", getToQueueMovieFromLocalStorage())
+}
+
+function getToQueueMovieFromLocalStorage() {
+  const savedArrMoviesToQueue = localStorage.getItem('queue-movies');
+  return JSON.parse(savedArrMoviesToQueue); // получаем данные про Watched фильмы с локала
 }
