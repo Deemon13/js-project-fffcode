@@ -4,11 +4,12 @@ import { transformGenresList } from './genres';
 // function for render mark-up gallery
 
 let genresName = {};
+let preloaderEl = document.getElementById('preloader');
 
 function renderMarkup({ results }) {
   const markup = results
-  .map(({ id, poster_path, original_title, genre_ids, vote_average, title, release_date }) => {
-    return `
+    .map(({ id, poster_path, original_title, genre_ids, vote_average, title, release_date }) => {
+      return `
   <a class="gallery__link" href="" id="${id}">
         <div class="movie-card">
             <img src="https://image.tmdb.org/t/p/w342${poster_path}"
@@ -41,4 +42,9 @@ function clearFoo() {
   refs.filmsContainerRef.innerHTML = '';
 }
 
-export default { genresName, renderMarkup, clearFoo };
+function spinner() {
+  preloaderEl.classList.add('hidden');
+  preloaderEl.classList.remove('visible');
+}
+
+export default { genresName, renderMarkup, clearFoo, spinner };
