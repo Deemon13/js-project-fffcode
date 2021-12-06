@@ -1,3 +1,8 @@
+.list{
+
+  text-decoration: none;
+}
+
 .section{
   padding-top: 20px;
 }
@@ -27,5 +32,6 @@
   @media screen and (min-width: 1024px) {
     .container {
       min-width: 1024px;
+    
     }
   }

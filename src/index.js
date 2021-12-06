@@ -43,3 +43,10 @@ function onClickPageHome() {
 document.querySelector('.search-form').addEventListener('submit', SearchProps.checkRequest);
 
 /////////////////////////////////////////////////
+const logoHome = document.querySelector(".logo");
+logoHome.addEventListener('click',onClickLogo);
+  function onClickLogo(){
+    Utils.clearFoo();
+    onClickPageHome();
+  }
+
