@@ -23,7 +23,7 @@ function renderMarkup({ results }) {
                   genre_ids,
                   genresName,
                 )}|&nbsp;</p>
-                <p class="movie-card__year"> ${release_date.slice(0, 4)}</p>
+                <p class="movie-card__year"> ${release_date?.slice(0, 4)}</p>
                 <span class="movie-card__rating"> ${vote_average}</span>
             </div>
         </div>
