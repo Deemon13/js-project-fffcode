@@ -47,4 +47,9 @@ function spinner() {
   preloaderEl.classList.remove('visible');
 }
 
-export default { genresName, renderMarkup, clearFoo, spinner };
+function spinnerOn() {
+  preloaderEl.classList.add('visible');
+  preloaderEl.classList.remove('hidden');
+}
+
+export default { genresName, renderMarkup, clearFoo, spinner, spinnerOn };
