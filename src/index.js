@@ -7,20 +7,27 @@ import { createLibrary } from "./js/create-pages";
 import { createHome } from "./js/create-pages";
 import { getGenresArray, transformGenresList } from "./js/genres";
 import { modal } from "./js/modal";
+// import { modal } from './js/modal';
+import {listenModalClick} from './js/modal';
 
 import Utils from "./js/utils";
 import SearchProps from "./js/search";
 import { initPagination } from "./js/pagination";
+
 
 const settings = { page: 1, type: "popular-films" };
 export { settings };
 
 let pagination = null;
 
-API.getPopularFilms().then((results) => {
+// export const LOCALSTORAGE_ARR_MOVIES = "arr-current-movies";
+
+API.getPopularFilms().then(results => {
   const { page, total_results: totalResults } = results;
   getGenresArray(Utils.genresName);
-  Utils.renderMarkup(results);
+  saveArrMoviesToLocalStorage(results); // сохраняем в локал массив найденных фильмов
+  Utils.renderMarkup(getArrMoviesFromLocalStorage()); // рисуем
+  listenModalClick();
   pagination = initPagination({
     page,
     itemsPerPage: 20,
@@ -41,12 +48,10 @@ function onClickPageLibrary() {
 }
 function onClickPageHome() {
   createHome(); //рендер кнопок на главной странице
-  API.getPopularFilms().then((results) => {
-    getGenresArray(Utils.genresName);
-    Utils.renderMarkup(results);
-  }); // рендер фильмов
-  refs.pageLibrary.addEventListener("click", onClickPageLibrary);
-  refs.pageHome.removeEventListener("click", onClickPageHome);
+  getGenresArray(Utils.genresName);
+    Utils.renderMarkup(getArrMoviesFromLocalStorage());
+  refs.pageLibrary.addEventListener('click', onClickPageLibrary);
+  refs.pageHome.removeEventListener('click', onClickPageHome);
 }
 
 ///////////////////////////////////////////////////////////
@@ -57,3 +62,10 @@ document.querySelector(".search-form").addEventListener("submit", SearchProps.ch
 /////////////////////////////////////////////////
 
 export { pagination };
+export function saveArrMoviesToLocalStorage(arrMovies) {
+  localStorage.setItem("arr-current-movies", JSON.stringify(arrMovies)); // сохраняем в локал данные про фильмы
+}
+export function getArrMoviesFromLocalStorage() {
+  const savedArrMovies = localStorage.getItem("arr-current-movies"); 
+  return JSON.parse(savedArrMovies); // получаем данные про фильмы с локала
+}

@@ -3,8 +3,7 @@ import "tui-pagination/dist/tui-pagination.css";
 import API from "./api-func";
 import Utils from "./utils";
 import { getGenresArray } from "./genres";
-import {settings} from "../index";
-
+import { settings } from "../index";
 
 async function initPagination({ page, itemsPerPage, totalItems }) {
   const options = {
@@ -45,8 +44,6 @@ async function initPagination({ page, itemsPerPage, totalItems }) {
       });
     }
     if (settings.type === "search-films") {
-      console.log(settings.page);
-      console.log(settings.requestFromUser);
       API.getSerchFilmsFromUser(settings.requestFromUser).then((results) => {
         getGenresArray(Utils.genresName);
         Utils.clearFoo();
@@ -58,4 +55,4 @@ async function initPagination({ page, itemsPerPage, totalItems }) {
   return pagination;
 }
 
-export {initPagination};
+export { initPagination };

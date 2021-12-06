@@ -7,9 +7,9 @@ let genresName = {};
 
 function renderMarkup({ results }) {
   const markup = results
-    .map(({ poster_path, original_title, genre_ids, vote_average, title, release_date }) => {
-      return `
-    <a class="gallery__link" href="">
+  .map(({ id, poster_path, original_title, genre_ids, vote_average, title, release_date }) => {
+    return `
+  <a class="gallery__link" href="" id="${id}">
         <div class="movie-card">
             <img src="https://image.tmdb.org/t/p/w342${poster_path}"
                 class="movie-card__poster"width="305"
