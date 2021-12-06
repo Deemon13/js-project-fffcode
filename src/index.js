@@ -49,7 +49,8 @@ function onClickPageLibrary() {
 function onClickPageHome() {
   createHome(); //рендер кнопок на главной странице
   getGenresArray(Utils.genresName);
-    Utils.renderMarkup(getArrMoviesFromLocalStorage());
+  Utils.renderMarkup(getArrMoviesFromLocalStorage());
+  listenModalClick();
   refs.pageLibrary.addEventListener('click', onClickPageLibrary);
   refs.pageHome.removeEventListener('click', onClickPageHome);
 }

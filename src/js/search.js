@@ -34,7 +34,6 @@ async function onSearchFromUser(requestFromUser) {
     console.log(`We found ${responseTotalResults} movies.`);
     saveArrMoviesToLocalStorage(response); // сохраняем в локал массив найденных фильмов
     Utils.renderMarkup(getArrMoviesFromLocalStorage()); /// Рисуем
-    listenModalClick();
     pagination.then((res) => {
       settings.requestFromUser = requestFromUser;
       settings.type = "search-films";

@@ -4,6 +4,8 @@ import API from "./api-func";
 import Utils from "./utils";
 import { getGenresArray } from "./genres";
 import { settings } from "../index";
+import { saveArrMoviesToLocalStorage, getArrMoviesFromLocalStorage } from "../index";
+import { listenModalClick } from "../js/modal";
 
 async function initPagination({ page, itemsPerPage, totalItems }) {
   const options = {
@@ -40,15 +42,19 @@ async function initPagination({ page, itemsPerPage, totalItems }) {
       API.getPopularFilms().then((results) => {
         getGenresArray(Utils.genresName);
         Utils.clearFoo();
-        Utils.renderMarkup(results);
+        saveArrMoviesToLocalStorage(results); 
+        Utils.renderMarkup(getArrMoviesFromLocalStorage()); 
+        listenModalClick();
       });
     }
     if (settings.type === "search-films") {
       API.getSerchFilmsFromUser(settings.requestFromUser).then((results) => {
         getGenresArray(Utils.genresName);
         Utils.clearFoo();
-        Utils.renderMarkup(results);
-      });
+        saveArrMoviesToLocalStorage(results); 
+        Utils.renderMarkup(getArrMoviesFromLocalStorage()); 
+        listenModalClick();
+          });
     }
   });
 
