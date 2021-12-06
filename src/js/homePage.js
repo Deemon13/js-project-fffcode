@@ -2,7 +2,7 @@ const logoRef = document.querySelector('.logo'); // Предварительны
 
 addEventListener.homePage('click',onClickLogo);
 function onClickLogo(e){
-    if ()
+    // if ()
     homePage.classList.add('current');
     myLibrari.classList.remove('current');
     onClickPageHome();
