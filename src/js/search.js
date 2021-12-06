@@ -26,9 +26,11 @@ async function onSearchFromUser(requestFromUser) {
   try {
     const response = await API.getSerchFilmsFromUser(requestFromUser);
     if (!response.total_results) {
+      Utils.spinnerOn();
       console.log(
         'Извините, фильмов, соответствующих вашему поисковому запросу, нет. Пожалуйста, попробуйте еще раз.',
       );
+      Utils.spinner();
       return;
     }
     Utils.spinner();
