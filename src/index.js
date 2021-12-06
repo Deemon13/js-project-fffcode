@@ -1,57 +1,38 @@
 import './sass/main.scss';
-import axios from 'axios';
+
+import API from './js/api-func';
 
 import { refs } from './js/refs';
 import { createLibrary } from './js/create-pages';
 import { createHome } from './js/create-pages';
 import { getGenresArray, transformGenresList } from './js/genres';
+import { modal } from './js/modal';
+// import { modal } from './js/modal';
+import { listenModalClick } from './js/modal';
 
-const BASE_URL = 'https://api.themoviedb.org/3/';
-const API_KEY = '9eab4199b01913b6a81b6702a89a7ff0';
+import Utils from './js/utils';
+import SearchProps from './js/search';
+import { initPagination } from './js/pagination';
 
-axios.defaults.baseURL = BASE_URL;
+const settings = { page: 1, type: 'popular-films' };
+export { settings };
 
-let searchOptions = `trending/movie/week`;
-let genresName = {};
+let pagination = null;
 
-async function getPopularFilms() {
-  const response = await axios.get(`${searchOptions}?api_key=${API_KEY}&page=1`);
-  return response.data;
-}
+// export const LOCALSTORAGE_ARR_MOVIES = "arr-current-movies";
 
-console.log(getPopularFilms());
-
-function renderMarkup({ results }) {
-  // console.log(results);
-  const markup = results
-    .map(({ poster_path, original_title, genre_ids, vote_average, title, release_date }) => {
-      return `
-      <a class="gallery__link" href="">
-        <div class="movie-card">
-
-            <img src="https://image.tmdb.org/t/p/w342${poster_path}"  class="movie-card__poster"width="305" height="205" alt="${title}" loading="lazy" />
-            <h2 class="movie-card__title"> ${original_title}</h2>
-            <div class="movie-card__info">
-            <p class="movie-card__genres"> ${transformGenresList(
-              genre_ids,
-              genresName,
-            )} |&nbsp; </p>
-        <p class="movie-card__year"> ${release_date.slice(0, 4)}</p>
-        <span class="movie-card__rating"> ${vote_average}</span></div>
-        
-
-        </div>
-        </a>
-        `;
-    })
-    .join('');
-
-  refs.filmsContainerRef.insertAdjacentHTML('beforeend', markup);
-}
-
-getPopularFilms().then(results => {
-  getGenresArray(genresName);
-  renderMarkup(results);
+API.getPopularFilms().then(results => {
+  Utils.spinner();
+  const { page, total_results: totalResults } = results;
+  getGenresArray(Utils.genresName);
+  saveArrMoviesToLocalStorage(results); // сохраняем в локал массив найденных фильмов
+  Utils.renderMarkup(getArrMoviesFromLocalStorage()); // рисуем
+  listenModalClick();
+  pagination = initPagination({
+    page,
+    itemsPerPage: 20,
+    totalItems: totalResults,
+  });
 });
 
 // логика хедера
@@ -67,10 +48,9 @@ function onClickPageLibrary() {
 }
 function onClickPageHome() {
   createHome(); //рендер кнопок на главной странице
-  getPopularFilms().then(results => {
-    getGenresArray(genresName);
-    renderMarkup(results);
-  }); // рендер фильмов
+  getGenresArray(Utils.genresName);
+  Utils.renderMarkup(getArrMoviesFromLocalStorage());
+  listenModalClick();
   refs.pageLibrary.addEventListener('click', onClickPageLibrary);
   refs.pageHome.removeEventListener('click', onClickPageHome);
 }
@@ -78,56 +58,15 @@ function onClickPageHome() {
 ///////////////////////////////////////////////////////////
 /// Реализация поиска кинофильма по ключевому слову (на главной странице)
 
-let searchOptionsFromUser = `search/movie`; //для запроса по ключевому слову
-let requestFromUser = '';
-
-document.querySelector('.search-form').addEventListener('submit', checkRequest);
-
-async function getSerchFilmsFromUser(requestFromUser) {
-  const response = await axios.get(
-    `${searchOptionsFromUser}?api_key=${API_KEY}&language=en-US&query=${requestFromUser}&page=1&include_adult=false`,
-  );
-  return response.data;
-}
-
-// прверяем  то что ввел User
-function checkRequest(event) {
-  event.preventDefault();
-  requestFromUser = document.querySelector('.search-form_input').value;
-  if (!requestFromUser) {
-    console.log('Введите название фильма для поиска, пожалуйста');
-    return;
-  }
-  /// если ОК то делаем запрос
-  onSearchFromUser(requestFromUser);
-}
-
-async function onSearchFromUser(requestFromUser) {
-  // чистим перед отрисовкой результатов поиска
-  clearFoo();
-
-  try {
-    const response = await getSerchFilmsFromUser(requestFromUser);
-    if (!response.total_results) {
-      console.log(
-        'Извините, фильмов, соответствующих вашему поисковому запросу, нет. Пожалуйста, попробуйте еще раз.',
-      );
-      return;
-    }
-
-    const responseTotalResults = response.total_results; /// Кол-во найденных результатов
-
-    console.log(`We found ${responseTotalResults} movies.`);
-    renderMarkup(response); /// Рисуем
-  } catch (error) {
-    console.log('что-то пошло не так');
-    return;
-  }
-}
-
-/// Функция для очистки экрана перед отрисовкой
-function clearFoo() {
-  refs.filmsContainerRef.innerHTML = '';
-}
+document.querySelector('.search-form').addEventListener('submit', SearchProps.checkRequest);
 
 /////////////////////////////////////////////////
+
+export { pagination };
+export function saveArrMoviesToLocalStorage(arrMovies) {
+  localStorage.setItem('arr-current-movies', JSON.stringify(arrMovies)); // сохраняем в локал данные про фильмы
+}
+export function getArrMoviesFromLocalStorage() {
+  const savedArrMovies = localStorage.getItem('arr-current-movies');
+  return JSON.parse(savedArrMovies); // получаем данные про фильмы с локала
+}

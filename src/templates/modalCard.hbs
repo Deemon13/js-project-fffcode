@@ -1,0 +1,66 @@
+<div class='modal'>
+  <div class='modal__iconwrapper' data-modal-close>
+    <button class='js-close-info'>
+      <svg class='modal__icon' width='20' height='20'>
+        <use href='./images/icons.svg#icon-close'></use>
+      </svg>
+    </button>
+  </div>
+
+  <div class='modal__item-img'>
+    <img
+      class='modal__image'
+      src='https://image.tmdb.org/t/p/original/{{poster_path}}'
+      alt='{{title}}'
+    />
+  </div>
+
+  <div class='card'>
+    <h2 class='card__title'>{{title}}</h2>
+    <table class='card__table'>
+      <tr>
+        <td class='card__table-info'>Vote / Votes</td>
+        <td class='card__item'><span class='card__vote-average'>{{vote_average}}</span>
+          /
+          {{vote_count}}</td>
+      </tr>
+
+      <tr>
+        <td class='card__table-info'>Popularity</td>
+        <td class='card__item'>{{popularity}}</td>
+      </tr>
+      <tr>
+        <td class=card__table-info'>Original Title</td>
+        <td class='card__item>{{original_title}}</td>
+      </tr>
+      <tr>
+        <td class='card__table-info'>Genre</td>
+        <td class='card__item'>
+          {{#each genres}}
+            {{#if @last}}
+              {{this}}
+            {{else}}
+              {{this}},
+            {{/if}}{{/each}}</td>
+      </tr>
+    </table>
+
+    <p class='card__about'>About</p>
+    <p class='card__description'>{{overview}}</p>
+    <div class='modal-button'>
+          <button
+            class='modal-button__btn js-watched'
+            type='button'
+            data-id='{{id}}'
+            data-action='add'
+          >add to Watched</button>
+          <button
+            class='modal-button__btn js-queue'
+            type='button'
+            data-id='{{id}}'
+            data-action='add'
+          >add to queue</button>
+        
+    </div>
+  </div>
+</div>

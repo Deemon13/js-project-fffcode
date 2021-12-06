@@ -1,0 +1,167 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  overflow-y: scroll;
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.modal {
+  font-family: Roboto;
+  position: absolute;
+  left: 50%;
+  top: 20px;
+  transform: translateX(-50%) scale(1);
+  width: 100%;
+  background-color: #ffffff;
+  max-width: 280px;
+  padding: 48px 20px 41px 20px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  .backdrop.is-hidden & {
+    position: absolute;
+    opacity: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -100%);
+  }
+
+  .modal-card {
+    display: flex;
+  }
+
+  @media screen and (min-width: 768px) {
+    top: 131px;
+    max-width: 620px;
+    padding: 42px 30px 40px 28px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    top: 100px;
+    max-width: 880px;
+    padding: 50px 30px 40px 30px;
+  }
+}
+
+.js-close-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background-color: gainsboro;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.card__title {
+  @include font(20px, 500, 23px);
+  margin-bottom: 15px;
+}
+.card__table {
+  border-collapse: collapse;
+  @include font(12px, 500, 16px);
+  margin-bottom: 15px;
+}
+.card__vote-count {
+  margin-left: 0;
+}
+.card__table-info {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  color: #8c8c8c;
+}
+.card__item {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-left: 40px;
+}
+.modal__item-img {
+  margin-bottom: 30px;
+}
+.card__about {
+  @include font(12px, 500, 16px);
+
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.card__description {
+  @include font(12px, 500, 20px);
+  margin-bottom: 20px;
+}
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
+@media screen and(min-width:768px) {
+  .modal {
+    top: 50%;
+    left: 50%;
+    width: 618px;
+    padding: 42px 29px 40px;
+    display: flex;
+    justify-content: space-between;
+    transform: translate(-50%, -50%);
+  }
+
+  .modal__item-img {
+    margin-right: 32px;
+    margin-bottom: 0px;
+  }
+  .modal__item-img .modal__image {
+    min-width: 264px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .modal {
+    top: 50%;
+    left: 50%;
+    width: 882px;
+    padding: 42px 29px 40px;
+    display: flex;
+    justify-content: space-between;
+    transform: translate(-50%, -50%);
+  }
+
+  .modal__item-img {
+    margin-right: 30px;
+  }
+  .modal__item-img.modal__image {
+    min-width: 396px;
+  }
+  .card__title {
+    @include font(30px, 500, 35px);
+  }
+
+  .modal-button {
+    display: flex;
+    justify-content: start;
+    & > :first-child {
+      margin-right: 15px;
+    }
+  }
+}
