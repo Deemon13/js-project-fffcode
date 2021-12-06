@@ -48,7 +48,7 @@ function onModalOpen(event) {
  renderModalMarkup(movieData)
 }
 
-function renderModalMarkup( { poster_path, original_title, genre_ids, vote_average, vote_count, popularity, title, overview }) {
+function renderModalMarkup( { id, poster_path, original_title, genre_ids, vote_average, vote_count, popularity, title, overview }) {
  const markup = `
             <img src="https://image.tmdb.org/t/p/w342${poster_path}"
                 class="modal__item-img"width="305"
@@ -84,8 +84,8 @@ function renderModalMarkup( { poster_path, original_title, genre_ids, vote_avera
             <p class="card__description">${overview}</p>
               
             <div class="modal-buttons">
-            <button class="">ADD TO WATCHED</button>
-            <button class="">ADD TO QUEUE</button>
+            <button class="" id="${id}">ADD TO WATCHED</button>
+            <button class="" id="${id}">ADD TO QUEUE</button>
             </div>
             </div>
         </div>
