@@ -1,12 +1,12 @@
 import { getArrMoviesFromLocalStorage } from '../index';
 import { transformGenresList } from '../js/genres';
-import Utils from '../js/utils'
+import Utils from '../js/utils';
 
 const refs = {
   openModalBtn: document.querySelectorAll('[data-modal-open]'),
   closeModalBtn: document.querySelector('[data-modal-close]'),
   modal: document.querySelector('[data-modal]'),
-  modalMarkupContainer: document.querySelector(".modal-card")
+  modalMarkupContainer: document.querySelector('.modal-card'),
 };
 
 refs.openModalBtn.forEach(card => {
@@ -22,15 +22,15 @@ function toggleModal(event) {
 // Логика заполнения модалки
 let moviesObj = {};
 const arrWatchedMovies = [];
-const arrMoviesToQueue = []; 
+const arrMoviesToQueue = [];
 let movieData;
 
 // Добавления слушателя на ссылку карточки
 export function listenModalClick() {
-  const film = document.querySelectorAll(".gallery__link")
+  const film = document.querySelectorAll('.gallery__link');
   film.forEach(card => {
-    card.addEventListener("click", onModalOpen)
-  })
+    card.addEventListener('click', onModalOpen);
+  });
 }
 
 // Функция возвращает объект из localStorage, который заполняется в цикле в переменную moviesObj.
@@ -39,23 +39,33 @@ function getMovieDataObjectById() {
   const parsedSaveData = getArrMoviesFromLocalStorage();
   const movieById = parsedSaveData.results.forEach(movie => {
     moviesObj[movie.id] = movie;
-  })
+  });
 }
 
 // По ключам из moviesObj находим выбранный фильм по id
 function onModalOpen(event) {
-  event.preventDefault()
-  getMovieDataObjectById()
+  event.preventDefault();
+  getMovieDataObjectById();
   const currentId = event.currentTarget.id;
   movieData = moviesObj[currentId];
   renderModalMarkup(movieData);
 
-  document.querySelector(".btn-addToWatched").addEventListener("click", onClickBtnAddToWatched);
-  document.querySelector(".btn-addToQueue").addEventListener("click", onClickBtnAddToQueue)
+  document.querySelector('.btn-addToWatched').addEventListener('click', onClickBtnAddToWatched);
+  document.querySelector('.btn-addToQueue').addEventListener('click', onClickBtnAddToQueue);
 }
 
-function renderModalMarkup( { id, poster_path, original_title, genre_ids, vote_average, vote_count, popularity, title, overview }) {
- const markup = `
+function renderModalMarkup({
+  id,
+  poster_path,
+  original_title,
+  genre_ids,
+  vote_average,
+  vote_count,
+  popularity,
+  title,
+  overview,
+}) {
+  const markup = `
             <img src="https://image.tmdb.org/t/p/w342${poster_path}"
                 class="modal__item-img"width="305"
                 height="205"
@@ -67,8 +77,7 @@ function renderModalMarkup( { id, poster_path, original_title, genre_ids, vote_a
             <table class="card__table">
             <tr>
             <td class="card__table-info">Vote/ Votes</td>
-            <td class="movie-card__rating card__item">${vote_average}</td>
-            <td><span class="card__table-info">/&nbsp;<span>${vote_count}</td>
+            <td class ="card__item" ><span class="movie-card__rating movie-card__m card__item-avarage"> ${vote_average}</span><span class=" movie-card__count">/&nbsp;<span>${vote_count}</td>
             </tr>
             <tr>
             <td class="card__table-info">Popularity</td>
@@ -80,31 +89,27 @@ function renderModalMarkup( { id, poster_path, original_title, genre_ids, vote_a
             </tr>
             <tr>
             <td class="card__table-info">Genre</td>
-            <td class="card__item">${transformGenresList(
-              genre_ids,
-              Utils.genresName,
-            )}</td>
+            <td class="card__item">${transformGenresList(genre_ids, Utils.genresName)}</td>
             </tr>
             </table>
             <p class="card__about">ABOUT</p>
             <p class="card__description">${overview}</p>
               
             <div class="modal-buttons">
-            <button class="btn-addToWatched" id="${id}">ADD TO WATCHED</button>
-            <button class="btn-addToQueue" id="${id}">ADD TO QUEUE</button>
+            <button class=" buttons button-active btn-addToWatched" id="${id}">ADD TO WATCHED</button>
+            <button class="buttons btn-addToQueue" id="${id}">ADD TO QUEUE</button>
             </div>
             </div>
         </div>
         `;
-    
 
   refs.modalMarkupContainer.innerHTML = markup;
 }
 
-
 function onClickBtnAddToWatched() {
-  if (arrWatchedMovies.some(movie => movie.id === movieData.id)) {  // проверяет наличие фильма в хранилище просмотреных
-    return // далее тут будет замена кнопки add to Watched на кнопку удаление из локала, и реализация удаления
+  if (arrWatchedMovies.some(movie => movie.id === movieData.id)) {
+    // проверяет наличие фильма в хранилище просмотреных
+    return; // далее тут будет замена кнопки add to Watched на кнопку удаление из локала, и реализация удаления
   }
 
   arrWatchedMovies.push(movieData);
@@ -117,10 +122,10 @@ function getWatchedMovieFromLocalStorage() {
   return JSON.parse(savedArrWatchedMovies); // получаем данные про Watched фильмы с локала
 }
 
-
 function onClickBtnAddToQueue() {
-  if (arrMoviesToQueue.some(movie => movie.id === movieData.id)) {  // проверяет наличие фильма в хранилище просмотреных
-    return // далее тут будет замена кнопки add to Watched на кнопку удаление из локала, и реализация удаления
+  if (arrMoviesToQueue.some(movie => movie.id === movieData.id)) {
+    // проверяет наличие фильма в хранилище просмотреных
+    return; // далее тут будет замена кнопки add to Watched на кнопку удаление из локала, и реализация удаления
   }
 
   arrMoviesToQueue.push(movieData);
@@ -132,5 +137,4 @@ function getToQueueMovieFromLocalStorage() {
   const savedArrMoviesToQueue = localStorage.getItem('queue-movies');
   return JSON.parse(savedArrMoviesToQueue); // получаем данные про Queue фильмы с локала
 }
-
 export {getWatchedMovieFromLocalStorage, getToQueueMovieFromLocalStorage};

@@ -22,16 +22,18 @@ function checkRequest(event) {
 async function onSearchFromUser(requestFromUser) {
   // чистим перед отрисовкой результатов поиска
   Utils.clearFoo();
-
+  Utils.spinnerOn();
   try {
     const response = await API.getSerchFilmsFromUser(requestFromUser);
     if (!response.total_results) {
+      Utils.spinnerOn();
       console.log(
         'Извините, фильмов, соответствующих вашему поисковому запросу, нет. Пожалуйста, попробуйте еще раз.',
       );
+      Utils.spinner();
       return;
     }
-
+    Utils.spinner();
     const responseTotalResults = response.total_results; /// Кол-во найденных результатов
     console.log(`We found ${responseTotalResults} movies.`);
     saveArrMoviesToLocalStorage(response); // сохраняем в локал массив найденных фильмов
