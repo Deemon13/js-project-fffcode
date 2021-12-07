@@ -52,8 +52,5 @@ function spinnerOn() {
   preloaderEl.classList.remove('hidden');
 }
 
-function addLibraryPlug() {
-  refs.libraryPlug.classList.remove('visually-hidden');
-}
 
-export default { genresName, renderMarkup, clearFoo, spinner, spinnerOn, addLibraryPlug };
+export default { genresName, renderMarkup, clearFoo, spinner, spinnerOn };
