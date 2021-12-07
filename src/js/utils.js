@@ -52,4 +52,5 @@ function spinnerOn() {
   preloaderEl.classList.remove('hidden');
 }
 
+
 export default { genresName, renderMarkup, clearFoo, spinner, spinnerOn };
