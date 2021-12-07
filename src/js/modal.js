@@ -128,7 +128,7 @@ function onClickBtnAddToWatched() {
   const currentMovie = arrWatchedMovies.find(movie => movie.id === movieData.id); // ищет в массиве выбраный фильм, id которого наявный в массиве
   if (currentMovie) { // проверяет наличие фильма в хранилище просмотреных
       // выполняется если фильм найден в локале
-    document.querySelector('.btn-addToWatched').textContent = "add to Watched"; 
+    document.querySelector('.btn-addToWatched').textContent = "add to watched"; 
     arrWatchedMovies.forEach((movie, index) => { 
       if (currentMovie.id === movie.id) { // если id текущего выбраного фильма совпадает с каким то из id, наявных в локале
         arrWatchedMovies.splice(index, 1); // удаление элемента
@@ -137,7 +137,7 @@ function onClickBtnAddToWatched() {
     })
     return; // выход из функции
   }
-  document.querySelector('.btn-addToWatched').textContent = "remove To Watched";
+  document.querySelector('.btn-addToWatched').textContent = "remove from watched";
   // выполняется если фильм не найден в локале
   arrWatchedMovies.push(movieData); 
   localStorage.setItem('watched-movies', JSON.stringify(arrWatchedMovies));
