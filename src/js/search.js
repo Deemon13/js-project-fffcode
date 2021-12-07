@@ -4,7 +4,7 @@ import Utils from './utils';
 import { pagination } from '../index';
 import { settings } from '../index';
 import { initPagination } from './pagination';
-import { listenModalClick } from '../js/modal';
+import { listenModalClick, onGalleryModalOpen } from '../js/modal';
 
 let requestFromUser = '';
 // function-check of user input
@@ -22,21 +22,23 @@ function checkRequest(event) {
 async function onSearchFromUser(requestFromUser) {
   // чистим перед отрисовкой результатов поиска
   Utils.clearFoo();
-
+  Utils.spinnerOn();
   try {
     const response = await API.getSerchFilmsFromUser(requestFromUser);
     if (!response.total_results) {
+      Utils.spinnerOn();
       console.log(
         'Извините, фильмов, соответствующих вашему поисковому запросу, нет. Пожалуйста, попробуйте еще раз.',
       );
+      Utils.spinner();
       return;
     }
-
+    Utils.spinner();
     const responseTotalResults = response.total_results; /// Кол-во найденных результатов
     console.log(`We found ${responseTotalResults} movies.`);
     saveArrMoviesToLocalStorage(response); // сохраняем в локал массив найденных фильмов
     Utils.renderMarkup(getArrMoviesFromLocalStorage()); /// Рисуем
-    listenModalClick();
+    listenModalClick(onGalleryModalOpen);
     pagination.then(res => {
       settings.requestFromUser = requestFromUser;
       settings.type = 'search-films';

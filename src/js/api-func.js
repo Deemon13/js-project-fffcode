@@ -7,7 +7,7 @@ const API_KEY = '9eab4199b01913b6a81b6702a89a7ff0';
 
 axios.defaults.baseURL = BASE_URL;
 
-let searchOptions = `trending/movie/week`;
+let searchOptions = `trending/movie/day`;
 let searchOptionsFromUser = `search/movie`; //для запроса по ключевому слову
 
 // get popular films
