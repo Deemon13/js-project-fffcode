@@ -70,3 +70,14 @@ export function getArrMoviesFromLocalStorage() {
   const savedArrMovies = localStorage.getItem('arr-current-movies');
   return JSON.parse(savedArrMovies); // получаем данные про фильмы с локала
 }
+
+// const logoHome = document.querySelector(".logo");
+// logoHome.addEventListener('click',onClickPageHome);
+//   // function onClickLogo(e){
+//   //   e.preventDefault();
+//     //   Utils.clearFoo();
+//   //   onClickPageHome();
+  
+
+  
+//   // }
