@@ -1,9 +1,8 @@
 .footer {
-  width: 100vw;
   font-family: var(--main-font-regular);
-  font-style: var(--main-text-weight);
+  font-style: var(--main-font-weight);
   font-size: var(--secondary-text-size);
-  color: #545454;
+  color: var(--secondary-color-dark);
   padding-top: 30px;
   padding-bottom: 30px;
   text-align: center;
@@ -13,11 +12,11 @@
 .footer-heart__icon {
   width: 14px;
   height: 14px;
-  fill: var(--team-color);
+  fill: var(--accent-color);
 }
 
 .footer__link {
-  color: #545454;
+  color: var(--secondary-color-dark);
   text-decoration: underline;
 }
 
@@ -31,6 +30,6 @@
 //========= 768+ =============
 @media screen and (min-width: 768px) {
   .footer {
-    font-size: var(--main-text-size);
+    font-size: 16px;
   }
 }
