@@ -24,10 +24,10 @@ let moviesObj = {};
 let movieData;
 
 // Добавления слушателя на ссылку карточки
-export function listenModalClick() {
+function listenModalClick(callback) {
   const film = document.querySelectorAll('.gallery__link');
   film.forEach(card => {
-    card.addEventListener('click', onModalOpen);
+    card.addEventListener('click', callback);
   });
 }
 
@@ -40,16 +40,39 @@ function getMovieDataObjectById() {
   });
 }
 
+function getMovieDataLibrary(savedData) {
+  const parsedSaveData = savedData;
+  const movieById = parsedSaveData.forEach(movie => {
+    moviesObj[movie.id] = movie;
+  });
+}
+
 // По ключам из moviesObj находим выбранный фильм по id
 function onModalOpen(event) {
-  event.preventDefault();
-  getMovieDataObjectById();
   const currentId = event.currentTarget.id;
   movieData = moviesObj[currentId];
   renderModalMarkup(movieData);
 
   document.querySelector('.btn-addToWatched').addEventListener('click', onClickBtnAddToWatched);
   document.querySelector('.btn-addToQueue').addEventListener('click', onClickBtnAddToQueue);
+}
+
+function onGalleryModalOpen(event) {
+  event.preventDefault();
+  getMovieDataObjectById();
+  onModalOpen(event);
+}
+
+function onWatchedModalOpen(event) {
+  event.preventDefault();
+  getMovieDataLibrary(getWatchedMovieFromLocalStorage());
+  onModalOpen(event);
+}
+
+function onQueueModalOpen(event) {
+  event.preventDefault();
+  getMovieDataLibrary(getToQueueMovieFromLocalStorage());
+  onModalOpen(event);
 }
 
 function renderModalMarkup({
@@ -144,4 +167,4 @@ function getToQueueMovieFromLocalStorage() {
   const savedArrMoviesToQueue = localStorage.getItem('queue-movies');
   return JSON.parse(savedArrMoviesToQueue); // получаем данные про Queue фильмы с локала
 }
-export {getWatchedMovieFromLocalStorage, getToQueueMovieFromLocalStorage};
+export {getWatchedMovieFromLocalStorage, getToQueueMovieFromLocalStorage, listenModalClick, onGalleryModalOpen, onWatchedModalOpen, onQueueModalOpen};

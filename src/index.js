@@ -8,7 +8,7 @@ import { createHome } from "./js/create-pages";
 import { getGenresArray, transformGenresList } from "./js/genres";
 import { modal } from "./js/modal";
 // import { modal } from './js/modal';
-import { listenModalClick } from "./js/modal";
+import { listenModalClick, onGalleryModalOpen } from "./js/modal";
 
 import Utils from "./js/utils";
 import SearchProps from "./js/search";
@@ -28,7 +28,7 @@ API.getPopularFilms().then((results) => {
   getGenresArray(Utils.genresName);
   saveArrMoviesToLocalStorage(results); // сохраняем в локал массив найденных фильмов
   Utils.renderMarkup(getArrMoviesFromLocalStorage()); // рисуем
-  listenModalClick();
+  listenModalClick(onGalleryModalOpen);
   pagination = initPagination({
     page,
     itemsPerPage: 20,
@@ -60,7 +60,7 @@ function onClickPageHome() {
     settings.type = 'popular-films';
     res.reset(data.total_pages);
   });
-  listenModalClick();
+  listenModalClick(onGalleryModalOpen);
   refs.pageLibrary.addEventListener('click', onClickPageLibrary);
   refs.pageHome.removeEventListener('click', onClickPageHome);
 } 
