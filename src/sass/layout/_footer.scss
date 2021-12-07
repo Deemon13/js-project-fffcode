@@ -12,7 +12,9 @@
 .footer-heart__icon {
   width: 14px;
   height: 14px;
-  fill: var(--accent-color);
+  fill: #ff6b08;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 .footer__link {
@@ -25,6 +27,9 @@
   list-style: none;
   display: flex;
   justify-content: center;
+}
+.footer__list-item {
+  display: flex;
 }
 
 //========= 768+ =============
