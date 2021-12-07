@@ -21,8 +21,6 @@ function toggleModal(event) {
 
 // Логика заполнения модалки
 let moviesObj = {};
-const arrWatchedMovies = [];
-const arrMoviesToQueue = [];
 let movieData;
 
 // Добавления слушателя на ссылку карточки
@@ -106,15 +104,20 @@ function renderModalMarkup({
   refs.modalMarkupContainer.innerHTML = markup;
 }
 
+
+let arrWatchedMovies = [];
+if (getWatchedMovieFromLocalStorage()) { // проверяет заполнен ли локальный массив,
+  //  если да, то перезаписываем массив arrWatchedMovies на локальные данные про просмотренные фильмы
+  arrWatchedMovies = getWatchedMovieFromLocalStorage();
+}
+
 function onClickBtnAddToWatched() {
   if (arrWatchedMovies.some(movie => movie.id === movieData.id)) {
     // проверяет наличие фильма в хранилище просмотреных
     return; // далее тут будет замена кнопки add to Watched на кнопку удаление из локала, и реализация удаления
   }
-
   arrWatchedMovies.push(movieData);
   localStorage.setItem('watched-movies', JSON.stringify(arrWatchedMovies));
-  // console.log("Watched", getWatchedMovieFromLocalStorage())
 }
 
 function getWatchedMovieFromLocalStorage() {
@@ -122,15 +125,19 @@ function getWatchedMovieFromLocalStorage() {
   return JSON.parse(savedArrWatchedMovies); // получаем данные про Watched фильмы с локала
 }
 
+let arrMoviesToQueue = [];
+if (getToQueueMovieFromLocalStorage()) { // проверяет заполнен ли локальный массив,
+  //  если да, то перезаписываем массив arrMoviesToQueue на локальные данные про фильмы добавленные в очередь
+  arrMoviesToQueue = getToQueueMovieFromLocalStorage();
+}
+
 function onClickBtnAddToQueue() {
   if (arrMoviesToQueue.some(movie => movie.id === movieData.id)) {
     // проверяет наличие фильма в хранилище просмотреных
     return; // далее тут будет замена кнопки add to Watched на кнопку удаление из локала, и реализация удаления
   }
-
   arrMoviesToQueue.push(movieData);
   localStorage.setItem('queue-movies', JSON.stringify(arrMoviesToQueue));
-  // console.log("ToQueue", getToQueueMovieFromLocalStorage())
 }
 
 function getToQueueMovieFromLocalStorage() {
