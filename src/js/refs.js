@@ -4,4 +4,5 @@ export const refs = {
     pageLibrary: document.querySelector(".page-library"),
     headerFunctional: document.querySelector(".header-functional"),
     pageHome: document.querySelector(".page-home"),
+    plug: document.querySelector(".plug-message")
 }

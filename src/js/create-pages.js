@@ -1,9 +1,13 @@
 import { refs } from "./refs"
+import { createLibraryPlug } from './library-plug';
+
 export function createLibrary() {
     refs.filmsContainerRef.innerHTML = " "
     refs.headerButtons.innerHTML = `
         <button type="button" data-action="watched">Watched</button>
         <button type="button" data-action="queue">queue</button>`
+    createLibraryPlug();
+    document.querySelector(".plug-message").textContent = "Add movies to the queue so you don't forget to watch them later!"
 }
 export function createHome() {
     // refs.filmsContainerRef.innerHTML =``;

@@ -82,11 +82,12 @@ export function getArrMoviesFromLocalStorage() {
   return JSON.parse(savedArrMovies); // получаем данные про фильмы с локала
 }
 
-// const logoHome = document.querySelector(".logo");
-// logoHome.addEventListener('click',onClickPageHome);
-//   // function onClickLogo(e){
-//   //   e.preventDefault();
-//     //   Utils.clearFoo();
-//   //   onClickPageHome();
-
-//   // }
+const imgHero =document.querySelector('.hero-img');
+const logoHome = document.querySelector(".logo");
+logoHome.addEventListener('click',onClickLogo);
+  function onClickLogo(e){
+    // refs.pageLibrary.classList.remove('current');
+    // refs.pageHome.classList.add('current');
+    // imgHero.srs = ''
+   onClickPageHome();
+  }
