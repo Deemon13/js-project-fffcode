@@ -5,8 +5,10 @@ import Utils from "./utils";
 import { getGenresArray } from "./genres";
 import { settings } from "../index";
 import { saveArrMoviesToLocalStorage, getArrMoviesFromLocalStorage } from "../index";
+
 import { listenModalClick, onGalleryModalOpen } from "../js/modal";
 import { onButtonClick,  renderQueue, renderWatched} from "./render-library";
+
 
 async function initPagination({ page, itemsPerPage, totalItems }) {
   const options = {

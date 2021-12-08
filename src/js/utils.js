@@ -1,10 +1,10 @@
-import { refs } from './refs';
-import { transformGenresList } from './genres';
+import { refs } from "./refs";
+import { transformGenresList } from "./genres";
 
 // function for render mark-up gallery
 
 let genresName = {};
-let preloaderEl = document.getElementById('preloader');
+let preloaderEl = document.getElementById("preloader");
 
 function renderMarkup({ results }) {
   const markup = results
@@ -32,25 +32,25 @@ function renderMarkup({ results }) {
           </a>
     </li> `;
     })
-    .join('');
+    .join("");
 
-  refs.filmsContainerRef.insertAdjacentHTML('beforeend', markup);
+  refs.filmsContainerRef.insertAdjacentHTML("beforeend", markup);
 }
 
 // Функция для очистки экрана перед отрисовкой
 
 function clearFoo() {
-  refs.filmsContainerRef.innerHTML = '';
+  refs.filmsContainerRef.innerHTML = "";
 }
 
 function spinner() {
-  preloaderEl.classList.add('hidden');
-  preloaderEl.classList.remove('visible');
+  preloaderEl.classList.add("hidden");
+  preloaderEl.classList.remove("visible");
 }
 
 function spinnerOn() {
-  preloaderEl.classList.add('visible');
-  preloaderEl.classList.remove('hidden');
+  preloaderEl.classList.add("visible");
+  preloaderEl.classList.remove("hidden");
 }
 
 

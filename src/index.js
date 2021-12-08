@@ -49,10 +49,22 @@ function onClickPageLibrary() {
   // imgHero.srs = ''
   
   createLibrary(); //рендер кнопок на странице библиотеки
-  refs.headerFunctional.addEventListener('click', onButtonClick);
-  renderQueue();
-  /*  refs.pageLibrary.removeEventListener('click', onClickPageLibrary); - убрала для реализации работы ссылки My library, при клике на которую рендериться галерея фильмов Queue (очередь просмотра) */
-  refs.pageHome.addEventListener('click', onClickPageHome);
+  refs.headerFunctional.addEventListener("click", onButtonClick);
+  refs.pageHome.addEventListener("click", onClickPageHome);
+  const queueMovies = renderQueue();
+  if (!queueMovies) {
+    pagination.then((res) => {
+      settings.type = "queue";
+      res.reset(0);
+      res.movePageTo(1);
+    });
+    return;
+  }
+  pagination.then((res) => {
+    settings.type = "queue";
+    res.reset(queueMovies.length);
+    res.movePageTo(1);
+  });
 }
 function onClickPageHome() {
   refs.pageLibrary.classList.remove('header__link_current');
@@ -62,14 +74,17 @@ function onClickPageHome() {
   Utils.clearFoo();
   const data = getArrMoviesFromLocalStorage();
   Utils.renderMarkup(data);
-  refs.headerFunctional.removeEventListener('click', onButtonClick);
-  pagination.then(res => {
-    settings.type = 'popular-films';
-    res.reset(data.total_pages);
-  });
+
   listenModalClick(onGalleryModalOpen);
-  refs.pageLibrary.addEventListener('click', onClickPageLibrary);
-  refs.pageHome.removeEventListener('click', onClickPageHome);
+  refs.pageLibrary.addEventListener("click", onClickPageLibrary);
+  refs.pageHome.removeEventListener("click", onClickPageHome);
+  refs.headerFunctional.removeEventListener("click", onButtonClick);
+  pagination.then((res) => {
+    settings.type = "popular-films";
+    res.reset(data.total_pages);
+    res.movePageTo(1);
+  });
+
 }
 const logoHome = document.querySelector(".header__logo");
 logoHome.addEventListener('click',onClickLogo);
@@ -92,5 +107,3 @@ export function getArrMoviesFromLocalStorage() {
   const savedArrMovies = localStorage.getItem('arr-current-movies');
   return JSON.parse(savedArrMovies); // получаем данные про фильмы с локала
 }
-
-
