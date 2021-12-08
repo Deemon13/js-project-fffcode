@@ -100,7 +100,7 @@ function renderModalMarkup({
   overview,
 }) {
   const markup = `
-            <img src="https://image.tmdb.org/t/p/w342${poster_path}"
+  ${poster_path ? `<img src="https://image.tmdb.org/t/p/w342${poster_path}"` : `<img src="https://avatarko.ru/img/kartinka/33/multfilm_lyagushka_32117.jpg"`}
                 class="modal__item-img"width="305"
                 height="205"
                 alt="${title}"
