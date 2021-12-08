@@ -7,13 +7,21 @@ import { initPagination } from "./pagination";
 
 import { listenModalClick, onGalleryModalOpen } from "../js/modal";
 
+import Notiflix from 'notiflix';
+Notiflix.Notify.init({
+  width: '380px',
+  position: 'center-top',
+  distance: '150px',
+  opacity: 1,
+});
+
 let requestFromUser = "";
 // function-check of user input
 function checkRequest(event) {
   event.preventDefault();
   requestFromUser = document.querySelector(".search-form_input").value;
   if (!requestFromUser) {
-    console.log("Введите название фильма для поиска, пожалуйста");
+    Notiflix.Notify.warning("Введите название фильма для поиска, пожалуйста");
     return;
   }
   /// если ОК то делаем запрос
@@ -28,7 +36,7 @@ async function onSearchFromUser(requestFromUser) {
     const response = await API.getSerchFilmsFromUser(requestFromUser);
     if (!response.total_results) {
       Utils.spinnerOn();
-      console.log(
+      Notiflix.Notify.warning(
         "Извините, фильмов, соответствующих вашему поисковому запросу, нет. Пожалуйста, попробуйте еще раз.",
       );
       Utils.spinner();
@@ -36,7 +44,7 @@ async function onSearchFromUser(requestFromUser) {
     }
     Utils.spinner();
     const responseTotalResults = response.total_results; /// Кол-во найденных результатов
-    console.log(`We found ${responseTotalResults} movies.`);
+    Notiflix.Notify.success(`Мы нашли ${responseTotalResults} фильмов.`);
     saveArrMoviesToLocalStorage(response); // сохраняем в локал массив найденных фильмов
     Utils.renderMarkup(getArrMoviesFromLocalStorage()); /// Рисуем
     listenModalClick(onGalleryModalOpen);
@@ -47,7 +55,7 @@ async function onSearchFromUser(requestFromUser) {
       res.movePageTo(1);
     });
   } catch (error) {
-    console.log("что-то пошло не так", error);
+    Notiflix.Notify.failure("что-то пошло не так", error);
     return;
   }
 }

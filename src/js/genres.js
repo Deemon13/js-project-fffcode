@@ -1,4 +1,11 @@
 import axios from 'axios';
+import Notiflix from 'notiflix';
+Notiflix.Notify.init({
+  width: '380px',
+  position: 'center-top',
+  distance: '150px',
+  opacity: 1,
+});
 
 const BASE_URL = 'https://api.themoviedb.org/3/';
 const API_KEY = '9eab4199b01913b6a81b6702a89a7ff0';
@@ -13,7 +20,7 @@ async function getGenresName() {
     const { data } = await axios.get(`${genresOptions}?api_key=${API_KEY}`);
     return data.genres;
   } catch (error) {
-    alert('Ooops! Something went wrong');
+    Notiflix.Notify.failure('Ooops! Something went wrong');
   }
 }
 
@@ -33,7 +40,7 @@ export function getGenresArray(names) {
     const genresArray = JSON.parse(savedGenres);
     genresArray.forEach(genre => (names[genre.id] = genre.name));
   } catch (error) {
-    alert('Data loading error! Refresh the page.');
+    Notiflix.Notify.failure('Data loading error! Refresh the page.');
   }
 }
 
