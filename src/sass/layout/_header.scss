@@ -1,0 +1,119 @@
+.header {
+  max-width: 100%;
+  background-image: url(../././images/main-mobile.jpg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  height: 230px;
+}
+
+.header__menu {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header__list {
+  font-family: var(--main-font-regular);
+  font-weight: 500;
+  font-size: var(--main-text-size);
+  line-height: 14px;
+  display: flex;
+  margin-top: 58px;
+}
+
+.header__icon {
+  width: 24px;
+  height: 24px;
+  fill: var(--icon-color);
+  margin-top: 46px;
+  // background-color: inherit;
+}
+.haeder__logo {
+  display: flex;
+}
+
+.header__logo-word {
+  display: none;
+}
+.page-home {
+  display: block;
+  color: var(--main-color-light);
+  margin-right: 39px;
+  // &.header__link_current {
+  //   position: relative;
+  //   &::after {
+  //     content: '';
+  //     display: block;
+  //     width: 100%;
+  //     height: 3px;
+  //     background-color: var(--accent-color);
+  //     position: absolute;
+  //   }
+  // }
+}
+
+.page-library {
+  display: block;
+  color: var(--main-color-light);
+}
+
+.search-form {
+  display: flex;
+  border-bottom: 1px solid var(--color-light-placeholder);
+  align-items: center;
+  color: var(--main-color-light);
+}
+
+.search-form_input {
+  width: 280px;
+  height: 20px;
+  margin-top: 38px;
+  background-color: inherit;
+  border: none;
+  outline: none;
+  color: #fff;
+}
+
+.search-form_input::placeholder {
+  color: var(--main-color-light);
+  font-family: var(--main-font-regular);
+  font-weight: var(--main-font-weight);
+  font-size: var(--main-text-size);
+  line-height: 14px;
+}
+.search-form_btn {
+  width: 12px;
+  height: 12px;
+}
+.search-form {
+  max-width: 100%;
+}
+.header-functional {
+  width: 280px;
+  margin: 0 auto;
+}
+// =========== 768+ ==============
+@media screen and (min-width: 768px) {
+  .header {
+    background-image: url(../././images/main-tablet.jpg);
+  }
+
+  .header__logo-word {
+    font-family: var(--main-font-regular);
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 14px;
+    color: var(--main-color-light);
+    display: inline-block;
+  }
+  .search-form_input {
+    width: 336px;
+  }
+}
+
+// =========== 1024+ ==============
+@media screen and (min-width: 1024px) {
+  .header {
+    background-image: url(../././images/main-desktop.jpg);
+  }
+}

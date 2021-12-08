@@ -19,15 +19,16 @@ function toggleModal(event) {
   refs.modal.classList.toggle('is-hidden');
 }
 
+
 // Логика заполнения модалки
 let moviesObj = {};
 let movieData;
 
 // Добавления слушателя на ссылку карточки
-export function listenModalClick() {
+function listenModalClick(callback) {
   const film = document.querySelectorAll('.gallery__link');
   film.forEach(card => {
-    card.addEventListener('click', onModalOpen);
+    card.addEventListener('click', callback);
   });
 }
 
@@ -40,16 +41,51 @@ function getMovieDataObjectById() {
   });
 }
 
+function getMovieDataLibrary(savedData) {
+  const parsedSaveData = savedData;
+  const movieById = parsedSaveData.forEach(movie => {
+    moviesObj[movie.id] = movie;
+  });
+}
+
 // По ключам из moviesObj находим выбранный фильм по id
 function onModalOpen(event) {
-  event.preventDefault();
-  getMovieDataObjectById();
   const currentId = event.currentTarget.id;
   movieData = moviesObj[currentId];
   renderModalMarkup(movieData);
 
-  document.querySelector('.btn-addToWatched').addEventListener('click', onClickBtnAddToWatched);
-  document.querySelector('.btn-addToQueue').addEventListener('click', onClickBtnAddToQueue);
+  const ref = {
+    elBtnAddToWatched: document.querySelector('.btn-addToWatched'),
+    elBtnAddToQueue: document.querySelector('.btn-addToQueue'),
+  }
+
+  if (arrWatchedMovies.find(movie => movie.id === movieData.id)) {
+    ref.elBtnAddToWatched.textContent = "remove from watched";
+  }
+  if (arrMoviesToQueue.find(movie => movie.id === movieData.id)) {
+    ref.elBtnAddToQueue.textContent = "remove from queue";
+  }
+    
+  ref.elBtnAddToWatched.addEventListener('click', onClickBtnAddToWatched);
+  ref.elBtnAddToQueue.addEventListener('click', onClickBtnAddToQueue);
+}
+
+function onGalleryModalOpen(event) {
+  event.preventDefault();
+  getMovieDataObjectById();
+  onModalOpen(event);
+}
+
+function onWatchedModalOpen(event) {
+  event.preventDefault();
+  getMovieDataLibrary(getWatchedMovieFromLocalStorage());
+  onModalOpen(event);
+}
+
+function onQueueModalOpen(event) {
+  event.preventDefault();
+  getMovieDataLibrary(getToQueueMovieFromLocalStorage());
+  onModalOpen(event);
 }
 
 function renderModalMarkup({
@@ -64,7 +100,7 @@ function renderModalMarkup({
   overview,
 }) {
   const markup = `
-            <img src="https://image.tmdb.org/t/p/w342${poster_path}"
+  ${poster_path ? `<img src="https://image.tmdb.org/t/p/w342${poster_path}"` : `<img src="https://avatarko.ru/img/kartinka/33/multfilm_lyagushka_32117.jpg"`}
                 class="modal__item-img"width="305"
                 height="205"
                 alt="${title}"
@@ -105,21 +141,30 @@ function renderModalMarkup({
 }
 
 
+// логика кнопок
 let arrWatchedMovies = [];
 if (getWatchedMovieFromLocalStorage()) { // проверяет заполнен ли локальный массив,
   //  если да, то перезаписываем массив arrWatchedMovies на локальные данные про просмотренные фильмы
   arrWatchedMovies = getWatchedMovieFromLocalStorage();
 }
-
 function onClickBtnAddToWatched() {
-  if (arrWatchedMovies.some(movie => movie.id === movieData.id)) {
-    // проверяет наличие фильма в хранилище просмотреных
-    return; // далее тут будет замена кнопки add to Watched на кнопку удаление из локала, и реализация удаления
+  const currentMovie = arrWatchedMovies.find(movie => movie.id === movieData.id); // ищет в массиве выбраный фильм, id которого наявный в массиве
+  if (currentMovie) { // проверяет наличие фильма в хранилище просмотреных
+      // выполняется если фильм найден в локале
+    document.querySelector('.btn-addToWatched').textContent = "add to watched"; 
+    arrWatchedMovies.forEach((movie, index) => { 
+      if (currentMovie.id === movie.id) { // если id текущего выбраного фильма совпадает с каким то из id, наявных в локале
+        arrWatchedMovies.splice(index, 1); // удаление элемента
+        localStorage.setItem('watched-movies', JSON.stringify(arrWatchedMovies));
+      }
+    })
+    return; // выход из функции
   }
-  arrWatchedMovies.push(movieData);
+  document.querySelector('.btn-addToWatched').textContent = "remove from watched";
+  // выполняется если фильм не найден в локале
+  arrWatchedMovies.push(movieData); 
   localStorage.setItem('watched-movies', JSON.stringify(arrWatchedMovies));
 }
-
 function getWatchedMovieFromLocalStorage() {
   const savedArrWatchedMovies = localStorage.getItem('watched-movies');
   return JSON.parse(savedArrWatchedMovies); // получаем данные про Watched фильмы с локала
@@ -130,18 +175,27 @@ if (getToQueueMovieFromLocalStorage()) { // проверяет заполнен 
   //  если да, то перезаписываем массив arrMoviesToQueue на локальные данные про фильмы добавленные в очередь
   arrMoviesToQueue = getToQueueMovieFromLocalStorage();
 }
-
 function onClickBtnAddToQueue() {
-  if (arrMoviesToQueue.some(movie => movie.id === movieData.id)) {
-    // проверяет наличие фильма в хранилище просмотреных
-    return; // далее тут будет замена кнопки add to Watched на кнопку удаление из локала, и реализация удаления
+  const currentMovie = arrMoviesToQueue.find(movie => movie.id === movieData.id); // ищет в массиве выбраный фильм, id которого наявный в массиве
+  if (currentMovie) { // проверяет наличие фильма в хранилище фильмов в очереди
+      // выполняется если фильм найден в локале
+    document.querySelector('.btn-addToQueue').textContent = "add to queue"; 
+    arrMoviesToQueue.forEach((movie, index) => { 
+      if (currentMovie.id === movie.id) { // если id текущего выбраного фильма совпадает с каким то из id, наявных в локале
+        arrMoviesToQueue.splice(index, 1); // удаление элемента
+        localStorage.setItem('queue-movies', JSON.stringify(arrMoviesToQueue));
+      }
+    })
+    return; // выход из функции
   }
+  document.querySelector('.btn-addToQueue').textContent = "remove from queue";
+  // выполняется если фильм не найден в локале
   arrMoviesToQueue.push(movieData);
   localStorage.setItem('queue-movies', JSON.stringify(arrMoviesToQueue));
 }
-
 function getToQueueMovieFromLocalStorage() {
   const savedArrMoviesToQueue = localStorage.getItem('queue-movies');
   return JSON.parse(savedArrMoviesToQueue); // получаем данные про Queue фильмы с локала
 }
-export {getWatchedMovieFromLocalStorage, getToQueueMovieFromLocalStorage};
+
+export {getWatchedMovieFromLocalStorage, getToQueueMovieFromLocalStorage, listenModalClick, onGalleryModalOpen, onWatchedModalOpen, onQueueModalOpen};

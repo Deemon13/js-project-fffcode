@@ -5,8 +5,10 @@ import Utils from "./utils";
 import { getGenresArray } from "./genres";
 import { settings } from "../index";
 import { saveArrMoviesToLocalStorage, getArrMoviesFromLocalStorage } from "../index";
-import { listenModalClick } from "../js/modal";
+
+import { listenModalClick, onGalleryModalOpen } from "../js/modal";
 import { onButtonClick,  renderQueue, renderWatched} from "./render-library";
+
 
 async function initPagination({ page, itemsPerPage, totalItems }) {
   const options = {
@@ -45,7 +47,7 @@ async function initPagination({ page, itemsPerPage, totalItems }) {
         Utils.clearFoo();
         saveArrMoviesToLocalStorage(results); 
         Utils.renderMarkup(getArrMoviesFromLocalStorage()); 
-        listenModalClick();
+        listenModalClick(onGalleryModalOpen);
       });
     }
     if (settings.type === "search-films") {
@@ -54,7 +56,7 @@ async function initPagination({ page, itemsPerPage, totalItems }) {
         Utils.clearFoo();
         saveArrMoviesToLocalStorage(results); 
         Utils.renderMarkup(getArrMoviesFromLocalStorage()); 
-        listenModalClick();
+        listenModalClick(onGalleryModalOpen);
           });
     }
     if (settings.type === "watched") {
