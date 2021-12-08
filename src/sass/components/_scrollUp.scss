@@ -1,0 +1,32 @@
+.scroll-btn {
+  border-radius: 5px;
+  font-size: 1.5rem;
+  background-color: rgba(190, 190, 190, 0.5);
+  border: 1px solid transparent;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  position: fixed;
+  bottom: 50px;
+  right: 10px;
+  opacity: 0;
+  transform: translateY(100px);
+  transition: all 900ms ease;
+  color: #ff6b08;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover,
+  &:focus {
+    background: linear-gradient(260deg, #ff0808aa, #ff6b08),
+      linear-gradient(120deg, #f3ff089b, #ff6b08);
+    color: #f4f4f4;
+  }
+}
+
+.show-scroll-btn {
+  transform: translateY(0);
+  opacity: 1;
+}

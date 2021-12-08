@@ -16,7 +16,7 @@ import SearchProps from './js/search';
 import { initPagination } from './js/pagination';
 import { onButtonClick, renderQueue } from './js/render-library';
 import { logo } from './js/ligo';
-
+import scrollUp from './js/scrollUp';
 
 const settings = { page: 1, type: 'popular-films' };
 export { settings };
@@ -49,21 +49,21 @@ function onClickPageLibrary() {
   refs.pageHome.classList.remove('header__link_current');
   refs.pageLibrary.classList.add('header__link_current');
   // imgHero.srs = ''
-  
+
   createLibrary(); //рендер кнопок на странице библиотеки
-  refs.headerFunctional.addEventListener("click", onButtonClick);
-  refs.pageHome.addEventListener("click", onClickPageHome);
+  refs.headerFunctional.addEventListener('click', onButtonClick);
+  refs.pageHome.addEventListener('click', onClickPageHome);
   const queueMovies = renderQueue();
   if (!queueMovies) {
-    pagination.then((res) => {
-      settings.type = "queue";
+    pagination.then(res => {
+      settings.type = 'queue';
       res.reset(0);
       res.movePageTo(1);
     });
     return;
   }
-  pagination.then((res) => {
-    settings.type = "queue";
+  pagination.then(res => {
+    settings.type = 'queue';
     res.reset(queueMovies.length);
     res.movePageTo(1);
   });
@@ -78,21 +78,20 @@ function onClickPageHome() {
   Utils.renderMarkup(data);
 
   listenModalClick(onGalleryModalOpen);
-  refs.pageLibrary.addEventListener("click", onClickPageLibrary);
-  refs.pageHome.removeEventListener("click", onClickPageHome);
-  refs.headerFunctional.removeEventListener("click", onButtonClick);
-  pagination.then((res) => {
-    settings.type = "popular-films";
+  refs.pageLibrary.addEventListener('click', onClickPageLibrary);
+  refs.pageHome.removeEventListener('click', onClickPageHome);
+  refs.headerFunctional.removeEventListener('click', onButtonClick);
+  pagination.then(res => {
+    settings.type = 'popular-films';
     res.reset(data.total_pages);
     res.movePageTo(1);
   });
-
 }
-const logoHome = document.querySelector(".header__logo");
-logoHome.addEventListener('click',onClickLogo);
-  function onClickLogo(e){
-   onClickPageHome();
-  }
+const logoHome = document.querySelector('.header__logo');
+logoHome.addEventListener('click', onClickLogo);
+function onClickLogo(e) {
+  onClickPageHome();
+}
 
 ///////////////////////////////////////////////////////////
 /// Реализация поиска кинофильма по ключевому слову (на главной странице)
