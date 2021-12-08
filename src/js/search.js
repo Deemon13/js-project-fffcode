@@ -1,18 +1,18 @@
-import { saveArrMoviesToLocalStorage, getArrMoviesFromLocalStorage } from '../index';
-import API from './api-func';
-import Utils from './utils';
-import { pagination } from '../index';
-import { settings } from '../index';
-import { initPagination } from './pagination';
-import { listenModalClick } from '../js/modal';
+import { saveArrMoviesToLocalStorage, getArrMoviesFromLocalStorage } from "../index";
+import API from "./api-func";
+import Utils from "./utils";
+import { pagination } from "../index";
+import { settings } from "../index";
+import { initPagination } from "./pagination";
+import { listenModalClick } from "../js/modal";
 
-let requestFromUser = '';
+let requestFromUser = "";
 // function-check of user input
 function checkRequest(event) {
   event.preventDefault();
-  requestFromUser = document.querySelector('.search-form_input').value;
+  requestFromUser = document.querySelector(".search-form_input").value;
   if (!requestFromUser) {
-    console.log('Введите название фильма для поиска, пожалуйста');
+    console.log("Введите название фильма для поиска, пожалуйста");
     return;
   }
   /// если ОК то делаем запрос
@@ -28,7 +28,7 @@ async function onSearchFromUser(requestFromUser) {
     if (!response.total_results) {
       Utils.spinnerOn();
       console.log(
-        'Извините, фильмов, соответствующих вашему поисковому запросу, нет. Пожалуйста, попробуйте еще раз.',
+        "Извините, фильмов, соответствующих вашему поисковому запросу, нет. Пожалуйста, попробуйте еще раз.",
       );
       Utils.spinner();
       return;
@@ -39,14 +39,14 @@ async function onSearchFromUser(requestFromUser) {
     saveArrMoviesToLocalStorage(response); // сохраняем в локал массив найденных фильмов
     Utils.renderMarkup(getArrMoviesFromLocalStorage()); /// Рисуем
     listenModalClick();
-    pagination.then(res => {
+    pagination.then((res) => {
       settings.requestFromUser = requestFromUser;
-      settings.type = 'search-films';
+      settings.type = "search-films";
       res.reset(response.total_results);
       res.movePageTo(1);
     });
   } catch (error) {
-    console.log('что-то пошло не так', error);
+    console.log("что-то пошло не так", error);
     return;
   }
 }

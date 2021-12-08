@@ -6,7 +6,7 @@ import { getGenresArray } from "./genres";
 import { settings } from "../index";
 import { saveArrMoviesToLocalStorage, getArrMoviesFromLocalStorage } from "../index";
 import { listenModalClick } from "../js/modal";
-import { onButtonClick,  renderQueue, renderWatched} from "./render-library";
+import { onButtonClick, renderQueue, renderWatched } from "./render-library";
 
 async function initPagination({ page, itemsPerPage, totalItems }) {
   const options = {
@@ -43,8 +43,8 @@ async function initPagination({ page, itemsPerPage, totalItems }) {
       API.getPopularFilms().then((results) => {
         getGenresArray(Utils.genresName);
         Utils.clearFoo();
-        saveArrMoviesToLocalStorage(results); 
-        Utils.renderMarkup(getArrMoviesFromLocalStorage()); 
+        saveArrMoviesToLocalStorage(results);
+        Utils.renderMarkup(getArrMoviesFromLocalStorage());
         listenModalClick();
       });
     }
@@ -52,10 +52,10 @@ async function initPagination({ page, itemsPerPage, totalItems }) {
       API.getSerchFilmsFromUser(settings.requestFromUser).then((results) => {
         getGenresArray(Utils.genresName);
         Utils.clearFoo();
-        saveArrMoviesToLocalStorage(results); 
-        Utils.renderMarkup(getArrMoviesFromLocalStorage()); 
+        saveArrMoviesToLocalStorage(results);
+        Utils.renderMarkup(getArrMoviesFromLocalStorage());
         listenModalClick();
-          });
+      });
     }
     if (settings.type === "watched") {
       renderWatched();

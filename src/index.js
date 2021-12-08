@@ -45,9 +45,21 @@ refs.pageLibrary.addEventListener("click", onClickPageLibrary); //слушате
 function onClickPageLibrary() {
   createLibrary(); //рендер кнопок на странице библиотеки
   refs.headerFunctional.addEventListener("click", onButtonClick);
-  renderQueue();
-  /*  refs.pageLibrary.removeEventListener('click', onClickPageLibrary); - убрала для реализации работы ссылки My library, при клике на которую рендериться галерея фильмов Queue (очередь просмотра) */
   refs.pageHome.addEventListener("click", onClickPageHome);
+  const queueMovies = renderQueue();
+  if (!queueMovies) {
+    pagination.then((res) => {
+      settings.type = "queue";
+      res.reset(0);
+      res.movePageTo(1);
+    });
+    return;
+  }
+  pagination.then((res) => {
+    settings.type = "queue";
+    res.reset(queueMovies.length);
+    res.movePageTo(1);
+  });
 }
 function onClickPageHome() {
   createHome(); //рендер кнопок на главной странице
@@ -55,15 +67,17 @@ function onClickPageHome() {
   Utils.clearFoo();
   const data = getArrMoviesFromLocalStorage();
   Utils.renderMarkup(data);
-  refs.headerFunctional.removeEventListener('click', onButtonClick);
-  pagination.then(res => {
-    settings.type = 'popular-films';
-    res.reset(data.total_pages);
-  });
+
   listenModalClick();
-  refs.pageLibrary.addEventListener('click', onClickPageLibrary);
-  refs.pageHome.removeEventListener('click', onClickPageHome);
-} 
+  refs.pageLibrary.addEventListener("click", onClickPageLibrary);
+  refs.pageHome.removeEventListener("click", onClickPageHome);
+  refs.headerFunctional.removeEventListener("click", onButtonClick);
+  pagination.then((res) => {
+    settings.type = "popular-films";
+    res.reset(data.total_pages);
+    res.movePageTo(1);
+  });
+}
 
 ///////////////////////////////////////////////////////////
 /// Реализация поиска кинофильма по ключевому слову (на главной странице)
@@ -87,7 +101,5 @@ export function getArrMoviesFromLocalStorage() {
 //   //   e.preventDefault();
 //     //   Utils.clearFoo();
 //   //   onClickPageHome();
-  
 
-  
 //   // }
