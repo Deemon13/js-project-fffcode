@@ -4,7 +4,8 @@ import Utils from "./utils";
 import { pagination } from "../index";
 import { settings } from "../index";
 import { initPagination } from "./pagination";
-import { listenModalClick } from "../js/modal";
+
+import { listenModalClick, onGalleryModalOpen } from "../js/modal";
 
 let requestFromUser = "";
 // function-check of user input
@@ -38,7 +39,7 @@ async function onSearchFromUser(requestFromUser) {
     console.log(`We found ${responseTotalResults} movies.`);
     saveArrMoviesToLocalStorage(response); // сохраняем в локал массив найденных фильмов
     Utils.renderMarkup(getArrMoviesFromLocalStorage()); /// Рисуем
-    listenModalClick();
+    listenModalClick(onGalleryModalOpen);
     pagination.then((res) => {
       settings.requestFromUser = requestFromUser;
       settings.type = "search-films";
