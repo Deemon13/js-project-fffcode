@@ -2,6 +2,7 @@ import { refs } from "./refs"
 import { createLibraryPlug } from './library-plug';
 
 export function createLibrary() {
+refs.header.classList.add('library');
     refs.filmsContainerRef.innerHTML = " "
     refs.headerButtons.innerHTML = `
         <button type="button" data-action="watched">Watched</button>
@@ -11,6 +12,7 @@ export function createLibrary() {
 }
 export function createHome() {
     // refs.filmsContainerRef.innerHTML =``;
+    refs.header.classList.remove('library');
     refs.headerFunctional.innerHTML =
        `<form class="search-form g" id="search-form">
         <input

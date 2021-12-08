@@ -7,6 +7,11 @@
   height: 230px;
 }
 
+.library{
+  background-image: url(../././images/library-mobile.jpg);
+
+}
+
 .header__menu {
   display: flex;
   justify-content: space-between;
@@ -97,6 +102,9 @@
   .header {
     background-image: url(../././images/main-tablet.jpg);
   }
+  .library{
+    background-image: url(../././images/library-tablet.jpg);
+  }
 
   .header__logo-word {
     font-family: var(--main-font-regular);
@@ -115,5 +123,10 @@
 @media screen and (min-width: 1024px) {
   .header {
     background-image: url(../././images/main-desktop.jpg);
+
+  }
+  .library{
+    background-image: url(../././images/library-desktop.jpg);
+  
   }
 }
