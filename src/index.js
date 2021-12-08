@@ -44,6 +44,10 @@ createHome();
 refs.pageLibrary.addEventListener('click', onClickPageLibrary); //слушатель на кнопке библиотеки
 
 function onClickPageLibrary() {
+  refs.pageHome.classList.remove('header__link_current');
+  refs.pageLibrary.classList.add('header__link_current');
+  // imgHero.srs = ''
+  
   createLibrary(); //рендер кнопок на странице библиотеки
   refs.headerFunctional.addEventListener("click", onButtonClick);
   refs.pageHome.addEventListener("click", onClickPageHome);
@@ -63,6 +67,8 @@ function onClickPageLibrary() {
   });
 }
 function onClickPageHome() {
+  refs.pageLibrary.classList.remove('header__link_current');
+  refs.pageHome.classList.add('header__link_current');
   createHome(); //рендер кнопок на главной странице
   getGenresArray(Utils.genresName);
   Utils.clearFoo();
@@ -80,6 +86,11 @@ function onClickPageHome() {
   });
 
 }
+const logoHome = document.querySelector(".header__logo");
+logoHome.addEventListener('click',onClickLogo);
+  function onClickLogo(e){
+   onClickPageHome();
+  }
 
 ///////////////////////////////////////////////////////////
 /// Реализация поиска кинофильма по ключевому слову (на главной странице)
@@ -96,13 +107,3 @@ export function getArrMoviesFromLocalStorage() {
   const savedArrMovies = localStorage.getItem('arr-current-movies');
   return JSON.parse(savedArrMovies); // получаем данные про фильмы с локала
 }
-
-const imgHero =document.querySelector('.hero-img');
-const logoHome = document.querySelector(".logo");
-logoHome.addEventListener('click',onClickLogo);
-  function onClickLogo(e){
-    // refs.pageLibrary.classList.remove('current');
-    // refs.pageHome.classList.add('current');
-    // imgHero.srs = ''
-   onClickPageHome();
-  }
