@@ -17,6 +17,7 @@ import { initPagination } from './js/pagination';
 import { onButtonClick, renderQueue } from './js/render-library';
 import { logo } from './js/ligo';
 
+
 const settings = { page: 1, type: 'popular-films' };
 export { settings };
 

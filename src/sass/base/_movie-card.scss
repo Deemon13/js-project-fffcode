@@ -69,7 +69,6 @@ a {
 .movie-card__genres {
   display: flex;
   flex-wrap: wrap;
-  // max-width: 140px;
 
   & li {
     margin-right: 5px;
@@ -84,4 +83,7 @@ a {
   color: #fff;
   align-items: right;
   text-align: center;
+}
+.movie-card__genres:not(:last-child) {
+  content: ', ';
 }

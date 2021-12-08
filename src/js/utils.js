@@ -14,6 +14,7 @@ function renderMarkup({ results }) {
           <a class="gallery__link" href="" id="${id}">
                 <div class="movie-card">
                 ${poster_path ? `<img src="https://image.tmdb.org/t/p/w342${poster_path}"` : `<img src="https://avatarko.ru/img/kartinka/33/multfilm_lyagushka_32117.jpg"`}
+
                         class="movie-card__poster"width="305"
                         height="205"
                         alt="${title}"
@@ -26,6 +27,7 @@ function renderMarkup({ results }) {
                           genresName,
                         )}|&nbsp;</p>
                         <p class="movie-card__year"> ${release_date?.slice(0, 4)}</p>
+
                         <span class="movie-card__rating"> ${vote_average}</span>
                     </div>
                 </div>
