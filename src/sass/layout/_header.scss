@@ -94,8 +94,11 @@
   max-width: 100%;
 }
 .header-functional {
-  width: 280px;
+  display: flex;
+  
+  // width: 100%;
   margin: 0 auto;
+  margin-top: 46px;
 }
 // =========== 768+ ==============
 @media screen and (min-width: 768px) {
@@ -104,6 +107,10 @@
   }
   .library{
     background-image: url(../././images/library-tablet.jpg);
+  }
+  .header-functional {
+justify-content: center;
+
   }
 
   .header__logo-word {
@@ -123,7 +130,7 @@
 @media screen and (min-width: 1024px) {
   .header {
     background-image: url(../././images/main-desktop.jpg);
-
+    
   }
   .library{
     background-image: url(../././images/library-desktop.jpg);
