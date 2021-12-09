@@ -205,7 +205,8 @@
   }
 }
 
-.button-active {
+.button-active:focus,
+.button-active:hover {
   background: #ff6b01;
   border: #ff6b01;
   border-radius: 5px;
