@@ -14,7 +14,7 @@ import { listenModalClick, onGalleryModalOpen } from './js/modal';
 import Utils from './js/utils';
 import SearchProps from './js/search';
 import { initPagination } from './js/pagination';
-import { onButtonClick, renderQueue } from './js/render-library';
+import { onButtonClick, renderQueue, renderWatched } from "./js/render-library";
 import { logo } from './js/ligo';
 
 
@@ -51,7 +51,11 @@ function onClickPageLibrary() {
   // imgHero.srs = ''
   
   createLibrary(); //рендер кнопок на странице библиотеки
-  refs.headerFunctional.addEventListener("click", onButtonClick);
+
+   document.querySelector("[data-action='watched']").addEventListener("click", onClickBtnWatched)
+   document.querySelector("[data-action='queue']").addEventListener("click", onClickBtnQueue)
+   document.querySelector('[data-modal-close]').addEventListener('click', onCloseModal); // выполняется при закрытии модалки на странице библиотеки
+  
   refs.pageHome.addEventListener("click", onClickPageHome);
   const queueMovies = renderQueue();
   if (!queueMovies) {
@@ -80,13 +84,14 @@ function onClickPageHome() {
   listenModalClick(onGalleryModalOpen);
   refs.pageLibrary.addEventListener("click", onClickPageLibrary);
   refs.pageHome.removeEventListener("click", onClickPageHome);
-  refs.headerFunctional.removeEventListener("click", onButtonClick);
+
   pagination.then((res) => {
     settings.type = "popular-films";
     res.reset(data.total_pages);
     res.movePageTo(1);
   });
 
+  document.querySelector('[data-modal-close]').removeEventListener('click', onCloseModal);
 }
 const logoHome = document.querySelector(".header__logo");
 logoHome.addEventListener('click',onClickLogo);
@@ -95,6 +100,25 @@ logoHome.addEventListener('click',onClickLogo);
   }
 
 ///////////////////////////////////////////////////////////
+function onCloseModal() { // при закрытии модалки
+  if (document.querySelector("[data-action='watched']").classList.contains("activeBtnEl")) { //если активна кнопка watched
+    renderWatched(); // рендер watched
+  }
+  else { // по умолчанию рендер queue
+    renderQueue()
+  }
+}
+// при нажатии на одну кнопку, на нее вешается класс activeBtnEl, при этом на другой кнопке этот класс удаляется
+function onClickBtnWatched() {
+  document.querySelector("[data-action='watched']").classList.toggle("activeBtnEl")
+  document.querySelector("[data-action='queue']").classList.remove("activeBtnEl");
+  renderWatched();
+}
+function onClickBtnQueue() {
+  document.querySelector("[data-action='queue']").classList.toggle("activeBtnEl");
+  document.querySelector("[data-action='watched']").classList.remove("activeBtnEl")
+  renderQueue()
+}
 /// Реализация поиска кинофильма по ключевому слову (на главной странице)
 
 document.querySelector('.search-form').addEventListener('submit', SearchProps.checkRequest);
