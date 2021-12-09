@@ -155,7 +155,7 @@ function onClickBtnAddToWatched() {
     document.querySelector('.btn-addToWatched').textContent = "add to watched"; 
     arrWatchedMovies.forEach((movie, index) => { 
       if (currentMovie.id === movie.id) { // если id текущего выбраного фильма совпадает с каким то из id, наявных в локале
-        /////////// подтверждаем у User удаление фильма /////////////////////////////
+        /////////// подтверждаем у User удаление фильма ////////////
         Notiflix.Confirm.show(
           '-----DELETE?-----',
           'Delete this movie from WATCHED?',

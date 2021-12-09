@@ -9,10 +9,14 @@ import { listenModalClick, onGalleryModalOpen } from "../js/modal";
 
 import Notiflix from 'notiflix';
 Notiflix.Notify.init({
-  width: '380px',
+  width: '600px',
+  height: '30px',
   position: 'center-top',
-  distance: '150px',
+  distance: '190px',
   opacity: 1,
+  timeout: 3000,
+  //closeButton: true, //// если решим сделелать закрытие по кнопке
+  useIcon: false, 
 });
 
 let requestFromUser = "";
