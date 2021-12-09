@@ -1,8 +1,4 @@
 :root {
-  color-scheme: light dark;
-
-  --main-font-regular: 'Roboto', serif, sans-serif;
-
   --main-color-dark: #000000;
   --main-color-light: #ffffff;
   --secondary-color-dark: #545454;
@@ -12,11 +8,14 @@
   --background-color-light: #f7f7f7;
   --accent-color: #ff6b01;
   --notification-fail-color: #ff001b;
+}
 
-  --main-font-weight: 400;
-  --main-text-size: 12px;
-  --secondary-text-size: 14px;
-
-  --main-transition-duration: 250ms;
-  --main-transition-function: cubic-bezier(0.4, 0, 0.2, 1);
+.swithcer__radio {
+  filter: invert(0);
+}
+.swithcer__radio:checked {
+  filter: invert(1);
+}
+.switcher__status {
+  filter: invert(0);
 }
