@@ -1,7 +1,6 @@
 import './sass/main.scss';
 import 'animate.css';
 
-
 import API from './js/api-func';
 
 import { refs } from './js/refs';
@@ -15,7 +14,7 @@ import { listenModalClick, onGalleryModalOpen } from './js/modal';
 import Utils from './js/utils';
 import SearchProps from './js/search';
 import { initPagination } from './js/pagination';
-import { renderQueue, renderWatched } from "./js/render-library";
+import { renderQueue, renderWatched } from './js/render-library';
 import { logo } from './js/ligo';
 import scrollUp from './js/scrollUp';
 
@@ -53,8 +52,8 @@ function onClickPageLibrary() {
 
   createLibrary(); //рендер кнопок на странице библиотеки
 
-  document.querySelector("[data-action='watched']").addEventListener("click", onClickBtnWatched)
-  document.querySelector("[data-action='queue']").addEventListener("click", onClickBtnQueue)
+  document.querySelector("[data-action='watched']").addEventListener('click', onClickBtnWatched);
+  document.querySelector("[data-action='queue']").addEventListener('click', onClickBtnQueue);
   document.querySelector('[data-modal-close]').addEventListener('click', onCloseModal); // выполняется при закрытии модалки на странице библиотеки
 
   refs.pageHome.addEventListener('click', onClickPageHome);
@@ -100,38 +99,40 @@ function onClickLogo(e) {
 }
 
 ///////////////////////////////////////////////////////////
-function onCloseModal() { // при закрытии модалки
-  if (document.querySelector("[data-action='watched']").classList.contains("activeBtnEl")) { //если активна кнопка watched
+function onCloseModal() {
+  // при закрытии модалки
+  if (document.querySelector("[data-action='watched']").classList.contains('activeBtnEl')) {
+    //если активна кнопка watched
     renderWatched();
-  }
-  else { // по умолчанию рендер queue
-    renderQueue()
+  } else {
+    // по умолчанию рендер queue
+    renderQueue();
   }
 }
 // при нажатии на одну кнопку, на нее вешается класс activeBtnEl, при этом на другой кнопке этот класс удаляется
 function onClickBtnWatched() {
-  document.querySelector("[data-action='watched']").classList.toggle("activeBtnEl")
-  document.querySelector("[data-action='queue']").classList.remove("activeBtnEl");
+  document.querySelector("[data-action='watched']").classList.toggle('activeBtnEl');
+  document.querySelector("[data-action='queue']").classList.remove('activeBtnEl');
 
   const watchedMovies = renderWatched();
   if (!watchedMovies) return;
-  pagination.then((res) => {
-    settings.type = "watched";
+  pagination.then(res => {
+    settings.type = 'watched';
     res.reset(watchedMovies.length);
     res.movePageTo(1);
   });
 }
 function onClickBtnQueue() {
-  document.querySelector("[data-action='queue']").classList.toggle("activeBtnEl");
-  document.querySelector("[data-action='watched']").classList.remove("activeBtnEl")
-  
+  document.querySelector("[data-action='queue']").classList.toggle('activeBtnEl');
+  document.querySelector("[data-action='watched']").classList.remove('activeBtnEl');
+
   const queueMovies = renderQueue();
-    if (!queueMovies) return;
-    pagination.then((res) => {
-      settings.type = "queue";
-      res.reset(queueMovies.length);
-      res.movePageTo(1);
-    });
+  if (!queueMovies) return;
+  pagination.then(res => {
+    settings.type = 'queue';
+    res.reset(queueMovies.length);
+    res.movePageTo(1);
+  });
 }
 /// Реализация поиска кинофильма по ключевому слову (на главной странице)
 
