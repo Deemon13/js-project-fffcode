@@ -26,7 +26,7 @@
   top: 20px;
   transform: translateX(-50%) scale(1);
 
-  background-color: #ffffff;
+  background-color: var(--main-color-light);
   width: 320px;
   padding: 48px 20px 41px 20px;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
@@ -87,6 +87,10 @@
   right: 10px;
 }
 
+.modal__icon {
+  fill: var(--main-color-dark);
+}
+
 .card__title {
   @include font(20px, 500, 23px);
   margin-bottom: 15px;
@@ -100,7 +104,7 @@
 .card__table-info {
   padding-top: 5px;
   padding-bottom: 5px;
-  color: #8c8c8c;
+  color: var(--color-light-placeholder);
 }
 .card__item {
   padding-top: 5px;
@@ -109,7 +113,7 @@
 }
 
 .movie-card__count {
-  background-color: #f7f7f7;
+  background-color: var(--background-color-light);
   border-radius: 5px;
 }
 
@@ -187,12 +191,12 @@
   min-width: 130px;
   height: 44px;
   padding: 14px 0 12px 0;
-  border: 1px solid #000000;
+  border: 1px solid var(--main-color-dark);
   box-sizing: border-box;
   border-radius: 5px;
   outline: none;
   @include font(12px, 500, 16px);
-  color: #000000;
+  color: var(--main-color-dark);
 
   font-family: 'Roboto';
   text-transform: uppercase;
@@ -206,10 +210,10 @@
 }
 
 .button-active {
-  background: #ff6b01;
-  border: #ff6b01;
+  background: var(--accent-color);
+  border: var(--accent-color);
   border-radius: 5px;
-  color: #ffffff;
+  color: var(--main-color-light);
 }
 
 .card__item-avarage {
