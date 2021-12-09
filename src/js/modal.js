@@ -1,6 +1,7 @@
 import { getArrMoviesFromLocalStorage } from '../index';
 import { transformGenresList } from '../js/genres';
 import Utils from '../js/utils';
+import Notiflix from 'notiflix';
 
 const refs = {
   openModalBtn: document.querySelectorAll('[data-modal-open]'),
@@ -154,8 +155,21 @@ function onClickBtnAddToWatched() {
     document.querySelector('.btn-addToWatched').textContent = "add to watched"; 
     arrWatchedMovies.forEach((movie, index) => { 
       if (currentMovie.id === movie.id) { // если id текущего выбраного фильма совпадает с каким то из id, наявных в локале
-        arrWatchedMovies.splice(index, 1); // удаление элемента
-        localStorage.setItem('watched-movies', JSON.stringify(arrWatchedMovies));
+        /////////// подтверждаем у User удаление фильма ////////////
+        Notiflix.Confirm.show(
+          '-----DELETE?-----',
+          'Delete this movie from WATCHED?',
+          'Cancel',
+          'Yes',
+          function okCb() { //  не будем удалять
+            document.querySelector('.btn-addToWatched').textContent = "remove from watched";
+            return;
+          },
+          function cancelCb() { // нажали кнопку ОК, удаляем из localStorage
+            arrWatchedMovies.splice(index, 1); // удаление элемента
+            localStorage.setItem('watched-movies', JSON.stringify(arrWatchedMovies));
+          },);
+        ////////////////////////////////////////
       }
     })
     return; // выход из функции
@@ -182,8 +196,21 @@ function onClickBtnAddToQueue() {
     document.querySelector('.btn-addToQueue').textContent = "add to queue"; 
     arrMoviesToQueue.forEach((movie, index) => { 
       if (currentMovie.id === movie.id) { // если id текущего выбраного фильма совпадает с каким то из id, наявных в локале
-        arrMoviesToQueue.splice(index, 1); // удаление элемента
-        localStorage.setItem('queue-movies', JSON.stringify(arrMoviesToQueue));
+        /////////// подтверждаем у User удаление фильма /////////////////////////////
+        Notiflix.Confirm.show(
+          '-----DELETE?-----',
+          'Delete this movie from QUEUE?',
+          'Cancel',
+          'Yes',
+          function okCb() { //  не будем удалять
+            document.querySelector('.btn-addToQueue').textContent = "remove from queue";
+            return;
+          },
+          function cancelCb() { // нажали кнопку ОК, удаляем из localStorage
+            arrMoviesToQueue.splice(index, 1); // удаление элемента 
+            localStorage.setItem('queue-movies', JSON.stringify(arrMoviesToQueue));
+          },);
+        ////////////////////////////////////////
       }
     })
     return; // выход из функции
