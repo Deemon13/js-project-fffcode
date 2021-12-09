@@ -209,9 +209,11 @@
   }
 }
 
-.button-active {
-  background: var(--accent-color);
-  border: var(--accent-color);
+.button-active:focus,
+.button-active:hover {
+  background: #ff6b01;
+  border: #ff6b01;
+
   border-radius: 5px;
   color: var(--main-color-light);
 }

@@ -8,18 +8,56 @@ const refs = {
   closeModalBtn: document.querySelector('[data-modal-close]'),
   modal: document.querySelector('[data-modal]'),
   modalMarkupContainer: document.querySelector('.modal-card'),
+  backdrop: document.querySelector('.backdrop'),
 };
 
 refs.openModalBtn.forEach(card => {
   card.addEventListener('click', toggleModal);
 });
-refs.closeModalBtn.addEventListener('click', toggleModal);
 
 function toggleModal(event) {
   event.preventDefault();
-  refs.modal.classList.toggle('is-hidden');
+  if (event.target.nodeName !== 'IMG') {
+    return;
+  }
+  removeIsHidden();
+  document.addEventListener('keydown', onEscKeyPress);
+  refs.closeModalBtn.addEventListener('click', onModalClose);
+  refs.modal.addEventListener('click', onBackdropClick);
 }
 
+function onModalClose() {
+  addIsHidden();
+  refs.closeModalBtn.removeEventListener('click', onModalClose);
+}
+
+function onBackdropClick(event) {
+  if (event.currentTarget === event.target) {
+    addIsHidden();
+    document.removeEventListener('keydown', onEscKeyPress);
+    refs.modal.removeEventListener('click', onBackdropClick);
+  }
+}
+
+function onEscKeyPress(event) {
+  const ESC_KEY_CODE = 'Escape';
+  const isEscKey = event.code === ESC_KEY_CODE;
+
+  if (isEscKey) {
+    document.removeEventListener('keydown', onEscKeyPress);
+    addIsHidden();
+    refs.closeModalBtn.removeEventListener('click', onModalClose);
+    refs.modal.removeEventListener('click', onBackdropClick);
+  }
+}
+
+function addIsHidden() {
+  refs.modal.classList.add('is-hidden');
+}
+
+function removeIsHidden() {
+  refs.modal.classList.remove('is-hidden');
+}
 
 // Логика заполнения модалки
 let moviesObj = {};
@@ -58,15 +96,15 @@ function onModalOpen(event) {
   const ref = {
     elBtnAddToWatched: document.querySelector('.btn-addToWatched'),
     elBtnAddToQueue: document.querySelector('.btn-addToQueue'),
-  }
+  };
 
   if (arrWatchedMovies.find(movie => movie.id === movieData.id)) {
-    ref.elBtnAddToWatched.textContent = "remove from watched";
+    ref.elBtnAddToWatched.textContent = 'remove from watched';
   }
   if (arrMoviesToQueue.find(movie => movie.id === movieData.id)) {
-    ref.elBtnAddToQueue.textContent = "remove from queue";
+    ref.elBtnAddToQueue.textContent = 'remove from queue';
   }
-    
+
   ref.elBtnAddToWatched.addEventListener('click', onClickBtnAddToWatched);
   ref.elBtnAddToQueue.addEventListener('click', onClickBtnAddToQueue);
 }
@@ -101,7 +139,11 @@ function renderModalMarkup({
   overview,
 }) {
   const markup = `
-  ${poster_path ? `<img src="https://image.tmdb.org/t/p/w342${poster_path}"` : `<img src="https://avatarko.ru/img/kartinka/33/multfilm_lyagushka_32117.jpg"`}
+  ${
+    poster_path
+      ? `<img src="https://image.tmdb.org/t/p/w342${poster_path}"`
+      : `<img src="https://avatarko.ru/img/kartinka/33/multfilm_lyagushka_32117.jpg"`
+  }
                 class="modal__item-img"width="305"
                 height="205"
                 alt="${title}"
@@ -132,7 +174,7 @@ function renderModalMarkup({
               
             <div class="modal-buttons">
             <button class=" buttons button-active btn-addToWatched" id="${id}">ADD TO WATCHED</button>
-            <button class="buttons btn-addToQueue" id="${id}">ADD TO QUEUE</button>
+            <button class="buttons button-active btn-addToQueue" id="${id}">ADD TO QUEUE</button>
             </div>
             </div>
         </div>
@@ -141,42 +183,47 @@ function renderModalMarkup({
   refs.modalMarkupContainer.innerHTML = markup;
 }
 
-
 // логика кнопок
 let arrWatchedMovies = [];
-if (getWatchedMovieFromLocalStorage()) { // проверяет заполнен ли локальный массив,
+if (getWatchedMovieFromLocalStorage()) {
+  // проверяет заполнен ли локальный массив,
   //  если да, то перезаписываем массив arrWatchedMovies на локальные данные про просмотренные фильмы
   arrWatchedMovies = getWatchedMovieFromLocalStorage();
 }
 function onClickBtnAddToWatched() {
   const currentMovie = arrWatchedMovies.find(movie => movie.id === movieData.id); // ищет в массиве выбраный фильм, id которого наявный в массиве
-  if (currentMovie) { // проверяет наличие фильма в хранилище просмотреных
-      // выполняется если фильм найден в локале
-    document.querySelector('.btn-addToWatched').textContent = "add to watched"; 
-    arrWatchedMovies.forEach((movie, index) => { 
-      if (currentMovie.id === movie.id) { // если id текущего выбраного фильма совпадает с каким то из id, наявных в локале
+  if (currentMovie) {
+    // проверяет наличие фильма в хранилище просмотреных
+    // выполняется если фильм найден в локале
+    document.querySelector('.btn-addToWatched').textContent = 'add to watched';
+    arrWatchedMovies.forEach((movie, index) => {
+      if (currentMovie.id === movie.id) {
+        // если id текущего выбраного фильма совпадает с каким то из id, наявных в локале
         /////////// подтверждаем у User удаление фильма ////////////
         Notiflix.Confirm.show(
           '-----DELETE?-----',
           'Delete this movie from WATCHED?',
           'Cancel',
           'Yes',
-          function okCb() { //  не будем удалять
-            document.querySelector('.btn-addToWatched').textContent = "remove from watched";
+          function okCb() {
+            //  не будем удалять
+            document.querySelector('.btn-addToWatched').textContent = 'remove from watched';
             return;
           },
-          function cancelCb() { // нажали кнопку ОК, удаляем из localStorage
+          function cancelCb() {
+            // нажали кнопку ОК, удаляем из localStorage
             arrWatchedMovies.splice(index, 1); // удаление элемента
             localStorage.setItem('watched-movies', JSON.stringify(arrWatchedMovies));
-          },);
+          },
+        );
         ////////////////////////////////////////
       }
-    })
+    });
     return; // выход из функции
   }
-  document.querySelector('.btn-addToWatched').textContent = "remove from watched";
+  document.querySelector('.btn-addToWatched').textContent = 'remove from watched';
   // выполняется если фильм не найден в локале
-  arrWatchedMovies.push(movieData); 
+  arrWatchedMovies.push(movieData);
   localStorage.setItem('watched-movies', JSON.stringify(arrWatchedMovies));
 }
 function getWatchedMovieFromLocalStorage() {
@@ -185,37 +232,43 @@ function getWatchedMovieFromLocalStorage() {
 }
 
 let arrMoviesToQueue = [];
-if (getToQueueMovieFromLocalStorage()) { // проверяет заполнен ли локальный массив,
+if (getToQueueMovieFromLocalStorage()) {
+  // проверяет заполнен ли локальный массив,
   //  если да, то перезаписываем массив arrMoviesToQueue на локальные данные про фильмы добавленные в очередь
   arrMoviesToQueue = getToQueueMovieFromLocalStorage();
 }
 function onClickBtnAddToQueue() {
   const currentMovie = arrMoviesToQueue.find(movie => movie.id === movieData.id); // ищет в массиве выбраный фильм, id которого наявный в массиве
-  if (currentMovie) { // проверяет наличие фильма в хранилище фильмов в очереди
-      // выполняется если фильм найден в локале
-    document.querySelector('.btn-addToQueue').textContent = "add to queue"; 
-    arrMoviesToQueue.forEach((movie, index) => { 
-      if (currentMovie.id === movie.id) { // если id текущего выбраного фильма совпадает с каким то из id, наявных в локале
+  if (currentMovie) {
+    // проверяет наличие фильма в хранилище фильмов в очереди
+    // выполняется если фильм найден в локале
+    document.querySelector('.btn-addToQueue').textContent = 'add to queue';
+    arrMoviesToQueue.forEach((movie, index) => {
+      if (currentMovie.id === movie.id) {
+        // если id текущего выбраного фильма совпадает с каким то из id, наявных в локале
         /////////// подтверждаем у User удаление фильма /////////////////////////////
         Notiflix.Confirm.show(
           '-----DELETE?-----',
           'Delete this movie from QUEUE?',
           'Cancel',
           'Yes',
-          function okCb() { //  не будем удалять
-            document.querySelector('.btn-addToQueue').textContent = "remove from queue";
+          function okCb() {
+            //  не будем удалять
+            document.querySelector('.btn-addToQueue').textContent = 'remove from queue';
             return;
           },
-          function cancelCb() { // нажали кнопку ОК, удаляем из localStorage
-            arrMoviesToQueue.splice(index, 1); // удаление элемента 
+          function cancelCb() {
+            // нажали кнопку ОК, удаляем из localStorage
+            arrMoviesToQueue.splice(index, 1); // удаление элемента
             localStorage.setItem('queue-movies', JSON.stringify(arrMoviesToQueue));
-          },);
+          },
+        );
         ////////////////////////////////////////
       }
-    })
+    });
     return; // выход из функции
   }
-  document.querySelector('.btn-addToQueue').textContent = "remove from queue";
+  document.querySelector('.btn-addToQueue').textContent = 'remove from queue';
   // выполняется если фильм не найден в локале
   arrMoviesToQueue.push(movieData);
   localStorage.setItem('queue-movies', JSON.stringify(arrMoviesToQueue));
@@ -225,4 +278,11 @@ function getToQueueMovieFromLocalStorage() {
   return JSON.parse(savedArrMoviesToQueue); // получаем данные про Queue фильмы с локала
 }
 
-export {getWatchedMovieFromLocalStorage, getToQueueMovieFromLocalStorage, listenModalClick, onGalleryModalOpen, onWatchedModalOpen, onQueueModalOpen};
+export {
+  getWatchedMovieFromLocalStorage,
+  getToQueueMovieFromLocalStorage,
+  listenModalClick,
+  onGalleryModalOpen,
+  onWatchedModalOpen,
+  onQueueModalOpen,
+};
