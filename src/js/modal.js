@@ -154,7 +154,7 @@ function renderModalMarkup({
             <table class="card__table">
             <tr>
             <td class="card__table-info">Vote/ Votes</td>
-            <td class ="card__item" ><span class="movie-card__rating movie-card__m card__item-avarage"> ${vote_average}</span><span class=" movie-card__count">/&nbsp;<span>${vote_count}</td>
+            <td class ="card__item" ><span class="movie-card__rating movie-card__m card__item-avarage"> ${vote_average}</span><span class=" movie-card__count"> /&nbsp;<span>${vote_count}</td>
             </tr>
             <tr>
             <td class="card__table-info">Popularity</td>
