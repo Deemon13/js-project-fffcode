@@ -9,6 +9,7 @@ axios.defaults.baseURL = BASE_URL;
 
 let searchOptions = `trending/movie/day`;
 let searchOptionsFromUser = `search/movie`; //для запроса по ключевому слову
+let searchOptionsForFilter = `discover/movie`;
 
 // get popular films
 
@@ -28,4 +29,12 @@ async function getSerchFilmsFromUser(requestFromUser) {
   return response.data;
 }
 
-export default { getPopularFilms, getSerchFilmsFromUser };
+async function getFilmsByGenresFilter(genreId) {
+  const { page } = settings;
+  const response = await axios.get(
+    `${searchOptionsForFilter}?api_key=${API_KEY}&language=en-US&page=${page}&include_adult=false&with_genres=${genreId}&sort_by=popularity.desc`,
+  );
+  return response.data;
+}
+
+export default { getPopularFilms, getSerchFilmsFromUser, getFilmsByGenresFilter };

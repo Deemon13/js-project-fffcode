@@ -6,6 +6,7 @@ import { settings } from "../index";
 import { initPagination } from "./pagination";
 
 import { listenModalClick, onGalleryModalOpen } from "../js/modal";
+import { hideGenresFilter } from '../js/genres-filter';
 
 import Notiflix from 'notiflix';
 Notiflix.Notify.init({
@@ -36,6 +37,7 @@ async function onSearchFromUser(requestFromUser) {
   // чистим перед отрисовкой результатов поиска
   Utils.clearFoo();
   Utils.spinnerOn();
+  hideGenresFilter();
   try {
     const response = await API.getSerchFilmsFromUser(requestFromUser);
     if (!response.total_results) {

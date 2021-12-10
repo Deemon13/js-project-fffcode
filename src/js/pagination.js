@@ -66,6 +66,16 @@ async function initPagination({ page, itemsPerPage, totalItems }) {
     if (settings.type === "queue") {
       renderQueue();
     }
+
+    if (settings.type === "films-by-genre") {
+      API.getFilmsByGenresFilter(settings.movieGenreId).then((results) => {
+        getGenresArray(Utils.genresName);
+        Utils.clearFoo();
+        saveArrMoviesToLocalStorage(results); 
+        Utils.renderMarkup(getArrMoviesFromLocalStorage()); 
+        listenModalClick(onGalleryModalOpen);
+      });
+    }
   });
 
   return pagination;
