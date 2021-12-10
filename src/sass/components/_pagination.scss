@@ -1,0 +1,25 @@
+.pagination_control-space {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 767px) {
+  .tui-pagination {
+    width: 280px;
+    display: flex;
+    flex-wrap: nowrap;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .tui-ico-ellip {
+    display: none !important;
+  }
+  //   .custom-class-first {
+  //     display: none !important;
+  //   }
+
+  //   .custom-class-last {
+  //     display: none !important;
+  //   }
+}
