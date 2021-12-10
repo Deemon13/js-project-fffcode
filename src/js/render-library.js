@@ -4,11 +4,11 @@ import {
   listenModalClick,
   onWatchedModalOpen,
   onQueueModalOpen,
-} from "./modal";
-import Utils from "./utils";
-import { pagination, settings } from "../index";
-import { createLibraryPlug } from "./library-plug";
-import { refs } from "./refs";
+} from './modal';
+import Utils from './utils';
+import { pagination, settings } from '../index';
+import { createLibraryPlug } from './library-plug';
+import { refs } from './refs';
 
 // function onButtonClick(event) {
 //   if (event.target.nodeName !== "BUTTON") {
@@ -38,14 +38,18 @@ import { refs } from "./refs";
 function renderQueue() {
   const queueMovies = getToQueueMovieFromLocalStorage();
 
-  if (!queueMovies) return;
+  if (!queueMovies) {
+    document.querySelector('.plug-message').textContent =
+      "Add movies to the queue so you don't forget to watch them later!";
+    return;
+  }
   const queueMoviesFiltered = queueMovies.filter(
     (item, index) => index < 20 * settings.page && index >= 20 * (settings.page - 1),
   );
   const objectForRenderQueueMovies = { results: queueMoviesFiltered };
   if (queueMovies.length === 0) {
     createLibraryPlug();
-    document.querySelector(".plug-message").textContent =
+    document.querySelector('.plug-message').textContent =
       "Add movies to the queue so you don't forget to watch them later!";
     return;
   }
@@ -60,7 +64,10 @@ function renderQueue() {
 function renderWatched() {
   const watchedMovies = getWatchedMovieFromLocalStorage();
 
-  if (!watchedMovies) return;
+  if (!watchedMovies) {
+    document.querySelector('.plug-message').textContent = 'Add movies you have already watched.';
+    return;
+  }
   const watchedMoviesFiltered = watchedMovies.filter(
     (item, index) => index < 20 * settings.page && index >= 20 * (settings.page - 1),
   );
@@ -68,7 +75,7 @@ function renderWatched() {
   const objectForRenderWatchedMovies = { results: watchedMoviesFiltered };
   if (watchedMovies.length === 0) {
     createLibraryPlug();
-    document.querySelector(".plug-message").textContent = "Add movies you have already watched.";
+    document.querySelector('.plug-message').textContent = 'Add movies you have already watched.';
     return;
   }
 
