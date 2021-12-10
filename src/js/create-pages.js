@@ -8,7 +8,6 @@ refs.header.classList.add('library');
         <button class="btn btn__hover-focus" type="button" data-action="watched">Watched</button>
         <button class="btn btn__hover-focus" type="button" data-action="queue">queue</button>`
     createLibraryPlug();
-    document.querySelector(".plug-message").textContent = "Add movies to the queue so you don't forget to watch them later!"
 }
 export function createHome() {
     // refs.filmsContainerRef.innerHTML =``;

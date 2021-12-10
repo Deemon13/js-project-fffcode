@@ -17,6 +17,7 @@ import { initPagination } from './js/pagination';
 import { onButtonClick, renderQueue } from './js/render-library';
 import { logo } from './js/ligo';
 import scrollUp from './js/scrollUp';
+import { sortByGenres, showGenresFilter, hideGenresFilter } from './js/genres-filter';
 
 const settings = { page: 1, type: 'popular-films' };
 export { settings };
@@ -42,6 +43,7 @@ API.getPopularFilms().then(results => {
 // логика хедера
 // при загрузке страницы добавляется динамически инпут
 createHome();
+sortByGenres();
 
 refs.pageLibrary.addEventListener('click', onClickPageLibrary); //слушатель на кнопке библиотеки
 
@@ -49,7 +51,7 @@ function onClickPageLibrary() {
   refs.pageHome.classList.remove('header__link_current');
   refs.pageLibrary.classList.add('header__link_current');
   // imgHero.srs = ''
-
+  hideGenresFilter();
   createLibrary(); //рендер кнопок на странице библиотеки
   refs.headerFunctional.addEventListener('click', onButtonClick);
   refs.pageHome.addEventListener('click', onClickPageHome);
@@ -68,10 +70,11 @@ function onClickPageLibrary() {
     res.movePageTo(1);
   });
 }
-function onClickPageHome() {
+export function onClickPageHome() {
   refs.pageLibrary.classList.remove('header__link_current');
   refs.pageHome.classList.add('header__link_current');
   createHome(); //рендер кнопок на главной странице
+  showGenresFilter();
   getGenresArray(Utils.genresName);
   Utils.clearFoo();
   const data = getArrMoviesFromLocalStorage();

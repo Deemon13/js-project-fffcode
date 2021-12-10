@@ -14,6 +14,7 @@ const LOCALSTORAGE_GENRES_KEY = 'genres-key';
 axios.defaults.baseURL = BASE_URL;
 
 let genresOptions = `genre/movie/list`;
+export let genresArray = [];
 
 async function getGenresName() {
   try {
@@ -37,7 +38,7 @@ saveGenres();
 export function getGenresArray(names) {
   const savedGenres = localStorage.getItem(LOCALSTORAGE_GENRES_KEY);
   try {
-    const genresArray = JSON.parse(savedGenres);
+    genresArray = JSON.parse(savedGenres);
     genresArray.forEach(genre => (names[genre.id] = genre.name));
   } catch (error) {
     Notiflix.Notify.failure('Data loading error! Refresh the page.');
