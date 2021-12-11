@@ -1,3 +1,6 @@
+import icons from '/images/icons.svg';
+export { icons };
+
 import './sass/main.scss';
 import 'animate.css';
 
@@ -78,7 +81,6 @@ function onClickPageLibrary() {
 }
 // refs.pageHome.classList.add('page-home__color-ack');
 export function onClickPageHome() {
-  
   refs.pageLibrary.classList.remove('header__link_current');
   refs.pageHome.classList.add('header__link_current');
   createHome(); //рендер кнопок на главной странице
