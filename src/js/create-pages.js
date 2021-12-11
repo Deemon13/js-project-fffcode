@@ -22,6 +22,9 @@ export function createHome() {
           placeholder="Поиск фильмов"
         />
         <button class="search-form_btn" type="submit">
+              <svg class="search__btn-icon">
+                  <use href="./images/icons.svg#icon-search"></use>
+              </svg>
         </button>
       </form>`
 }
