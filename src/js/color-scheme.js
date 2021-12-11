@@ -19,6 +19,7 @@ function setupSwitcher() {
       setScheme(event.target.value);
     });
   });
+  
 }
 
 function setupScheme() {
@@ -30,6 +31,7 @@ function setupScheme() {
   if (savedScheme !== systemScheme) {
     setScheme(savedScheme);
   }
+  
 }
 
 function setScheme(scheme) {
@@ -59,12 +61,14 @@ function switchMedia(scheme) {
   [...darkStyles].forEach(link => {
     link.media = darkMedia;
   });
+  
 }
 
 function getSystemScheme() {
   const darkScheme = darkSchemeMedia.matches;
 
   return darkScheme ? 'dark' : 'light';
+  
 }
 
 function getSavedScheme() {
@@ -81,3 +85,6 @@ function clearScheme() {
 
 setupSwitcher();
 setupScheme();
+
+
+ 

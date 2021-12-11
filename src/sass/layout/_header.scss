@@ -7,9 +7,8 @@
   height: 230px;
 }
 
-.library{
+.library {
   background-image: url(../././images/library-mobile.jpg);
-
 }
 
 .header__menu {
@@ -96,7 +95,7 @@
 .header-functional {
   display: flex;
   align-items: center;
-  
+
   // width: 100%;
   margin: 0 auto;
   margin-top: 46px;
@@ -105,7 +104,7 @@
 .genres-menu--container {
   display: flex;
   justify-content: center;
-  align-items:center;
+  align-items: center;
 }
 
 .genres-filter-btn {
@@ -163,21 +162,19 @@
 
 .genres-menu--all:hover,
 .genres-menu--all:focus {
-  text-shadow: 0 0 20px rgb(17, 16, 16);;
+  text-shadow: 0 0 20px rgb(17, 16, 16);
 }
-
 
 // =========== 768+ ==============
 @media screen and (min-width: 768px) {
   .header {
     background-image: url(../././images/main-tablet.jpg);
   }
-  .library{
+  .library {
     background-image: url(../././images/library-tablet.jpg);
   }
   .header-functional {
-justify-content: center;
-
+    justify-content: center;
   }
 
   .header__logo-word {
@@ -197,10 +194,8 @@ justify-content: center;
 @media screen and (min-width: 1024px) {
   .header {
     background-image: url(../././images/main-desktop.jpg);
-    
   }
-  .library{
+  .library {
     background-image: url(../././images/library-desktop.jpg);
-  
   }
 }
