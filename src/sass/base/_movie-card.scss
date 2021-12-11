@@ -10,6 +10,8 @@ p {
 a {
   text-decoration: none;
 }
+
+
 .movie-card:hover {
   @media screen and (min-width: 768px) {
     transform: scale(1.05);
@@ -46,7 +48,13 @@ a {
 }
 .movie-card__info {
   display: flex;
-  margin-bottom: 10px;
+  padding-bottom: 3px;
+  // margin-bottom: 10px;
+ 
+
+  
+  
+  
 }
 .movie-card__title {
   font-family: var(--main-font-regular);
@@ -57,6 +65,8 @@ a {
   margin-top: 10px;
   margin-bottom: 3px;
   text-transform: uppercase;
+  
+  
 }
 .movie-card__genres,
 .movie-card__year,
@@ -65,10 +75,12 @@ a {
   line-height: 1.3;
   font-style: 500;
   color: var(--accent-color);
+  
 }
 .movie-card__genres {
   display: flex;
   flex-wrap: wrap;
+  
 
   & li {
     margin-right: 5px;
@@ -83,6 +95,7 @@ a {
   color: var(--main-color-light);
   align-items: right;
   text-align: center;
+  
 }
 .movie-card__genres:not(:last-child) {
   content: ', ';
