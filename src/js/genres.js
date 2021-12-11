@@ -55,3 +55,7 @@ export function transformGenresList(genresIdArray, genresData) {
   }
   return genresIdArray.map(genreId => genresData[genreId]).join(', ');
 }
+
+export function showGenresListModal(genresIdArray, genresData) {
+  return genresIdArray.map(genreId => genresData[genreId]).join(', ');
+}

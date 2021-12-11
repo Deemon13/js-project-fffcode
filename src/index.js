@@ -6,7 +6,7 @@ import API from './js/api-func';
 import { refs } from './js/refs';
 import { createLibrary } from './js/create-pages';
 import { createHome } from './js/create-pages';
-import { getGenresArray, transformGenresList } from './js/genres';
+import { getGenresArray } from './js/genres';
 import { modal } from './js/modal';
 // import { modal } from './js/modal';
 import { listenModalClick, onGalleryModalOpen } from './js/modal';
