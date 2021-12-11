@@ -23,7 +23,7 @@ export function createHome() {
         />
         <button class="search-form_btn" type="submit">
               <svg class="search__btn-icon">
-                  <use href="./src/images/icons.svg#icon-search"></use>
+                  <use href="./icons.svg#icon-search"></use>
               </svg>
         </button>
       </form>`
