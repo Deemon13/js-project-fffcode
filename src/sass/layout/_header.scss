@@ -184,12 +184,12 @@ margin-top: 48px;
   z-index: 99;
   padding: 10px 20px;
   text-align: center;
-  overflow-y: scroll;
   box-shadow: 0 0 20px rgba(255, 107, 8, 1);
 }
 
 .genres-menu--link {
   font-family: var(--main-font-regular);
+  color: #000000;
   font-weight: 500;
   font-size: 14px;
   cursor: pointer;
