@@ -24,9 +24,10 @@ let requestFromUser = "";
 // function-check of user input
 function checkRequest(event) {
   event.preventDefault();
-  requestFromUser = document.querySelector(".search-form_input").value;
+  requestFromUser = document.querySelector(".search-form_input").value.trim();
   if (!requestFromUser) {
     Notiflix.Notify.warning("Введите название фильма для поиска, пожалуйста");
+    document.querySelector(".search-form_input").value = ""; // чистим поле ввода
     return;
   }
   /// если ОК то делаем запрос
@@ -36,6 +37,7 @@ function checkRequest(event) {
 async function onSearchFromUser(requestFromUser) {
   // чистим перед отрисовкой результатов поиска
   Utils.clearFoo();
+  document.querySelector(".search-form_input").value = ""; // чистим поле ввода
   Utils.spinnerOn();
   hideGenresFilter();
   try {
