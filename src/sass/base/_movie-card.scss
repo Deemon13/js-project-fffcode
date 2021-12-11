@@ -11,11 +11,17 @@ a {
   text-decoration: none;
 }
 
-
 .movie-card:hover {
   @media screen and (min-width: 768px) {
+    padding-bottom: 10px;
     transform: scale(1.05);
     box-shadow: 0 0 20px rgba(255, 107, 8, 1);
+    & .movie-card__info {
+      padding-left: 5px;
+    }
+    .movie-card__rating {
+      margin-left: 10px;
+    }
   }
 }
 .movie-card__poster {
@@ -50,11 +56,6 @@ a {
   display: flex;
   padding-bottom: 3px;
   // margin-bottom: 10px;
- 
-
-  
-  
-  
 }
 .movie-card__title {
   font-family: var(--main-font-regular);
@@ -65,8 +66,6 @@ a {
   margin-top: 10px;
   margin-bottom: 3px;
   text-transform: uppercase;
-  
-  
 }
 .movie-card__genres,
 .movie-card__year,
@@ -75,27 +74,24 @@ a {
   line-height: 1.3;
   font-style: 500;
   color: var(--accent-color);
-  
 }
 .movie-card__genres {
   display: flex;
   flex-wrap: wrap;
-  
 
   & li {
     margin-right: 5px;
   }
 }
 .movie-card__rating {
-  width: 36px;
-  height: 16px;
-  margin-left: 16px;
+  width: 33px;
+  // height: 16px;
+  margin-left: 15px;
   border-radius: 5px;
   background-color: var(--accent-color);
   color: var(--main-color-light);
-  align-items: right;
+  justify-content: right;
   text-align: center;
-  
 }
 .movie-card__genres:not(:last-child) {
   content: ', ';
