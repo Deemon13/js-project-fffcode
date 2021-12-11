@@ -196,7 +196,7 @@
   display: block;
   cursor: pointer;
   min-width: 112px;
-  height: 44px;
+  min-height: 44px;
   padding: 14px 2px 12px 2px;
   border: 1px solid var(--main-color-dark);
   box-sizing: border-box;
@@ -225,14 +225,31 @@
   }
 }
 
-.button-active:focus,
-.button-active:hover {
+.button-active {
+  outline: 2px solid var(--accent-color);
+}
+.btn-addToWatched:hover,
+.btn-addToQueue:hover {
   background: var(--accent-color);
-  border: var(--accent-color);
-
-  border-radius: 5px;
+  color: var(--main-color-light);
+  filter: drop-shadow(0px 4px 15px rgba(255, 107, 1, 0.6));
+  // outline: 2px solid var(--accent-color);
+}
+.btn-addToWatched:focus,
+.btn-addToQueue:focus {
+  background: var(--accent-color);
   color: var(--main-color-light);
 }
+
+// .button-active:focus,
+// .button-active:hover {
+//   background: var(--accent-color);
+//   border: var(--accent-color);
+//   filter: drop-shadow(0px 8px 43px rgba(255, 107, 1, 0.6));
+
+//   border-radius: 5px;
+//   color: var(--main-color-light);
+// }
 
 .card__item-avarage {
   padding-right: 10px;
