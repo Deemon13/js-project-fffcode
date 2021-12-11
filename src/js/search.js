@@ -4,22 +4,19 @@ import Utils from "./utils";
 import { pagination } from "../index";
 import { settings } from "../index";
 import { initPagination } from "./pagination";
-
 import { listenModalClick, onGalleryModalOpen } from "../js/modal";
-import { hideGenresFilter } from '../js/genres-filter';
-
-import Notiflix from 'notiflix';
+import { hideGenresFilter } from "../js/genres-filter";
+import Notiflix from "notiflix";
 Notiflix.Notify.init({
-  width: '600px',
-  height: '30px',
-  position: 'center-top',
-  distance: '190px',
+  width: "600px",
+  height: "30px",
+  position: "center-top",
+  distance: "190px",
   opacity: 1,
   timeout: 3000,
   //closeButton: true, //// если решим сделелать закрытие по кнопке
-  useIcon: false, 
+  useIcon: false,
 });
-
 let requestFromUser = "";
 // function-check of user input
 function checkRequest(event) {
@@ -35,6 +32,7 @@ function checkRequest(event) {
 }
 // function-search
 async function onSearchFromUser(requestFromUser) {
+  settings.page = 1;
   // чистим перед отрисовкой результатов поиска
   Utils.clearFoo();
   document.querySelector(".search-form_input").value = ""; // чистим поле ввода
@@ -45,14 +43,14 @@ async function onSearchFromUser(requestFromUser) {
     if (!response.total_results) {
       Utils.spinnerOn();
       Notiflix.Notify.warning(
-        "Извините, фильмов, соответствующих вашему поисковому запросу, нет. Пожалуйста, попробуйте еще раз.",
+        "Sorry, no results for your search request. Please try again. Here are trending videos for you.", {timeout: 3000}
       );
       Utils.spinner();
+      Utils.clearFoo();
+      Utils.renderMarkup(getArrMoviesFromLocalStorage()); /// Рисуем
       return;
     }
     Utils.spinner();
-    const responseTotalResults = response.total_results; /// Кол-во найденных результатов
-    Notiflix.Notify.success(`Мы нашли ${responseTotalResults} фильмов.`);
     saveArrMoviesToLocalStorage(response); // сохраняем в локал массив найденных фильмов
     Utils.renderMarkup(getArrMoviesFromLocalStorage()); /// Рисуем
     listenModalClick(onGalleryModalOpen);
@@ -60,10 +58,10 @@ async function onSearchFromUser(requestFromUser) {
       settings.requestFromUser = requestFromUser;
       settings.type = "search-films";
       res.reset(response.total_results);
-      res.movePageTo(1);
+      // res.movePageTo(1);
     });
   } catch (error) {
-    Notiflix.Notify.failure("что-то пошло не так", error);
+    Notiflix.Notify.failure("Critical", error);
     return;
   }
 }

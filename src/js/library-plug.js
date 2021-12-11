@@ -1,6 +1,7 @@
 import { refs } from './refs'
 
 export function createLibraryPlug() {
+  document.querySelector('.tui-pagination').classList.add('is-hidden');
      refs.filmsContainerRef.innerHTML =
        `<div class="library-plug">
         <div class="plug-pic"></div>
