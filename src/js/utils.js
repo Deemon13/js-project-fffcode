@@ -24,15 +24,19 @@ function renderMarkup({ results }) {
                         alt="${title}"
                         loading="lazy"
                     />
+                    <div class="movie-card__wrapper">
                     <h2 class="movie-card__title"> ${original_title}</h2>
                     <div class="movie-card__info">
+                     
                         <p class="movie-card__genres"> ${transformGenresList(
                           genre_ids,
                           genresName,
                         )}</p>
+                        
                         <p class="movie-card__year"> &nbsp;|&nbsp; ${release_date?.slice(0, 4)}</p>
 
                         <span class="movie-card__rating"> ${vote_average}</span>
+                    </div>
                     </div>
                 </div>
           </a>
