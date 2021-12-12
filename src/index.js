@@ -17,6 +17,7 @@ import { initPagination } from './js/pagination';
 import { renderQueue, renderWatched } from './js/render-library';
 import { logo } from './js/ligo';
 import scrollUp from './js/scrollUp';
+import scrollDown from './js/scrollDown';
 import { sortByGenres, showGenresFilter, hideGenresFilter } from './js/genres-filter';
 
 const settings = { page: 1, type: 'popular-films' };
@@ -57,6 +58,7 @@ function onClickPageLibrary() {
   document.querySelector("[data-action='watched']").addEventListener('click', onClickBtnWatched);
   document.querySelector("[data-action='queue']").addEventListener('click', onClickBtnQueue);
   document.querySelector('[data-modal-close]').addEventListener('click', onCloseModal); // выполняется при закрытии модалки на странице библиотеки
+  document.querySelector("[data-action='queue']").classList.toggle('activeBtnEl');
 
   refs.pageHome.addEventListener('click', onClickPageHome);
   const queueMovies = renderQueue();
@@ -114,7 +116,7 @@ function onCloseModal() {
 }
 // при нажатии на одну кнопку, на нее вешается класс activeBtnEl, при этом на другой кнопке этот класс удаляется
 function onClickBtnWatched() {
-  document.querySelector("[data-action='watched']").classList.toggle('activeBtnEl');
+  document.querySelector("[data-action='watched']").classList.add('activeBtnEl');
   document.querySelector("[data-action='queue']").classList.remove('activeBtnEl');
 
   const watchedMovies = renderWatched();
@@ -126,7 +128,7 @@ function onClickBtnWatched() {
   });
 }
 function onClickBtnQueue() {
-  document.querySelector("[data-action='queue']").classList.toggle('activeBtnEl');
+  document.querySelector("[data-action='queue']").classList.add('activeBtnEl');
   document.querySelector("[data-action='watched']").classList.remove('activeBtnEl');
 
   const queueMovies = renderQueue();

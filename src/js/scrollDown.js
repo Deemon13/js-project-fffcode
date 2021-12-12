@@ -1,4 +1,4 @@
-const body = document.querySelector('body');
+const body = document.querySelector('footer');
 const scrollBtn = document.querySelector('.scroll-btn');
 document.addEventListener('scroll', handleScroll);
 
@@ -15,6 +15,6 @@ function handleScroll() {
   }
 }
 
-const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+const scrollToTop = () => window.scrollTo({ top: 100000, behavior: 'smooth' });
 
 scrollBtn.addEventListener('click', scrollToTop);

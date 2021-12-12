@@ -27,7 +27,7 @@
   transform: translateX(-50%) scale(1);
 
   background-color: var(--main-color-light);
-  width: 320px;
+  width: 280px;
   padding: 48px 20px 41px 20px;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
     0px 2px 1px rgba(0, 0, 0, 0.2);
@@ -40,6 +40,12 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -100%);
+  }
+
+  .modal-buttons {
+    & > :first-child {
+      margin-right: 15px;
+    }
   }
 
   .modal-card {
@@ -89,11 +95,16 @@
 
 .modal__icon {
   fill: var(--main-color-dark);
+  &:hover,
+  &:focus {
+    fill: var(--accent-color);
+  }
 }
 
 .card__title {
   @include font(20px, 500, 23px);
   margin-bottom: 15px;
+  text-transform: uppercase;
 }
 .card__table {
   border-collapse: collapse;
@@ -119,6 +130,7 @@
 
 .modal__item-img {
   margin-bottom: 30px;
+  border-radius: 5px;
 }
 .card__about {
   @include font(12px, 500, 16px);
@@ -132,7 +144,6 @@
 
 .modal-buttons {
   display: flex;
-  justify-content: space-between;
 }
 
 @media screen and(min-width:768px) {
@@ -152,6 +163,10 @@
   }
   .modal__item-img {
     min-width: 264px;
+  }
+  .modal-buttons {
+    display: flex;
+    justify-content: start;
   }
 }
 
@@ -175,22 +190,14 @@
   .card__title {
     @include font(30px, 500, 35px);
   }
-
-  .modal-buttons {
-    display: flex;
-    justify-content: start;
-    & > :first-child {
-      margin-right: 15px;
-    }
-  }
 }
 
 .buttons {
   display: block;
   cursor: pointer;
-  min-width: 130px;
-  height: 44px;
-  padding: 14px 0 12px 0;
+  min-width: 112px;
+  min-height: 44px;
+  padding: 14px 2px 12px 2px;
   border: 1px solid var(--main-color-dark);
   box-sizing: border-box;
   border-radius: 5px;
@@ -201,22 +208,48 @@
   font-family: 'Roboto';
   text-transform: uppercase;
   text-align: center;
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media screen and(min-width:768px) {
+  .buttons {
+    min-width: 125px;
+    padding: 14px 10px 12px 10px;
+  }
 }
 
 @media screen and(min-width:1024px) {
   .buttons {
     min-width: 136px;
+    padding: 14px 10px 12px 10px;
   }
 }
 
-.button-active:focus,
-.button-active:hover {
-  background: #ff6b01;
-  border: #ff6b01;
-
-  border-radius: 5px;
+.button-active {
+  outline: 2px solid var(--accent-color);
+}
+.btn-addToWatched:hover,
+.btn-addToQueue:hover {
+  background: var(--accent-color);
+  color: var(--main-color-light);
+  filter: drop-shadow(0px 4px 15px rgba(255, 107, 1, 0.6));
+  // outline: 2px solid var(--accent-color);
+}
+.btn-addToWatched:focus,
+.btn-addToQueue:focus {
+  background: var(--accent-color);
   color: var(--main-color-light);
 }
+
+// .button-active:focus,
+// .button-active:hover {
+//   background: var(--accent-color);
+//   border: var(--accent-color);
+//   filter: drop-shadow(0px 8px 43px rgba(255, 107, 1, 0.6));
+
+//   border-radius: 5px;
+//   color: var(--main-color-light);
+// }
 
 .card__item-avarage {
   padding-right: 10px;

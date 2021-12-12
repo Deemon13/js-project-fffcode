@@ -11,4 +11,5 @@ export const refs = {
     filterChooseAll: document.querySelector(".genres-menu--all"),
     filterHiddenContainer: document.querySelector(".filter-hidden-container"),
     genresBtn: document.querySelector(".genres-menu--container"),
+    genresDropdown: document.querySelector(".genres-menu--dropdown")
 }
