@@ -8,6 +8,8 @@
   --background-color-light: #070707;
   --accent-color: #ff6b01;
   --notification-fail-color: #ff001b;
+  --box-shadow: 0px 1px 3px rgba(255, 255, 255, 0.12), 0px 1px 1px rgba(255, 255, 255, 0.14),
+    0px 2px 1px rgba(255, 255, 255, 0.2);
 }
 
 body {
