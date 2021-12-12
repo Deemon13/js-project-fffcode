@@ -10,10 +10,14 @@
   --notification-fail-color: #ff001b;
 }
 
-.swithcer__radio {
+body {
+  background-color: var(--background-color-light);
+}
+
+.switcher__radio {
   filter: invert(0);
 }
-.swithcer__radio:checked {
+.switcher__radio:checked {
   filter: invert(1);
 }
 .switcher__status {

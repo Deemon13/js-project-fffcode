@@ -2,8 +2,6 @@
   color-scheme: light dark;
 }
 
-// ========== Switcher ==========
-
 .switcher {
   position: absolute;
   top: 240px;
@@ -16,13 +14,12 @@
   border: none;
 }
 
-// // ========== Switcher Legend ==========
 .switcher__legend {
   position: absolute;
   opacity: 0;
   pointer-events: none;
 }
-// ========== Switcher Radio ==========
+
 .switcher__radio {
   -webkit-appearance: none;
   appearance: none;
