@@ -135,11 +135,11 @@ function onModalOpen(event) {
 
   if (arrWatchedMovies.find(movie => movie.id === movieData.id)) {
     ref.elBtnAddToWatched.textContent = 'remove from watched';
-    ref.elBtnAddToWatched.classList.add("button-active");
+    ref.elBtnAddToWatched.classList.add('button-active');
   }
   if (arrMoviesToQueue.find(movie => movie.id === movieData.id)) {
     ref.elBtnAddToQueue.textContent = 'remove from queue';
-    ref.elBtnAddToQueue.classList.add("button-active");
+    ref.elBtnAddToQueue.classList.add('button-active');
   }
 
   ref.elBtnAddToWatched.addEventListener('click', onClickBtnAddToWatched);
@@ -181,8 +181,8 @@ function renderModalMarkup({
       ? `<img src="https://image.tmdb.org/t/p/w342${poster_path}"`
       : `<img src="https://avatarko.ru/img/kartinka/33/multfilm_lyagushka_32117.jpg"`
   }
-                class="modal__item-img"width="305"
-                height="205"
+                class="modal__item-img"width="240"
+                height="356"
                 alt="${title}"
                 loading="lazy"
             />
@@ -252,7 +252,7 @@ function onClickBtnAddToWatched() {
             buttonaddToWatched.textContent = 'add to watched';
             arrWatchedMovies.splice(index, 1); // удаление элемента
             localStorage.setItem('watched-movies', JSON.stringify(arrWatchedMovies));
-            buttonaddToWatched.classList.remove("button-active");
+            buttonaddToWatched.classList.remove('button-active');
           },
         );
         ////////////////////////////////////////
@@ -261,7 +261,7 @@ function onClickBtnAddToWatched() {
     return; // выход из функции
   }
   buttonaddToWatched.textContent = 'remove from watched';
-  buttonaddToWatched.classList.add("button-active");
+  buttonaddToWatched.classList.add('button-active');
   // выполняется если фильм не найден в локале
   arrWatchedMovies.push(movieData);
   localStorage.setItem('watched-movies', JSON.stringify(arrWatchedMovies));
@@ -302,7 +302,7 @@ function onClickBtnAddToQueue() {
             buttonAddToQueue.textContent = 'add to queue';
             arrMoviesToQueue.splice(index, 1); // удаление элемента
             localStorage.setItem('queue-movies', JSON.stringify(arrMoviesToQueue));
-            buttonAddToQueue.classList.remove("button-active");
+            buttonAddToQueue.classList.remove('button-active');
           },
         );
         ////////////////////////////////////////
@@ -311,7 +311,7 @@ function onClickBtnAddToQueue() {
     return; // выход из функции
   }
   buttonAddToQueue.textContent = 'remove from queue';
-  buttonAddToQueue.classList.add("button-active");
+  buttonAddToQueue.classList.add('button-active');
   // выполняется если фильм не найден в локале
   arrMoviesToQueue.push(movieData);
   localStorage.setItem('queue-movies', JSON.stringify(arrMoviesToQueue));
