@@ -213,6 +213,7 @@ function renderModalMarkup({
             <button class=" buttons btn-addToWatched" id="${id}">ADD TO WATCHED</button>
             <button class="buttons btn-addToQueue" id="${id}">ADD TO QUEUE</button>
             </div>
+            <div id="player">ТУТ будет трейлер</div>
             </div>
         </div>
         `;
