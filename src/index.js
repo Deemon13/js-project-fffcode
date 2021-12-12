@@ -53,8 +53,8 @@ refs.pageLibrary.addEventListener('click', onClickPageLibrary); //слушате
 
 function onClickPageLibrary() {
   refs.pageHome.classList.add('page-home__color-ack');
-  refs.pageHome.classList.remove("header__link_current");
-  refs.pageLibrary.classList.add("header__link_current");
+  refs.pageHome.classList.remove('header__link_current');
+  refs.pageLibrary.classList.add('header__link_current');
   // imgHero.srs = ''
   hideGenresFilter();
   createLibrary(); //рендер кнопок на странице библиотеки
@@ -84,8 +84,8 @@ function onClickPageLibrary() {
 // refs.pageHome.classList.add('page-home__color-ack');
 export async function onClickPageHome() {
   refs.pageHome.classList.remove('page-home__color-ack');
-  refs.pageLibrary.classList.remove("header__link_current");
-  refs.pageHome.classList.add("header__link_current");
+  refs.pageLibrary.classList.remove('header__link_current');
+  refs.pageHome.classList.add('header__link_current');
 
   createHome(); //рендер кнопок на главной странице
   showGenresFilter();
@@ -160,4 +160,12 @@ export function saveArrMoviesToLocalStorage(arrMovies) {
 export function getArrMoviesFromLocalStorage() {
   const savedArrMovies = localStorage.getItem('arr-current-movies');
   return JSON.parse(savedArrMovies); // получаем данные про фильмы с локала
+}
+
+refs.openTeamBtn.addEventListener('click', toggleTeam);
+refs.closeTeamBtn.addEventListener('click', toggleTeam);
+
+function toggleTeam(event) {
+  event.preventDefault();
+  refs.team.classList.toggle('is-hidden');
 }
