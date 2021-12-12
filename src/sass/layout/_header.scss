@@ -62,9 +62,7 @@
 .header__logo-word {
   display: none;
 }
-.page-home__color-ack {
-  color: #ffffff;
-}
+
 
 .page-home {
   display: block;
@@ -77,7 +75,9 @@
     color: #ff6b01;
   }
 }
-
+.page-home__color-ack {
+  color: #ffffff;
+}
 .page-library {
   display: block;
   color: #ffffff;
@@ -283,7 +283,7 @@
   .library {
     background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
       url('../././images/library-desktop.jpg');
-    max-width: 1024px;
+    max-width:100%;
   }
 }
 @media screen and (min-device-pixel-ratio: 2) and (min-width: 1024px),
