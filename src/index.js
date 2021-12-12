@@ -112,7 +112,7 @@ function onClickLogo(e) {
 }
 
 ///////////////////////////////////////////////////////////
-function onCloseModal() {
+export function onCloseModal() {
   // при закрытии модалки
   if (document.querySelector("[data-action='watched']").classList.contains('activeBtnEl')) {
     //если активна кнопка watched

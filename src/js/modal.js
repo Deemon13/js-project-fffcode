@@ -1,4 +1,4 @@
-import { getArrMoviesFromLocalStorage } from '../index';
+import { getArrMoviesFromLocalStorage, onCloseModal } from '../index';
 import { showGenresListModal } from '../js/genres';
 import Utils from '../js/utils';
 import Notiflix from 'notiflix';
@@ -69,6 +69,7 @@ function onModalClose() {
 function onBackdropClick(event) {
   if (event.currentTarget === event.target) {
     addIsHidden();
+    onCloseModal() // обновление рендера в библиотеке
     document.removeEventListener('keydown', onEscKeyPress);
     refs.modal.removeEventListener('click', onBackdropClick);
   }
@@ -81,6 +82,7 @@ function onEscKeyPress(event) {
   if (isEscKey) {
     document.removeEventListener('keydown', onEscKeyPress);
     addIsHidden();
+    onCloseModal() // обновление рендера в библиотеке
     refs.closeModalBtn.removeEventListener('click', onModalClose);
     refs.modal.removeEventListener('click', onBackdropClick);
   }
