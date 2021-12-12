@@ -1,3 +1,6 @@
+import icons from '/images/icons.svg';
+export { icons };
+
 import './sass/main.scss';
 import 'animate.css';
 
