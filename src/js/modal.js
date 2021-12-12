@@ -1,7 +1,10 @@
-import { getArrMoviesFromLocalStorage } from '../index';
+import { getArrMoviesFromLocalStorage, pagination, settings } from '../index';
+import { renderWatched, renderQueue } from './render-library';
+import { initPagination } from './pagination';  
 import { showGenresListModal } from '../js/genres';
 import Utils from '../js/utils';
 import Notiflix from 'notiflix';
+
 
 Notiflix.Confirm.init({
   className: 'notiflix-confirm',
@@ -63,12 +66,14 @@ function toggleModal(event) {
 
 function onModalClose() {
   addIsHidden();
+  onCloseModal() // обновление рендера в библиотеке
   refs.closeModalBtn.removeEventListener('click', onModalClose);
 }
 
 function onBackdropClick(event) {
   if (event.currentTarget === event.target) {
     addIsHidden();
+    onCloseModal() // обновление рендера в библиотеке
     document.removeEventListener('keydown', onEscKeyPress);
     refs.modal.removeEventListener('click', onBackdropClick);
   }
@@ -81,10 +86,51 @@ function onEscKeyPress(event) {
   if (isEscKey) {
     document.removeEventListener('keydown', onEscKeyPress);
     addIsHidden();
+    onCloseModal() // обновление рендера в библиотеке
     refs.closeModalBtn.removeEventListener('click', onModalClose);
     refs.modal.removeEventListener('click', onBackdropClick);
   }
 }
+
+///////////////////////////////////////////////////////////
+export function onCloseModal() { // функция обновления рендера в библиотеке
+  // при закрытии модалки
+  if (document.querySelector(".page-library").classList.contains("header__link_current")) {
+    if (document.querySelector("[data-action='watched']").classList.contains('activeBtnEl')) {
+      //если активна кнопка watched
+      renderWatched();
+    } else {
+      // по умолчанию рендер queue
+      renderQueue();
+    }
+  }
+}
+// при нажатии на одну кнопку, на нее вешается класс activeBtnEl, при этом на другой кнопке этот класс удаляется
+export function onClickBtnWatched() {
+  document.querySelector("[data-action='watched']").classList.add('activeBtnEl');
+  document.querySelector("[data-action='queue']").classList.remove('activeBtnEl');
+
+  const watchedMovies = renderWatched();
+  if (!watchedMovies) return;
+  pagination.then(res => {
+    settings.type = 'watched';
+    res.reset(watchedMovies.length);
+    res.movePageTo(1);
+  });
+}
+export function onClickBtnQueue() {
+  document.querySelector("[data-action='queue']").classList.add('activeBtnEl');
+  document.querySelector("[data-action='watched']").classList.remove('activeBtnEl');
+
+  const queueMovies = renderQueue();
+  if (!queueMovies) return;
+  pagination.then(res => {
+    settings.type = 'queue';
+    res.reset(queueMovies.length);
+    res.movePageTo(1);
+  });
+}
+///////////////////////////////////////////////////////////
 
 function addIsHidden() {
   refs.modal.classList.add('is-hidden');

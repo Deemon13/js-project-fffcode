@@ -24,18 +24,9 @@ a {
 // ====================
 .movie-card:hover {
   @media screen and (min-width: 768px) {
-    padding-bottom: 10px;
+    // padding-bottom: 10px;
     transform: scale(1.05);
     box-shadow: 0 0 20px rgba(255, 107, 8, 1);
-    & .movie-card__info {
-      padding-left: 5px;
-    }
-    .movie-card__title {
-      padding-left: 5px;
-    }
-    .movie-card__rating {
-      margin-left: 10px;
-    }
   }
 }
 .movie-card__poster {
@@ -56,6 +47,18 @@ a {
   // }
 }
 .movie-card {
+  @media screen and (min-width: 768px) {
+    & .movie-card__info {
+      padding-left: 5px;
+    }
+    .movie-card__title {
+      padding-left: 5px;
+    }
+    .movie-card__rating {
+      margin-left: 10px;
+    }
+  }
+
   border-radius: 5px;
   transition: transform var(--animation-duration) var(--timing-function);
   @media screen and (max-width: 767px) {

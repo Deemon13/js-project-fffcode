@@ -13,6 +13,7 @@ import { getGenresArray, transformGenresList } from './js/genres';
 import { modal } from './js/modal';
 // import { modal } from './js/modal';
 import { listenModalClick, onGalleryModalOpen } from './js/modal';
+import { onCloseModal, onClickBtnQueue, onClickBtnWatched } from './js/modal';
 
 import Utils from './js/utils';
 import SearchProps from './js/search';
@@ -61,7 +62,6 @@ function onClickPageLibrary() {
 
   document.querySelector("[data-action='watched']").addEventListener('click', onClickBtnWatched);
   document.querySelector("[data-action='queue']").addEventListener('click', onClickBtnQueue);
-  document.querySelector('[data-modal-close]').addEventListener('click', onCloseModal); // выполняется при закрытии модалки на странице библиотеки
   document.querySelector("[data-action='queue']").classList.toggle('activeBtnEl');
 
   refs.pageHome.addEventListener('click', onClickPageHome);
@@ -102,8 +102,6 @@ export async function onClickPageHome() {
     res.reset(data.total_pages);
     res.movePageTo(1);
   });
-
-  document.querySelector('[data-modal-close]').removeEventListener('click', onCloseModal);
 }
 const logoHome = document.querySelector('.header__logo');
 logoHome.addEventListener('click', onClickLogo);
@@ -111,42 +109,6 @@ function onClickLogo(e) {
   onClickPageHome();
 }
 
-///////////////////////////////////////////////////////////
-function onCloseModal() {
-  // при закрытии модалки
-  if (document.querySelector("[data-action='watched']").classList.contains('activeBtnEl')) {
-    //если активна кнопка watched
-    renderWatched();
-  } else {
-    // по умолчанию рендер queue
-    renderQueue();
-  }
-}
-// при нажатии на одну кнопку, на нее вешается класс activeBtnEl, при этом на другой кнопке этот класс удаляется
-function onClickBtnWatched() {
-  document.querySelector("[data-action='watched']").classList.add('activeBtnEl');
-  document.querySelector("[data-action='queue']").classList.remove('activeBtnEl');
-
-  const watchedMovies = renderWatched();
-  if (!watchedMovies) return;
-  pagination.then(res => {
-    settings.type = 'watched';
-    res.reset(watchedMovies.length);
-    res.movePageTo(1);
-  });
-}
-function onClickBtnQueue() {
-  document.querySelector("[data-action='queue']").classList.add('activeBtnEl');
-  document.querySelector("[data-action='watched']").classList.remove('activeBtnEl');
-
-  const queueMovies = renderQueue();
-  if (!queueMovies) return;
-  pagination.then(res => {
-    settings.type = 'queue';
-    res.reset(queueMovies.length);
-    res.movePageTo(1);
-  });
-}
 /// Реализация поиска кинофильма по ключевому слову (на главной странице)
 
 document.querySelector('.search-form').addEventListener('submit', SearchProps.checkRequest);
