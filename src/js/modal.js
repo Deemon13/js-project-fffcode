@@ -1,5 +1,5 @@
 import { getArrMoviesFromLocalStorage } from '../index';
-import { transformGenresList } from '../js/genres';
+import { showGenresListModal } from '../js/genres';
 import Utils from '../js/utils';
 import Notiflix from 'notiflix';
 
@@ -168,7 +168,7 @@ function renderModalMarkup({
             </tr>
             <tr>
             <td class="card__table-info">Genre</td>
-            <td class="card__item">${transformGenresList(genre_ids, Utils.genresName)}</td>
+            <td class="card__item">${showGenresListModal(genre_ids, Utils.genresName)}</td>
             </tr>
             </table>
             <p class="card__about">ABOUT</p>

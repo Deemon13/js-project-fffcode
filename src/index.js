@@ -1,15 +1,15 @@
+import icons from "/images/icons.svg";
+export { icons };
+
 import "./sass/main.scss";
 import "animate.css";
 
 import API from "./js/api-func";
 
 import { refs } from "./js/refs";
-import { createLibrary } from "./js/create-pages";
-import { createHome } from "./js/create-pages";
+import { createLibrary, createHome } from "./js/create-pages";
 import { getGenresArray, transformGenresList } from "./js/genres";
-import { modal } from "./js/modal";
-// import { modal } from './js/modal';
-import { listenModalClick, onGalleryModalOpen } from "./js/modal";
+import { listenModalClick, onGalleryModalOpen, modal } from "./js/modal";
 
 import Utils from "./js/utils";
 import SearchProps from "./js/search";
@@ -48,6 +48,7 @@ sortByGenres();
 refs.pageLibrary.addEventListener("click", onClickPageLibrary); //слушатель на кнопке библиотеки
 
 function onClickPageLibrary() {
+  // refs.pageHome.classList.add('page-home__color-ack');
   refs.pageHome.classList.remove("header__link_current");
   refs.pageLibrary.classList.add("header__link_current");
   // imgHero.srs = ''
@@ -78,9 +79,11 @@ function onClickPageLibrary() {
     res.movePageTo(1);
   });
 }
+// refs.pageHome.classList.add('page-home__color-ack');
 export async function onClickPageHome() {
   refs.pageLibrary.classList.remove("header__link_current");
   refs.pageHome.classList.add("header__link_current");
+
   createHome(); //рендер кнопок на главной странице
   showGenresFilter();
   getGenresArray(Utils.genresName);

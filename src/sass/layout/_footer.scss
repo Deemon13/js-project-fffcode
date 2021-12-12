@@ -7,6 +7,21 @@
   padding-bottom: 30px;
   text-align: center;
   background-color: var(--background-color-light);
+  height: 77px;
+
+  display: flex;
+  align-items: center;
+}
+
+.footer-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  @media screen and(min-width:280px) and (max-width: 767px) {
+    display: block;
+    text-align: center;
+  }
 }
 
 .footer-heart__icon {
@@ -28,8 +43,20 @@
   display: flex;
   justify-content: center;
 }
+
 .footer__list-item {
   display: flex;
+}
+
+@media screen and (min-width: 280px) {
+  .footer__list-item:not(:last-child) {
+    margin-bottom: 10px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .footer__list-item:not(:last-child) {
+    margin-bottom: 0px;
+  }
 }
 
 //========= 768+ =============
@@ -37,4 +64,7 @@
   .footer {
     font-size: 16px;
   }
+}
+.main {
+  min-height: calc(100vh - 280px);
 }
