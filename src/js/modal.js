@@ -3,6 +3,41 @@ import { showGenresListModal } from '../js/genres';
 import Utils from '../js/utils';
 import Notiflix from 'notiflix';
 
+Notiflix.Confirm.init({
+  className: 'notiflix-confirm',
+  width: '300px',
+  zindex: 4003,
+  position: 'center', // 'center' - 'center-top' - 'center-bottom' - 'right-top' - 'right-center' - 'right-bottom' - 'left-top' - 'left-center' - 'left-bottom'
+  distance: '10px',
+  backgroundColor: '#ffffff',
+  borderRadius: '25px',
+  backOverlay: true,
+  backOverlayColor: 'rgba(0,0,0,0.5)',
+  rtl: false,
+  fontFamily: 'Roboto',
+  cssAnimation: true,
+  cssAnimationDuration: 300,
+  cssAnimationStyle: 'fade', // 'zoom' - 'fade'
+  plainText: true,
+
+  titleColor: '#000000',
+  titleFontSize: '16px',
+  titleMaxLength: 34,
+
+  messageColor: '#000000',
+  messageFontSize: '16px',
+  messageMaxLength: 110,
+
+  buttonsFontSize: '15px',
+  buttonsMaxLength: 34,
+  okButtonColor: '#f8f8f8',
+  okButtonBackground: '#ff6b01',
+  okButtonBorder: '1px',
+  cancelButtonColor: '#f8f8f8',
+  cancelButtonBackground: '#a9a9a9',
+});
+
+
 const refs = {
   openModalBtn: document.querySelectorAll('[data-modal-open]'),
   closeModalBtn: document.querySelector('[data-modal-close]'),
