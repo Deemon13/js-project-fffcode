@@ -2,6 +2,7 @@ import { getArrMoviesFromLocalStorage } from '../index';
 import { showGenresListModal } from '../js/genres';
 import Utils from '../js/utils';
 import Notiflix from 'notiflix';
+import trailer from './trailer2';
 
 Notiflix.Confirm.init({
   className: 'notiflix-confirm',
@@ -127,6 +128,7 @@ function onModalOpen(event) {
   const currentId = event.currentTarget.id;
   movieData = moviesObj[currentId];
   renderModalMarkup(movieData);
+  console.log("movieData", movieData);
 
   const ref = {
     elBtnAddToWatched: document.querySelector('.btn-addToWatched'),
@@ -219,6 +221,9 @@ function renderModalMarkup({
         `;
 
   refs.modalMarkupContainer.innerHTML = markup;
+  console.log("id", id);
+  trailer.onYouTubeIframeAPIReady(id);
+
 }
 
 // логика кнопок
