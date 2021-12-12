@@ -1,2 +1,0 @@
-:root{--main-color-dark:#fff;--main-color-light:#000;--secondary-color-dark:#545454;--secondary-color-light:#000;--color-light-placeholder:#8c8c8c;--icon-color:#818181;--background-color-light:#070707;--accent-color:#ff6b01;--notification-fail-color:#ff001b}body{background-color:var(--background-color-light)}.switcher__radio{filter:invert(1)}.switcher__radio:checked{filter:invert(0)}.switcher__status{filter:invert(1)}
-/*# sourceMappingURL=/js-project-fffcode/dark.815784da.css.map */
