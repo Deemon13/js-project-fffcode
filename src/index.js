@@ -49,8 +49,9 @@ sortByGenres();
 refs.pageLibrary.addEventListener('click', onClickPageLibrary); //слушатель на кнопке библиотеки
 
 function onClickPageLibrary() {
-  refs.pageHome.classList.remove('header__link_current');
-  refs.pageLibrary.classList.add('header__link_current');
+  refs.pageHome.classList.add('page-home__color-ack');
+  refs.pageHome.classList.remove("header__link_current");
+  refs.pageLibrary.classList.add("header__link_current");
   // imgHero.srs = ''
   hideGenresFilter();
   createLibrary(); //рендер кнопок на странице библиотеки
@@ -76,9 +77,13 @@ function onClickPageLibrary() {
     res.movePageTo(1);
   });
 }
-export function onClickPageHome() {
-  refs.pageLibrary.classList.remove('header__link_current');
-  refs.pageHome.classList.add('header__link_current');
+
+// refs.pageHome.classList.add('page-home__color-ack');
+export async function onClickPageHome() {
+  refs.pageHome.classList.remove('page-home__color-ack');
+  refs.pageLibrary.classList.remove("header__link_current");
+  refs.pageHome.classList.add("header__link_current");
+
   createHome(); //рендер кнопок на главной странице
   showGenresFilter();
   getGenresArray(Utils.genresName);
