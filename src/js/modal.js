@@ -222,7 +222,7 @@ function renderModalMarkup({
 
   refs.modalMarkupContainer.innerHTML = markup;
   console.log("id", id);
-  trailer.onYouTubeIframeAPIReady(id);
+  trailer.trailer(id);
 
 }
 
