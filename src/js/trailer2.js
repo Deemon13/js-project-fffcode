@@ -9,12 +9,13 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var player;
       
 function onYouTubeIframeAPIReady(id) {
-API.getTrailer(id)
+   const key = getIdForTrailer(id);
+    console.log("key", key);
     player = new YT.Player('player', {
         height: '260',
         width: '340',
         //videoId: keyTrailerForYouTube,
-        videoId: key,
+        videoId: "JNUjx7LZoiU",
 
         events: {
              'onReady': onPlayerReady,
@@ -22,6 +23,19 @@ API.getTrailer(id)
         }
     });
 }
+async function getIdForTrailer(id) {
+  try {
+    const response = await API.getTrailer(id);
+    const keyForYouTube = response.videos.results[0].key;
+    console.log("вот что нашла22", keyForYouTube);
+    return keyForYouTube;
+  }
+  catch {
+    console.log("не получилось");
+  }
+}
+
+
 
 // const refs = {
 //     modal: document.querySelector('[data-modal]'),
