@@ -1,26 +1,36 @@
 /* roboto - regular - latin_cyrillic */
 @font-face {
-  font-family: "Roboto";
+  font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
-  src: url("../fonts/roboto/roboto-v29-latin_cyrillic-regular.eot");
+  src: url('../fonts/roboto/roboto-v29-latin_cyrillic-regular.eot');
   /* IE9 Compat Modes */
-  src: local(""), url("../fonts//roboto/roboto-v29-latin_cyrillic-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/roboto/roboto-v29-latin_cyrillic-regular.woff2") format("woff2"), url("../fonts/roboto/roboto-v29-latin_cyrillic-regular.woff") format("woff"), url("../fonts/roboto/roboto-v29-latin_cyrillic-regular.ttf") format("truetype"), url("../fonts/roboto/roboto-v29-latin_cyrillic-regular.svg#Roboto") format("svg");
+  src: local(''),
+    url('../fonts//roboto/roboto-v29-latin_cyrillic-regular.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/roboto/roboto-v29-latin_cyrillic-regular.woff2') format('woff2'),
+    url('../fonts/roboto/roboto-v29-latin_cyrillic-regular.woff') format('woff'),
+    url('../fonts/roboto/roboto-v29-latin_cyrillic-regular.ttf') format('truetype'),
+    url('../fonts/roboto/roboto-v29-latin_cyrillic-regular.svg#Roboto') format('svg');
   /* Legacy iOS */
 }
 /* roboto - 500 - latin_cyrillic */
 @font-face {
-  font-family: "Roboto";
+  font-family: 'Roboto';
   font-style: normal;
   font-weight: 500;
-  src: url("../fonts/roboto/roboto-v29-latin_cyrillic-500.eot");
+  src: url('../fonts/roboto/roboto-v29-latin_cyrillic-500.eot');
   /* IE9 Compat Modes */
-  src: local(""), url("../fonts//roboto/roboto-v29-latin_cyrillic-500.eot?#iefix") format("embedded-opentype"), url("../fonts/roboto/roboto-v29-latin_cyrillic-500.woff2") format("woff2"), url("../fonts/roboto/roboto-v29-latin_cyrillic-500.woff") format("woff"), url("../fonts/roboto/roboto-v29-latin_cyrillic-500.ttf") format("truetype"), url("../fonts/roboto/roboto-v29-latin_cyrillic-500.svg#Roboto") format("svg");
+  src: local(''),
+    url('../fonts//roboto/roboto-v29-latin_cyrillic-500.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/roboto/roboto-v29-latin_cyrillic-500.woff2') format('woff2'),
+    url('../fonts/roboto/roboto-v29-latin_cyrillic-500.woff') format('woff'),
+    url('../fonts/roboto/roboto-v29-latin_cyrillic-500.ttf') format('truetype'),
+    url('../fonts/roboto/roboto-v29-latin_cyrillic-500.svg#Roboto') format('svg');
   /* Legacy iOS */
 }
 :root {
   color-scheme: light dark;
-  --main-font-regular: "Roboto", serif, sans-serif;
+  --main-font-regular: 'Roboto', serif, sans-serif;
   --main-color-dark: #000000;
   --main-color-light: #ffffff;
   --secondary-color-dark: #545454;
@@ -57,7 +67,7 @@ Use a more readable tab size (opinionated).
 html {
   -moz-tab-size: 4;
   -o-tab-size: 4;
-     tab-size: 4;
+  tab-size: 4;
 }
 
 /**
@@ -86,7 +96,8 @@ body {
 Improve consistency of default fonts in all browsers. (https://github.com/sindresorhus/modern-normalize/issues/3)
 */
 body {
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,
+    'Apple Color Emoji', 'Segoe UI Emoji';
 }
 
 /*
@@ -113,7 +124,7 @@ Add the correct text decoration in Chrome, Edge, and Safari.
 */
 abbr[title] {
   -webkit-text-decoration: underline dotted;
-          text-decoration: underline dotted;
+  text-decoration: underline dotted;
 }
 
 /**
@@ -132,7 +143,7 @@ code,
 kbd,
 samp,
 pre {
-  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+  font-family: ui-monospace, SFMono-Regular, Consolas, 'Liberation Mono', Menlo, monospace;
   /* 1 */
   font-size: 1em;
   /* 2 */
@@ -216,9 +227,9 @@ select {
 Correct the inability to style clickable types in iOS and Safari.
 */
 button,
-[type=button],
-[type=reset],
-[type=submit] {
+[type='button'],
+[type='reset'],
+[type='submit'] {
   -webkit-appearance: button;
 }
 
@@ -271,7 +282,7 @@ Correct the cursor style of increment and decrement buttons in Safari.
 1. Correct the odd appearance in Chrome and Safari.
 2. Correct the outline style in Safari.
 */
-[type=search] {
+[type='search'] {
   -webkit-appearance: textfield;
   /* 1 */
   outline-offset: -2px;
@@ -475,7 +486,7 @@ a {
 }
 
 .movie-card__genres:not(:last-child) {
-  content: ", ";
+  content: ', ';
 }
 
 .gallery__item:not(:last-child) {
@@ -495,7 +506,7 @@ a {
     margin-bottom: 0px;
     margin-top: 30px;
     margin-left: 30px;
-    flex-basis: calc((100% - 60px) / 2 );
+    flex-basis: calc((100% - 60px) / 2);
     position: relative;
     margin-bottom: 0px;
   }
@@ -514,7 +525,7 @@ a {
   .gallery__item {
     margin-top: 30px;
     margin-left: 30px;
-    flex-basis: calc((100% - 90px) / 3 );
+    flex-basis: calc((100% - 90px) / 3);
     position: relative;
   }
 }
@@ -625,7 +636,8 @@ a {
   visibility: visible;
   pointer-events: auto;
   overflow-y: scroll;
-  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1), visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .is-hidden {
@@ -643,9 +655,11 @@ a {
   background-color: var(--main-color-light);
   width: 320px;
   padding: 48px 20px 41px 20px;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14),
+    0px 2px 1px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
-  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1), transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1),
+    transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .backdrop.is-hidden .modal {
   position: absolute;
@@ -821,7 +835,7 @@ a {
   font-weight: 500;
   line-height: decimal-round(1.3333333333, 2);
   color: var(--main-color-dark);
-  font-family: "Roboto";
+  font-family: 'Roboto';
   text-transform: uppercase;
   text-align: center;
 }
@@ -881,7 +895,7 @@ a {
   position: relative;
 }
 .page-home.header__link_current::after {
-  content: "";
+  content: '';
   display: block;
   width: 100%;
   height: 3px;
@@ -893,7 +907,7 @@ a {
   position: relative;
 }
 .page-library.header__link_current::after {
-  content: "";
+  content: '';
   display: block;
   width: 100%;
   height: 3px;
@@ -923,10 +937,11 @@ a {
   margin-right: 20px;
 }
 
-.btn__hover-focus:focus, .btn__hover-focus:hover {
+.btn__hover-focus:focus,
+.btn__hover-focus:hover {
   filter: drop-shadow(0px 8px 43px rgba(255, 107, 1, 0.6));
-  background: #FF6B01;
-  border-color: #FF6B01;
+  background: #ff6b01;
+  border-color: #ff6b01;
 }
 
 @media screen and (min-width: 768px) {
@@ -959,7 +974,7 @@ a {
 .switcher__radio {
   -webkit-appearance: none;
   -moz-appearance: none;
-       appearance: none;
+  appearance: none;
   margin: 0;
   width: 32px;
   height: 32px;
@@ -1334,12 +1349,14 @@ a {
   justify-content: center;
   align-items: center;
 }
-.scroll-btn:hover, .scroll-btn:focus {
-  background: linear-gradient(260deg, #ff0808aa, #ff6b08), linear-gradient(120deg, #f3ff089b, #ff6b08);
+.scroll-btn:hover,
+.scroll-btn:focus {
+  background: linear-gradient(260deg, #ff0808aa, #ff6b08),
+    linear-gradient(120deg, #f3ff089b, #ff6b08);
   color: #f4f4f4;
 }
 
 .show-scroll-btn {
   transform: translateY(0);
   opacity: 1;
-}/*# sourceMappingURL=main.css.map */
+} /*# sourceMappingURL=main.css.map */

@@ -10,7 +10,10 @@
   --notification-fail-color: #ff001b;
 }
 
-/* // ========== Switcher //========== */
+body {
+  background-color: var(--background-color-light);
+}
+
 .switcher__radio {
   filter: invert(1);
 }
