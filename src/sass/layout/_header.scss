@@ -31,15 +31,20 @@
 }
 
 .header__icon {
+  .header__logo:hover &,
+  .header__logo:focus & {
+    transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 0 20px rgb(243, 108, 12);
+    color: #ca5604;
+  }
   width: 24px;
   height: 24px;
+  border-radius: 5px;
   padding-top: 2px;
   margin-right: 10px;
   stroke: var(--icon-color);
   fill: none;
   align-items: center;
-
-  // background-color: inherit;
 }
 .header__logo {
   margin-top: 48px;
@@ -129,6 +134,7 @@
   justify-content: center;
   align-items: center;
   padding: 0;
+  cursor: pointer;
 }
 .search-form {
   max-width: 100%;
