@@ -34,22 +34,21 @@
   .header__logo:hover &,
   .header__logo:focus & {
     transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 0 20px rgb(243, 108, 12);
+    box-shadow: 0 0 20px rgb(243, 108, 12), inset 0px 0px 13px rgb(243, 108, 12);
     color: #ca5604;
   }
   width: 24px;
   height: 24px;
   border-radius: 5px;
-  padding-top: 2px;
   margin-right: 10px;
   stroke: var(--icon-color);
   fill: none;
-  align-items: center;
 }
 .header__logo {
   margin-top: 48px;
   display: flex;
-  align-items: baseline;
+  // align-items: baseline;
+  align-items: center;
   transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
   &:focus,
   &:hover {
@@ -62,7 +61,6 @@
 .header__logo-word {
   display: none;
 }
-
 
 .page-home {
   display: block;
@@ -283,7 +281,7 @@
   .library {
     background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
       url('../././images/library-desktop.jpg');
-    max-width:100%;
+    max-width: 100%;
   }
 }
 @media screen and (min-device-pixel-ratio: 2) and (min-width: 1024px),
