@@ -188,7 +188,7 @@ function renderModalMarkup({
                 alt="${title}"
                 loading="lazy"
             />
-            <div>
+            <div class="js-card">
             <h2 class="card__title"> ${title}</h2>
             <table class="card__table">
             <tr>
@@ -215,15 +215,13 @@ function renderModalMarkup({
             <button class=" buttons btn-addToWatched" id="${id}">ADD TO WATCHED</button>
             <button class="buttons btn-addToQueue" id="${id}">ADD TO QUEUE</button>
             </div>
-            <div id="player">ТУТ будет трейлер</div>
-            </div>
+
         </div>
         `;
 
   refs.modalMarkupContainer.innerHTML = markup;
-  console.log("id", id);
+  
   trailer.trailer(id);
-
 }
 
 // логика кнопок
