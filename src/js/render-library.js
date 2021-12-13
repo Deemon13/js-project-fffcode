@@ -4,42 +4,17 @@ import {
   listenModalClick,
   onWatchedModalOpen,
   onQueueModalOpen,
-} from './modal';
-import Utils from './utils';
-import { pagination, settings } from '../index';
-import { createLibraryPlug } from './library-plug';
-import { refs } from './refs';
-
-// function onButtonClick(event) {
-//   if (event.target.nodeName !== "BUTTON") {
-//     return;
-//   }
-//   if (event.target.dataset.action === "watched") {
-//     const watchedMovies = renderWatched();
-//     if (!watchedMovies) return;
-//     pagination.then((res) => {
-//       settings.type = "watched";
-//       res.reset(watchedMovies.length);
-//       res.movePageTo(1);
-//     });
-//   }
-
-//   if (event.target.dataset.action === "queue") {
-//     const queueMovies = renderQueue();
-//     if (!queueMovies) return;
-//     pagination.then((res) => {
-//       settings.type = "queue";
-//       res.reset(queueMovies.length);
-//       res.movePageTo(1);
-//     });
-//   }
-// }
+} from "./modal";
+import Utils from "./utils";
+import { pagination, settings } from "../index";
+import { createLibraryPlug } from "./library-plug";
+import { refs } from "./refs";
 
 function renderQueue() {
   const queueMovies = getToQueueMovieFromLocalStorage();
 
   if (!queueMovies) {
-    document.querySelector('.plug-message').textContent =
+    document.querySelector(".plug-message").textContent =
       "Add movies to the queue so you don't forget to watch them later!";
     return;
   }
@@ -49,7 +24,7 @@ function renderQueue() {
   const objectForRenderQueueMovies = { results: queueMoviesFiltered };
   if (queueMovies.length === 0) {
     createLibraryPlug();
-    document.querySelector('.plug-message').textContent =
+    document.querySelector(".plug-message").textContent =
       "Add movies to the queue so you don't forget to watch them later!";
     return;
   }
@@ -65,7 +40,7 @@ function renderWatched() {
   const watchedMovies = getWatchedMovieFromLocalStorage();
 
   if (!watchedMovies) {
-    document.querySelector('.plug-message').textContent = 'Add movies you have already watched.';
+    document.querySelector(".plug-message").textContent = "Add movies you have already watched.";
     return;
   }
   const watchedMoviesFiltered = watchedMovies.filter(
@@ -75,7 +50,7 @@ function renderWatched() {
   const objectForRenderWatchedMovies = { results: watchedMoviesFiltered };
   if (watchedMovies.length === 0) {
     createLibraryPlug();
-    document.querySelector('.plug-message').textContent = 'Add movies you have already watched.';
+    document.querySelector(".plug-message").textContent = "Add movies you have already watched.";
     return;
   }
 

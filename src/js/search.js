@@ -8,13 +8,13 @@ import { listenModalClick, onGalleryModalOpen } from "../js/modal";
 import { hideGenresFilter } from "../js/genres-filter";
 import Notiflix from "notiflix";
 Notiflix.Notify.init({
-  width: "600px",
-  height: "30px",
+  width: "280",
   position: "center-top",
-  distance: "190px",
+  distance: "180px",
   opacity: 1,
   timeout: 3000,
-  //closeButton: true, //// если решим сделелать закрытие по кнопке
+  showOnlyTheLastOne: true,
+  clickToClose: true,
   useIcon: false,
 });
 let requestFromUser = "";
@@ -23,7 +23,7 @@ function checkRequest(event) {
   event.preventDefault();
   requestFromUser = document.querySelector(".search-form_input").value.trim();
   if (!requestFromUser) {
-    Notiflix.Notify.warning("Введите название фильма для поиска, пожалуйста");
+    Notiflix.Notify.warning("Type the search request, please.");
     document.querySelector(".search-form_input").value = ""; // чистим поле ввода
     return;
   }
@@ -37,19 +37,18 @@ async function onSearchFromUser(requestFromUser) {
   Utils.clearFoo();
   document.querySelector(".search-form_input").value = ""; // чистим поле ввода
   Utils.spinnerOn();
-  hideGenresFilter();
+
   try {
     const response = await API.getSerchFilmsFromUser(requestFromUser);
     if (!response.total_results) {
       Utils.spinnerOn();
-      Notiflix.Notify.warning(
-        "Sorry, no results for your search request. Please try again. Here are trending videos for you.", {timeout: 3000}
-      );
+      Notiflix.Notify.warning("Sorry, no results for your search request. Please try again.");
       Utils.spinner();
-      Utils.clearFoo();
       Utils.renderMarkup(getArrMoviesFromLocalStorage()); /// Рисуем
+      listenModalClick(onGalleryModalOpen);
       return;
     }
+    hideGenresFilter();
     Utils.spinner();
     saveArrMoviesToLocalStorage(response); // сохраняем в локал массив найденных фильмов
     Utils.renderMarkup(getArrMoviesFromLocalStorage()); /// Рисуем
@@ -58,10 +57,9 @@ async function onSearchFromUser(requestFromUser) {
       settings.requestFromUser = requestFromUser;
       settings.type = "search-films";
       res.reset(response.total_results);
-      // res.movePageTo(1);
     });
   } catch (error) {
-    Notiflix.Notify.failure("Critical", error);
+    Notiflix.Notify.failure("Critical error", error);
     return;
   }
 }

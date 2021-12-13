@@ -1,14 +1,14 @@
 import axios from 'axios';
 import Notiflix from 'notiflix';
 Notiflix.Notify.init({
-  width: '600px',
-  height: '30px',
-  position: 'center-top',
-  distance: '190px',
+  width: "280",
+  position: "center-top",
+  distance: "180px",
   opacity: 1,
   timeout: 3000,
-  //closeButton: true, //// если решим сделелать закрытие по кнопке
-  useIcon: false, 
+  showOnlyTheLastOne: true,
+  clickToClose: true,
+  useIcon: false,
 });
 
 const BASE_URL = 'https://api.themoviedb.org/3/';
@@ -25,7 +25,7 @@ async function getGenresName() {
     const { data } = await axios.get(`${genresOptions}?api_key=${API_KEY}`);
     return data.genres;
   } catch (error) {
-    Notiflix.Notify.failure('Ooops! Something went wrong');
+    Notiflix.Notify.failure("Critical error", error);
   }
 }
 
