@@ -24,7 +24,6 @@ export function onSearchFilmsByGenre(event) {
       settings.movieGenreId = movieGenreId;
       settings.type = 'films-by-genre';
       res.reset(data.total_pages);
-      /* res.movePageTo(1); */
     });
   });
 }

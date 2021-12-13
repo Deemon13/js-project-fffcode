@@ -21,7 +21,7 @@ export function createHome() {
           type="text"
           name="searchQuery"
           autocomplete="off"
-          placeholder="Поиск фильмов"
+          placeholder="Searching movie"
         />
         <button class="search-form_btn" type="submit">
               <svg class="search__btn-icon">
