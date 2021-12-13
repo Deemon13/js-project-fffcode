@@ -1,5 +1,6 @@
 import API from "./api-func";
 
+
 var tag = document.createElement('script');
 
 tag.src = "https://www.youtube.com/iframe_api";
@@ -39,7 +40,7 @@ function markupForTrailer(key) {
       <div class="to-play" data-id="player" data-video="${key}" style="background-image: url(https://img.youtube.com/vi/${key}/hqdefault.jpg)">
         <button class="btn-trailer" data-datakey="${key}">
           <svg class="btn-trailer__icon" width="20" height="20">
-            <use href="./images/sprite.svg#icon-close" class="button-close-modal"></use>
+            <use href="../images/icon8-youtube-play.svg#PgB_UHa29h0TpFV_moJI9a"></use>
           </svg>
         </button>
       </div>
@@ -50,7 +51,6 @@ function markupForTrailer(key) {
   const toPlayRef = document.querySelector('.to-play');
 
   const btnTrailerRef = document.querySelector('.btn-trailer');
-  //btnTrailerRef.addEventListener('click', onYouTubeIframeAPIReady);
   btnTrailerRef.addEventListener('click', (event) => {
     toPlayRef.classList.add('removed');
     onYouTubeIframeAPIReady(event);
@@ -60,29 +60,34 @@ function markupForTrailer(key) {
 var player;
 function onYouTubeIframeAPIReady(event) {
   const keyForOnPlayer = event.currentTarget.getAttribute('data-datakey');;
-  //const kk = k.getAttribute('data-datakey');
-  console.log("k", keyForOnPlayer);
-        player = new YT.Player('player', {
-          height: '180',
-          width: '340',
-          videoId: keyForOnPlayer,
-          playerVars: {
-            'autoplay': 1,
-            'controls': 1,
-            'playsinline': 1
-          },
-          events: {
+  player = new YT.Player('player', {
+    height: '180',
+    width: '340',
+    videoId: keyForOnPlayer,
+    playerVars: {
+      'autoplay': 1,
+      'controls': 1,
+      'playsinline': 1
+    },
+      events: {
             'onReady': onPlayerReady,
-            //'onStateChange': onPlayerStateChange
+            'onStateChange': onPlayerStateChange
           }
         });
+var done = false;
+      function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.PLAYING && !done) {
+          setTimeout(stopVideo, 3000);
+          done = true;
+        }
+      }
+      function stopVideo() {
+        player.stopVideo();
+      }
 }
 
 function onPlayerReady(event) {
   event.target.playVideo();
- // let video = event.target.h;
- // const el = video.nextSibling('.to-play');
-  //const videoRef = document.querySelector('to-play');
-//console.log("el", el);
-      }
+}
+      
 export default { trailer };
