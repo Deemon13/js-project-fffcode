@@ -4,6 +4,7 @@ import { initPagination } from './pagination';
 import { showGenresListModal } from '../js/genres';
 import Utils from '../js/utils';
 import Notiflix from 'notiflix';
+import trailer from './trailer2';
 
 
 Notiflix.Confirm.init({
@@ -173,6 +174,7 @@ function onModalOpen(event) {
   const currentId = event.currentTarget.id;
   movieData = moviesObj[currentId];
   renderModalMarkup(movieData);
+  console.log("movieData", movieData);
 
   const ref = {
     elBtnAddToWatched: document.querySelector('.btn-addToWatched'),
@@ -232,7 +234,7 @@ function renderModalMarkup({
                 alt="${title}"
                 loading="lazy"
             />
-            <div>
+            <div class="js-card">
             <h2 class="card__title"> ${title}</h2>
             <table class="card__table">
             <tr>
@@ -259,11 +261,13 @@ function renderModalMarkup({
             <button class=" buttons btn-addToWatched" id="${id}">ADD TO WATCHED</button>
             <button class="buttons btn-addToQueue" id="${id}">ADD TO QUEUE</button>
             </div>
-            </div>
+
         </div>
         `;
 
   refs.modalMarkupContainer.innerHTML = markup;
+  
+  trailer.trailer(id);
 }
 
 // логика кнопок

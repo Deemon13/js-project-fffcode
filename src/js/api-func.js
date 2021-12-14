@@ -37,4 +37,12 @@ async function getFilmsByGenresFilter(genreId) {
   return response.data;
 }
 
-export default { getPopularFilms, getSerchFilmsFromUser, getFilmsByGenresFilter };
+// get trailer
+
+async function getTrailer(id) {
+  const response = await axios.get(`movie/${id}?api_key=${API_KEY}&language=us&append_to_response=videos `,
+  );
+  return response.data;
+}
+
+export default { getPopularFilms, getSerchFilmsFromUser, getFilmsByGenresFilter, getTrailer  };
