@@ -1,11 +1,10 @@
 import { getArrMoviesFromLocalStorage, pagination, settings } from '../index';
 import { renderWatched, renderQueue } from './render-library';
-import { initPagination } from './pagination';  
+import { initPagination } from './pagination';
 import { showGenresListModal } from '../js/genres';
 import Utils from '../js/utils';
 import Notiflix from 'notiflix';
 import trailer from './trailer2';
-
 
 Notiflix.Confirm.init({
   className: 'notiflix-confirm',
@@ -41,13 +40,13 @@ Notiflix.Confirm.init({
   cancelButtonBackground: '#a9a9a9',
 });
 
-
 const refs = {
   openModalBtn: document.querySelectorAll('[data-modal-open]'),
   closeModalBtn: document.querySelector('[data-modal-close]'),
   modal: document.querySelector('[data-modal]'),
   modalMarkupContainer: document.querySelector('.modal-card'),
   backdrop: document.querySelector('.backdrop'),
+  bodyEl: document.querySelector('body'),
 };
 
 refs.openModalBtn.forEach(card => {
@@ -63,18 +62,20 @@ function toggleModal(event) {
   document.addEventListener('keydown', onEscKeyPress);
   refs.closeModalBtn.addEventListener('click', onModalClose);
   refs.modal.addEventListener('click', onBackdropClick);
+  refs.bodyEl.classList.add('modal-open');
 }
 
 function onModalClose() {
   addIsHidden();
-  onCloseModal() // обновление рендера в библиотеке
+  onCloseModal(); // обновление рендера в библиотеке
   refs.closeModalBtn.removeEventListener('click', onModalClose);
+  refs.bodyEl.classList.remove('modal-open');
 }
 
 function onBackdropClick(event) {
   if (event.currentTarget === event.target) {
     addIsHidden();
-    onCloseModal() // обновление рендера в библиотеке
+    onCloseModal(); // обновление рендера в библиотеке
     document.removeEventListener('keydown', onEscKeyPress);
     refs.modal.removeEventListener('click', onBackdropClick);
   }
@@ -87,16 +88,17 @@ function onEscKeyPress(event) {
   if (isEscKey) {
     document.removeEventListener('keydown', onEscKeyPress);
     addIsHidden();
-    onCloseModal() // обновление рендера в библиотеке
+    onCloseModal(); // обновление рендера в библиотеке
     refs.closeModalBtn.removeEventListener('click', onModalClose);
     refs.modal.removeEventListener('click', onBackdropClick);
   }
 }
 
 ///////////////////////////////////////////////////////////
-export function onCloseModal() { // функция обновления рендера в библиотеке
+export function onCloseModal() {
+  // функция обновления рендера в библиотеке
   // при закрытии модалки
-  if (document.querySelector(".page-library").classList.contains("header__link_current")) {
+  if (document.querySelector('.page-library').classList.contains('header__link_current')) {
     if (document.querySelector("[data-action='watched']").classList.contains('activeBtnEl')) {
       //если активна кнопка watched
       renderWatched();
@@ -174,7 +176,7 @@ function onModalOpen(event) {
   const currentId = event.currentTarget.id;
   movieData = moviesObj[currentId];
   renderModalMarkup(movieData);
-  console.log("movieData", movieData);
+  console.log('movieData', movieData);
 
   const ref = {
     elBtnAddToWatched: document.querySelector('.btn-addToWatched'),
@@ -266,7 +268,7 @@ function renderModalMarkup({
         `;
 
   refs.modalMarkupContainer.innerHTML = markup;
-  
+
   trailer.trailer(id);
 }
 

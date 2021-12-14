@@ -19,6 +19,10 @@
   pointer-events: none;
 }
 
+.modal-open {
+  overflow: hidden;
+}
+
 .modal {
   font-family: Roboto;
   position: absolute;
