@@ -32,16 +32,16 @@ async function getKeyForTrailer(id) {
     console.log(error.messege);
   }
 }
-
+          //  <svg class="btn-trailer__icon" width="20px" height="20">
+          //   <use href="../images/symbol-defs.svg#modalyoutube"></use>
+          // </svg> 
 function markupForTrailer(key) {
   const markupStringForTrailer =
     `<div class="trailer">
       <div id="player"></div>
-      <div class="to-play" data-id="player" data-video="${key}" style="background-image: url(https://img.youtube.com/vi/${key}/hqdefault.jpg)">
+      <div class="to-play" data-id="player" data-video="${key}" style="background-image: url(https://img.youtube.com/vi/${key}/mqdefault.jpg); width: 100%; height: 100%;">
         <button class="btn-trailer" data-datakey="${key}">
-          <svg class="btn-trailer__icon" width="20" height="20">
-            <use href="../images/icon8-youtube-play.svg#PgB_UHa29h0TpFV_moJI9a"></use>
-          </svg>
+          <img src="../images/youtube.svg" class="btn-trailer__icon" alt="play">
         </button>
       </div>
     </div>`;
@@ -74,10 +74,11 @@ function onYouTubeIframeAPIReady(event) {
             'onStateChange': onPlayerStateChange
           }
         });
-var done = false;
+  var done = true;
+// если установить false то будет останавливаться воспроизведение по установленному setTimeout
       function onPlayerStateChange(event) {
         if (event.data == YT.PlayerState.PLAYING && !done) {
-          setTimeout(stopVideo, 3000);
+          setTimeout(stopVideo, 1000);
           done = true;
         }
       }
