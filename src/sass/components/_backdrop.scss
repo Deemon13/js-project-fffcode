@@ -265,16 +265,23 @@
 .movie-card__m {
   margin-left: 0;
 }
-
+//////////////////////Trailer//////////////////////////////////////////
 .trailer {
+  display: inline-block;
   position: relative;
-  margin-bottom: 0;
-  width: 340px;
-  height: 180px;
+  left: 50%;
+
+  transform: translateX(-50%) scale(1);
 }
+.player {
+  width: 240px;
+  height: 160px;
+}
+
 .to-play {
   position: absolute;
 
+  transform: translateY(-100%) scale(1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -296,8 +303,26 @@
 
   .btn-trailer__icon {
     overflow: visible;
-    width: 80px;
-    height: 60px;
+    width: 50px;
+    height: 30px;
     transition: 0.3s;
+  }
+}
+@media screen and(min-width:768px) {
+  .player {
+    width: 260px;
+    height: 160px;
+  }
+}
+
+@media screen and(min-width:1024px) {
+  .player {
+    width: 380px;
+    height: 240px;
+  }
+
+  .btn-trailer__icon {
+    width: 60px;
+    height: 40px;
   }
 }
