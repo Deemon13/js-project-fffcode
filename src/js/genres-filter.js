@@ -32,14 +32,20 @@ export function onSearchFilmsByGenre(event) {
 function hideFilterList() {
   refs.filterHiddenContainer.classList.add("visually-hidden");
   refs.filterBox.innerHTML = "";
-  refs.filterBtn.removeAttribute('disabled');
+  refs.filterBtn.classList.remove("filters-menu--open");
 }
 
 function onGenresButtonClick() {
+  if(refs.filterBtn.classList.contains("filters-menu--open")) {
+    hideFilterList();
+    return;
+  }
+  refs.filterBtn.classList.add("filters-menu--open");
   refs.filterHiddenContainer.classList.remove("visually-hidden");
   renderGenresListMarkup(genresArray);
-  refs.filterBtn.setAttribute('disabled', true);
-  refs.filterHiddenContainer.addEventListener("click", onGenreChoosed);
+  refs.filterBox.addEventListener("click", onGenreChoosed);
+  refs.filterChooseAll.addEventListener("click", onAllGenresChoosed);
+  document.addEventListener('keydown', onEscPress);
 }
 
 function onGenreChoosed(event) {
@@ -47,6 +53,18 @@ function onGenreChoosed(event) {
   hideFilterList();
 }
 
+function onAllGenresChoosed() {
+  onClickPageHome();
+  hideFilterList();
+}
+
+function onEscPress(event) {
+  const ESC_KEY_CODE = 'Escape';
+  if(event.code === ESC_KEY_CODE) {
+    document.removeEventListener('keydown', onEscPress);
+    hideFilterList();
+  }
+}
 
 const clickBody = document.querySelector('main');
 clickBody.addEventListener("click", (event) => {
@@ -59,15 +77,12 @@ clickBody.addEventListener("click", (event) => {
   }
 });
 
-
-refs.filterChooseAll.addEventListener("click", onClickPageHome);
-
 export function showGenresFilter() {
-  refs.genresBtn.classList.remove("visually-hidden");
+  refs.filterBtn.classList.remove("visually-hidden");
 }
 
 export function hideGenresFilter() {
-  refs.genresBtn.classList.add("visually-hidden");
+  refs.filterBtn.classList.add("visually-hidden");
 }
 
 function renderGenresListMarkup(genres) {
