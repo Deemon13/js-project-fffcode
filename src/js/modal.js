@@ -78,6 +78,7 @@ function onBackdropClick(event) {
     onCloseModal(); // обновление рендера в библиотеке
     document.removeEventListener('keydown', onEscKeyPress);
     refs.modal.removeEventListener('click', onBackdropClick);
+    refs.bodyEl.classList.remove('modal-open');
   }
 }
 
@@ -91,6 +92,7 @@ function onEscKeyPress(event) {
     onCloseModal(); // обновление рендера в библиотеке
     refs.closeModalBtn.removeEventListener('click', onModalClose);
     refs.modal.removeEventListener('click', onBackdropClick);
+    refs.bodyEl.classList.remove('modal-open');
   }
 }
 
