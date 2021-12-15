@@ -38,7 +38,7 @@ async function getKeyForTrailer(id) {
 function markupForTrailer(key) {
   const markupStringForTrailer =
     `<div class="trailer">
-      <div id="player"></div>
+      <div class="player" id="player"></div>
       <div class="to-play" data-id="player" data-video="${key}" style="background-image: url(https://img.youtube.com/vi/${key}/mqdefault.jpg); width: 100%; height: 100%;">
         <button class="btn-trailer" data-datakey="${key}">
           <img src="../images/youtube.svg" class="btn-trailer__icon" alt="play">
@@ -61,8 +61,8 @@ var player;
 function onYouTubeIframeAPIReady(event) {
   const keyForOnPlayer = event.currentTarget.getAttribute('data-datakey');;
   player = new YT.Player('player', {
-    height: '180',
-    width: '340',
+    //height: '180',
+    //width: '340',
     videoId: keyForOnPlayer,
     playerVars: {
       'autoplay': 1,
