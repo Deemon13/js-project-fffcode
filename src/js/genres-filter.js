@@ -24,6 +24,7 @@ export function onSearchFilmsByGenre(event) {
       settings.movieGenreId = movieGenreId;
       settings.type = 'films-by-genre';
       res.reset(data.total_pages);
+      /* res.movePageTo(1); */
     });
   });
 }
@@ -46,6 +47,19 @@ function onGenreChoosed(event) {
   hideFilterList();
 }
 
+
+const clickBody = document.querySelector('main');
+clickBody.addEventListener("click", (event) => {
+  event.stopPropagation();
+  
+
+  if (hideFilterList) {
+    document.removeEventListener('keydown', hideFilterList);
+    hideFilterList();
+  }
+});
+
+
 refs.filterChooseAll.addEventListener("click", onClickPageHome);
 
 export function showGenresFilter() {
@@ -64,6 +78,7 @@ function renderGenresListMarkup(genres) {
           <a class="genres-menu--link" id=${id}>${name}</a>
       </li>`;
 })
+
 .join('');
 
 refs.filterBox.insertAdjacentHTML('beforeend', markup);
