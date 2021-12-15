@@ -119,10 +119,41 @@ export function getArrMoviesFromLocalStorage() {
   return JSON.parse(savedArrMovies); // получаем данные про фильмы с локала
 }
 
-refs.openTeamBtn.addEventListener("click", toggleTeam);
-refs.closeTeamBtn.addEventListener("click", toggleTeam);
+refs.openTeamBtn.addEventListener("click", openTeamModal);
 
-function toggleTeam(event) {
+function openTeamModal(event) {
   event.preventDefault();
+  toggleTeam();
+  document.addEventListener('keydown', onEscKeyPress);
+  refs.closeTeamBtn.addEventListener('click', onTeamModalClose);
+  refs.team.addEventListener('click', onBackdropClick);
+}
+
+function toggleTeam() {
   refs.team.classList.toggle("is-hidden");
+}
+
+function onTeamModalClose() {
+  toggleTeam();
+  refs.closeTeamBtn.removeEventListener('click', onTeamModalClose);
+}
+
+function onBackdropClick(event) {
+  if (event.currentTarget === event.target) {
+    toggleTeam();
+    document.removeEventListener('keydown', onEscKeyPress);
+    refs.team.removeEventListener('click', onBackdropClick);
+  }
+}
+
+function onEscKeyPress(event) {
+  const ESC_KEY_CODE = 'Escape';
+  const isEscKey = event.code === ESC_KEY_CODE;
+
+  if (isEscKey) {
+    document.removeEventListener('keydown', onEscKeyPress);
+    toggleTeam();
+    refs.closeTeamBtn.removeEventListener('click', onTeamModalClose);
+    refs.team.removeEventListener('click', onBackdropClick);
+  }
 }
